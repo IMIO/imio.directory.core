@@ -1,12 +1,10 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
-  xmlns:zcml="http://namespaces.zope.org/zcml"
-  i18n_domain="plone">
+  i18n_domain="imio.smartweb">
 
-  <configure zcml:condition="installed AccessControl.security">
-  <!-- -*- extra stuff goes here -*- -->
-
-
-  </configure>
+  <permission
+      id="imio.directory.core.AddContact"
+      title="imio.direcotry.core: Add Contact"
+      />
 
 </configure>
