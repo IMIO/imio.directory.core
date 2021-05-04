@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/Plone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/Products.CMFCore" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/Products.CMFEditions" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/Products.CMFPlone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/Products.DCWorkflow" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/imio.smartweb.locales" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/mockup" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.caching" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.content" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.contentmenu" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.contentrules" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.contenttypes" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.dexterity" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.discussion" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.event" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.iterate" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.layout" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.locales" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.multilingual" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.portlets" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.redirector" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.registry" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.relationfield" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.robotframework" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.theming" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.upgrade" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.users" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.versioningbehavior" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.widgets" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.workflow" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.app.z3cform" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.batching" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.contentrules" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.dexterity" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.portlet.collection" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.portlet.static" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.rest" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.restapi" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.staticresources" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plone.z3cform" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/devel/plonetheme.barceloneta" vcs="Git" />
+  </component>
+</project>
