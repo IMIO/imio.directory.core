@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import api
 from plone.i18n.normalizer.interfaces import IIDNormalizer

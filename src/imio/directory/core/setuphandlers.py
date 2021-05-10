@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from imio.directory.core.taxonomies.utils import add_contact_taxonomy
 from Products.CMFPlone.interfaces import INonInstallable
 from zope.interface import implementer

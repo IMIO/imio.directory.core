@@ -8,7 +8,6 @@ from imio.smartweb.locales import SmartwebMessageFactory as _
 from lxml.etree import fromstring
 from plone import api
 from zope.i18n import translate
-
 import os
 
 

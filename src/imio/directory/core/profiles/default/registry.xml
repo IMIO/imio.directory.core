@@ -3,14 +3,14 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="imio.directory.core">
 
-    <record name="geolocation.default_latitude"
-            interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings">
-      <value>50.4989185</value>
-    </record>
+  <record name="geolocation.default_latitude"
+          interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings">
+    <value>50.4989185</value>
+  </record>
 
-    <record name="geolocation.default_longitude"
-            interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings">
-      <value>4.7184485</value>
-    </record>
+  <record name="geolocation.default_longitude"
+          interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings">
+    <value>4.7184485</value>
+  </record>
 
 </registry>

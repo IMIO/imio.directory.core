@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.row import DictRow
 from imio.smartweb.locales import SmartwebMessageFactory as _
@@ -12,7 +13,6 @@ from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import Invalid
 import re
-
 
 CATEGORY_TAXONOMY = "collective.taxonomy.contact_category"
 TOPIC_TAXONOMY = "collective.taxonomy.contact_topic"
