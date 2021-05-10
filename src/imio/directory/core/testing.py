@@ -29,7 +29,7 @@ class ImioDirectoryCoreLayer(PloneSandboxLayer):
         self.loadZCML(package=imio.directory.core)
 
     def setUpPloneSite(self, portal):
-        applyProfile(portal, "imio.directory.core:default")
+        applyProfile(portal, "imio.directory.core:testing")
 
 
 IMIO_DIRECTORY_CORE_FIXTURE = ImioDirectoryCoreLayer()

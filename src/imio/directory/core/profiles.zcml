@@ -12,6 +12,14 @@
       />
 
   <genericsetup:registerProfile
+      name="testing"
+      title="imio.directory.core (testing)"
+      directory="profiles/testing"
+      description="Installs imio.directory.core.testing profile."
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+  <genericsetup:registerProfile
       name="uninstall"
       title="imio.directory.core (uninstall)"
       directory="profiles/uninstall"
