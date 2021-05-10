@@ -5,8 +5,8 @@
   <include package=".contents" />
   <include package=".browser" />
 
-
   <include file="permissions.zcml" />
   <include file="profiles.zcml" />
+  <include file="vocabularies.zcml" />
 
 </configure>

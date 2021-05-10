@@ -18,6 +18,7 @@
   <property name="global_allow">True</property>
   <property name="filter_content_types">True</property>
   <property name="allowed_content_types">
+    <element value="imio.directory.Contact" />
   </property>
   <!-- Schema, class and security -->
   <property name="add_permission">imio.directory.core.AddContact</property>
@@ -34,6 +35,7 @@
     <element value="plone.basic"/>
     <element value="plone.locking"/>
     <element value="plone.leadimage"/>
+    <element value="collective.geolocationbehavior"/>
   </property>
 
   <!-- View information -->
