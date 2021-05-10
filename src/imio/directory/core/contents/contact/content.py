@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from collective.z3cform.datagridfield import DataGridFieldFactory
-from collective.z3cform.datagridfield.registry import DictRow
+from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
+from collective.z3cform.datagridfield.row import DictRow
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import schema
 from plone.autoform import directives
