@@ -2,11 +2,12 @@
    If you want to learn more about writing documentation, please check out: http://docs.plone.org/about/documentation_styleguide.html
    This text does not appear on pypi or github. It is a comment.
 
-.. image:: https://travis-ci.org/collective/imio.directory.core.svg?branch=master
-    :target: https://travis-ci.org/collective/imio.directory.core
+.. image:: https://github.com/IMIO/imio.directory.core/workflows/Tests/badge.svg
+    :target: https://github.com/IMIO/imio.directory.core/actions?query=workflow%3ATests
+    :alt: CI Status
 
-.. image:: https://coveralls.io/repos/github/collective/imio.directory.core/badge.svg?branch=master
-    :target: https://coveralls.io/github/collective/imio.directory.core?branch=master
+.. image:: https://coveralls.io/repos/github/IMIO/imio.directory.core/badge.svg?branch=main
+    :target: https://coveralls.io/github/IMIO/imio.directory.core?branch=main
     :alt: Coveralls
 
 .. image:: https://img.shields.io/pypi/v/imio.directory.core.svg
