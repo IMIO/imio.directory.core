@@ -57,6 +57,8 @@ setup(
         "embeddify",
         "imio.smartweb.locales",
         "collective.instancebehavior",
+        "collective.z3cform.datagridfield",
+        "collective.geolocationbehavior",
     ],
     extras_require={
         "test": [
