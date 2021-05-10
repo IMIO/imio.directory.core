@@ -1,1 +1,1 @@
-from .contact.content import IContact, Contact # NOQA
+from .contact.content import IContact, Contact  # NOQA
