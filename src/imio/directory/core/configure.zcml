@@ -1,7 +1,9 @@
 <configure
     xmlns="http://namespaces.zope.org/zope">
 
+  <include package="collective.geolocationbehavior" />
   <include package="collective.taxonomy" />
+  <include package="collective.z3cform.datagridfield" />
   <include package=".contents" />
   <include package=".browser" />
 
