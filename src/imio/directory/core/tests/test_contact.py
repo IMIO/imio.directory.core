@@ -64,7 +64,8 @@ class ContactIntegrationTest(unittest.TestCase):
             ),
         )
         parent = contact.__parent__
-        self.assertIn("contact", parent.objectIds())
+        self.assertNotIn("contact", parent.objectIds())
+        self.assertIn(contact.UID(), parent.objectIds())
 
         # check that deleting the object works too
         api.content.delete(obj=contact)
@@ -110,3 +111,19 @@ class ContactIntegrationTest(unittest.TestCase):
             phone_constraint("003256543567")
         with self.assertRaises(Invalid):
             phone_constraint("+3256")
+
+    def test_name_chooser(self):
+        contact = api.content.create(
+            container=self.portal,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        self.assertEqual(contact.id, contact.UID())
+
+        folder = api.content.create(
+            container=self.portal,
+            type="Folder",
+            title="folder",
+        )
+        self.assertNotEqual(folder.id, folder.UID())
+        self.assertEqual(folder.id, "folder")
