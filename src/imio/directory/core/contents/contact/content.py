@@ -31,6 +31,7 @@ class IPhoneRowSchema(Interface):
     label = schema.TextLine(
         title=_(u"Label (direction, Main number,...)"),
         description=_(u""),
+        required=False,
     )
 
     type = schema.Choice(
@@ -39,20 +40,28 @@ class IPhoneRowSchema(Interface):
         description=_(u""),
         required=True,
     )
-    # , constraint=phone_constraint
-    phone = schema.TextLine(
-        title=_(u"Phone"), required=True, constraint=phone_constraint
+
+    number = schema.TextLine(
+        title=_(u"Number"), required=True, constraint=phone_constraint
     )
 
 
 class IMailRowSchema(Interface):
 
     label = schema.TextLine(
-        title=_(u"Label (Professional, personal,...)"),
+        title=_(u"Label (Secretariat, Manager office, Sales,...)"),
         description=_(u""),
+        required=False,
     )
 
-    mail = schema.Email(title=_(u"E-mail"), required=True)
+    type = schema.Choice(
+        title=_(u"Type"),
+        source="imio.directory.vocabulary.MailTypes",
+        description=_(u""),
+        required=True,
+    )
+
+    mail_address = schema.Email(title=_(u"E-mail"), required=True)
 
 
 class IUrlRowSchema(Interface):
@@ -70,6 +79,11 @@ class IUrlRowSchema(Interface):
 class IContact(model.Schema):
     """ """
 
+    firstname = schema.TextLine(title=u"Firstname", required=False)
+    lastname = schema.TextLine(title=u"Lastname", required=False)
+    gender = schema.Choice(
+        title=u"Gender", source="imio.directory.vocabulary.Genders", required=False
+    )
     logo = NamedBlobImage(title=_(u"Logo"), description=_(u""), required=False)
     subtitle = schema.TextLine(title=_(u"Subtitle"), required=False)
     type = schema.Choice(
