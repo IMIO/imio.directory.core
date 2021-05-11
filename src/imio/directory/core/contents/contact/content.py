@@ -161,11 +161,6 @@ class Contact(Container):
 @implementer(INameChooser)
 class ContactNameChooser(NormalizingNameChooser):
 
-    def checkName(self, name, obj):
-        if IContact.providedBy(obj):
-            return True
-        return super(ContactNameChooser, self).checkName(name, obj)
-
     def chooseName(self, name, obj):
         if IContact.providedBy(obj):
             return obj.UID()
