@@ -79,16 +79,16 @@ class IContact(model.Schema):
     )
     street = schema.TextLine(title=u"Street")
     number = schema.TextLine(title=u"Number")
-    complement = schema.TextLine(title=u"Complement")
+    complement = schema.TextLine(title=u"Complement", required=False)
     zipcode = schema.Int(title=u"Zipcode")
     city = schema.TextLine(title=u"City")
     country = schema.Choice(
         title=u"Country", source="imio.directory.vocabulary.Countries"
     )
 
-    vat_number = schema.TextLine(title=u"VAT number")
+    vat_number = schema.TextLine(title=u"VAT number", required=False)
     phone = schema.TextLine(
-        title=_(u"Phone"), required=True, constraint=phone_constraint
+        title=_(u"Phone"), required=False, constraint=phone_constraint
     )
     phones = schema.List(
         title=_(u"Phones"),
@@ -96,7 +96,7 @@ class IContact(model.Schema):
             title=u"Value",
             schema=IPhoneRowSchema,
         ),
-        required=True,
+        required=False,
     )
     widget(phones=DataGridFieldFactory)
 
@@ -106,7 +106,7 @@ class IContact(model.Schema):
             title=u"Value",
             schema=IMailRowSchema,
         ),
-        required=True,
+        required=False,
     )
     widget(mails=DataGridFieldFactory)
 
@@ -116,7 +116,7 @@ class IContact(model.Schema):
             title=u"Value",
             schema=IUrlRowSchema,
         ),
-        required=True,
+        required=False,
     )
     widget(urls=DataGridFieldFactory)
 
