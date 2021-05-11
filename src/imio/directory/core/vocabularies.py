@@ -49,15 +49,47 @@ ContactTypeVocabulary = ContactTypeVocabularyFactory()
 
 class PhoneTypeVocabularyFactory:
     def __call__(self, context=None):
+        """vcard spec : cell, home, work, text, voice, fax, video, pager, textphone"""
         values = [
-            (u"landline", _(u"Téléphone fixe")),
-            (u"gsm", _(u"GSM")),
+            (u"cell", _(u"Mobile")),
+            (u"home", _(u"Personal phone")),
+            (u"work", _(u"Work phone")),
         ]
         terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
         return SimpleVocabulary(terms)
 
 
 PhoneTypeVocabulary = PhoneTypeVocabularyFactory()
+
+
+class MailTypeVocabularyFactory:
+    def __call__(self, context=None):
+        """vcard spec : home, work"""
+        values = [
+            (u"home", _(u"Personal email")),
+            (u"work", _(u"Work email")),
+        ]
+        terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
+        return SimpleVocabulary(terms)
+
+
+MailTypeVocabulary = MailTypeVocabularyFactory()
+
+
+class GendersVocabularyFactory:
+    def __call__(self, context=None):
+        """vcard spec : M stands for "male", F stands for "female", O stands for "other", N stands for "none or not applicable", U stands for "unknown" """
+        values = [
+            (u"F", _(u"Female")),
+            (u"M", _(u"Male")),
+            (u"O", _(u"Other")),
+            (u"U", _(u"Unknow")),
+        ]
+        terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
+        return SimpleVocabulary(terms)
+
+
+GendersVocabulary = GendersVocabularyFactory()
 
 
 class SiteTypeVocabularyFactory:
