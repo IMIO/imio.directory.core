@@ -9,6 +9,7 @@ from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.dexterity.interfaces import IDexterityFTI
 from zope.component import createObject
+from zope.component import getMultiAdapter
 from zope.component import queryUtility
 from zope.interface.exceptions import Invalid
 import unittest
@@ -125,3 +126,21 @@ class ContactIntegrationTest(unittest.TestCase):
         )
         self.assertNotEqual(folder.id, folder.UID())
         self.assertEqual(folder.id, "folder")
+
+    def test_gallery_in_contact_view(self):
+        contact = api.content.create(
+            container=self.portal,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        view = getMultiAdapter(
+            (contact, self.request), name="view"
+        )
+        view.update()
+        self.assertNotIn("contact-gallery", view.render())
+        api.content.create(
+            container=contact,
+            type="Image",
+            title="image",
+        )
+        self.assertIn("contact-gallery", view.render())
