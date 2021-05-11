@@ -20,10 +20,8 @@ class ContactIntegrationTest(unittest.TestCase):
 
     def setUp(self):
         """Custom shared utility setup for tests"""
-        self.authorized_types_in_contact = [
-            "imio.directory.Contact",
-        ]
-        self.unauthorized_types_in_contact = ["Folder", "Page", "Link", "File", "Image"]
+        self.authorized_types_in_contact = ["imio.directory.Contact", "File", "Image"]
+        self.unauthorized_types_in_contact = ["Folder", "Page", "Link"]
 
         self.request = self.layer["request"]
         self.portal = self.layer["portal"]
