@@ -61,6 +61,7 @@ setup(
         "collective.instancebehavior",
         "collective.z3cform.datagridfield",
         "collective.geolocationbehavior",
+        "vobject"
     ],
     extras_require={
         "test": [
