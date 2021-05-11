@@ -4,11 +4,13 @@ from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.row import DictRow
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import schema
+from plone.app.content.namechooser import NormalizingNameChooser
 from plone.autoform import directives
 from plone.autoform.directives import widget
 from plone.dexterity.content import Container
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
+from zope.container.interfaces import INameChooser
 from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import Invalid
@@ -154,3 +156,17 @@ class Contact(Container):
 
     category_taxonomy = CATEGORY_TAXONOMY
     topic_taxonomy = TOPIC_TAXONOMY
+
+
+@implementer(INameChooser)
+class ContactNameChooser(NormalizingNameChooser):
+
+    def checkName(self, name, obj):
+        if IContact.providedBy(obj):
+            return True
+        return super(ContactNameChooser, self).checkName(name, obj)
+
+    def chooseName(self, name, obj):
+        if IContact.providedBy(obj):
+            return obj.UID()
+        return super(ContactNameChooser, self).chooseName(name, obj)

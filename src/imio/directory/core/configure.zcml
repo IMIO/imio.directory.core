@@ -11,4 +11,6 @@
   <include file="profiles.zcml" />
   <include file="vocabularies.zcml" />
 
+  <includeOverrides file="overrides.zcml" />
+
 </configure>
