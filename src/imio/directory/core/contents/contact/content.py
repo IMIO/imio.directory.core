@@ -77,13 +77,13 @@ class IContact(model.Schema):
         source="imio.directory.vocabulary.ContactTypes",
         required=False,
     )
-    street = schema.TextLine(title=u"Street")
-    number = schema.TextLine(title=u"Number")
+    street = schema.TextLine(title=u"Street", required=False)
+    number = schema.TextLine(title=u"Number", required=False)
     complement = schema.TextLine(title=u"Complement", required=False)
-    zipcode = schema.Int(title=u"Zipcode")
-    city = schema.TextLine(title=u"City")
+    zipcode = schema.Int(title=u"Zipcode", required=False)
+    city = schema.TextLine(title=u"City", required=False)
     country = schema.Choice(
-        title=u"Country", source="imio.directory.vocabulary.Countries"
+        title=u"Country", source="imio.directory.vocabulary.Countries", required=False
     )
 
     vat_number = schema.TextLine(title=u"VAT number", required=False)
@@ -160,7 +160,6 @@ class Contact(Container):
 
 @implementer(INameChooser)
 class ContactNameChooser(NormalizingNameChooser):
-
     def chooseName(self, name, obj):
         if IContact.providedBy(obj):
             return obj.UID()
