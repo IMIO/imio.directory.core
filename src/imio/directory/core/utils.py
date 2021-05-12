@@ -29,6 +29,13 @@ def get_vcard(contact):
         vcard.add("tel")
         vcard.tel.type_param = phone.get("type")
         vcard.tel.value = phone.get("number")
+
+    urls = contact.urls or []
+    for url in urls:
+        vcard.add("url")
+        vcard.url.type_param = url.get("type")
+        vcard.url.value = url.get("url")
+
     addr = {
         "number": contact.number or "",
         "street": contact.street or "",
