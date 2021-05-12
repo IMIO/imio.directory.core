@@ -11,7 +11,7 @@
 
     <h1 class="documentFirstHeading" tal:content="context/Title" />
 
-    <p class="documentDescription" tal:content="context/Description" />
+    <p class="documentDescription" tal:content="structure view/description" />
 
     <tal:block repeat="widget view/widgets/values">
         <div class="field" tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">

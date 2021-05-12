@@ -7,3 +7,8 @@ class ContactView(DefaultView):
 
     def images(self):
         return self.context.listFolderContents(contentFilter={"portal_type": "Image"})
+
+    def description(self):
+        description = self.context.description
+        description = "<br/>".join(description.split("\r\n"))
+        return description
