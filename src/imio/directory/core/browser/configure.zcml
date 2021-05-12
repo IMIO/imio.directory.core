@@ -17,4 +17,13 @@
       directory="static"
       />
 
+  <browser:page
+      name="utils"
+      for="*"
+      class=".utils.UtilsView"
+      allowed_attributes="can_export_contact_to_vcard export_contact_to_vcard"
+      permission="zope2.View"
+      layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
+      />
+
 </configure>

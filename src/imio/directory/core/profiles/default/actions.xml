@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<object name="portal_actions" meta_type="Plone Actions Tool"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n">
+    <object name="object_buttons" meta_type="CMF Action Category">
+      <object name="export_to_vcard" meta_type="CMF Action" i18n:domain="imio.smartweb">
+        <property name="title" i18n:translate="">Export contact</property>
+        <property name="description" i18n:translate="">Click to export contact to vcard.</property>
+        <property name="url_expr">string:$object_url/@@utils/export_contact_to_vcard</property>
+        <property name="available_expr">object/@@utils/can_export_contact_to_vcard</property>
+        <property name="permissions">
+          <element value="Modify portal content"/>
+        </property>
+        <property name="visible">True</property>
+      </object>
+    </object>
+</object>
