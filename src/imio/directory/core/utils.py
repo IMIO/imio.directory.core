@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import base64
 import vobject
 
 
@@ -45,7 +46,6 @@ def get_vcard(contact):
         "region": "",
         "country": contact.country or "",
     }
-
     if any(addr.values()):
         vcard.add("adr")
         vcard.adr.value = vobject.vcard.Address(
@@ -57,5 +57,8 @@ def get_vcard(contact):
             box=addr.get("number"),
             extended=addr.get("additional"),
         )
-
+    if contact.logo:
+        o = vcard.add("PHOTO;ENCODING=b;TYPE=image/jpeg")
+        base64_bytes = base64.b64encode(contact.logo.data)
+        o.value = base64_bytes.decode("utf-8")
     return vcard
