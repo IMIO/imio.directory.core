@@ -11,37 +11,40 @@ def get_vcard(contact):
     vcard.n.value = vobject.vcard.Name(family=lastname, given=firstname)
     vcard.add("fn")
     vcard.fn.value = " ".join([e for e in (firstname, lastname) if e])
-    vcard.add("gender")
-    vcard.gender.value = contact.gender
-
-    emails = contact.mails
+    if contact.gender:
+        vcard.add("gender")
+        vcard.gender.value = contact.gender
+    emails = contact.mails or []
     for email in emails:
         vcard.add("email")
-        vcard.email.type_param = email.type
-        vcard.email.value = email.mail_address
+        vcard.email.type_param = email.get("type")
+        vcard.email.value = email.get("mail_address")
 
-    phones = contact.phones
+    phones = contact.phones or []
     for phone in phones:
         vcard.add("tel")
-        vcard.tel.type_param = phone.type
-        vcard.tel.value = phone.number
+        vcard.tel.type_param = phone.get("type")
+        vcard.tel.value = phone.get("number")
+    addr = {
+        "number": contact.number or "",
+        "street": contact.street or "",
+        "additional": contact.complement or "",
+        "zipcode": str(contact.zipcode or ""),
+        "city": contact.city or "",
+        "region": "",
+        "country": contact.country or "",
+    }
 
-    vcard.add("adr")
-    country = contact.country
-    region = ""
-    zip_code = contact.zipcode
-    city = contact.city
-    street = contact.street
-    number = contact.number
-    additional = contact.complement
-    vcard.adr.value = vobject.vcard.Address(
-        street=street,
-        city=city,
-        region=region,
-        code=zip_code,
-        country=country,
-        box=number,
-        extended=additional,
-    )
+    if any(addr.values()):
+        vcard.add("adr")
+        vcard.adr.value = vobject.vcard.Address(
+            street=addr.get("street"),
+            city=addr.get("city"),
+            region=addr.get("region"),
+            code=addr.get("zipcode"),
+            country=addr.get("country"),
+            box=addr.get("number"),
+            extended=addr.get("additional"),
+        )
 
     return vcard
