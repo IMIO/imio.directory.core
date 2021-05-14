@@ -37,6 +37,8 @@
     <element value="plone.locking"/>
     <element value="plone.leadimage"/>
     <element value="geolocatable"/>
+    <element value="collective.taxonomy.generated.contact_category"/>
+    <element value="collective.taxonomy.generated.contact_topic"/>
   </property>
 
   <!-- View information -->

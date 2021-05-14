@@ -5,7 +5,6 @@ from collective.z3cform.datagridfield.row import DictRow
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import schema
 from plone.app.content.namechooser import NormalizingNameChooser
-from plone.autoform import directives
 from plone.autoform.directives import widget
 from plone.dexterity.content import Container
 from plone.namedfile.field import NamedBlobImage
@@ -15,9 +14,6 @@ from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import Invalid
 import re
-
-CATEGORY_TAXONOMY = "collective.taxonomy.contact_category"
-TOPIC_TAXONOMY = "collective.taxonomy.contact_topic"
 
 
 def phone_constraint(value):
@@ -148,28 +144,10 @@ class IContact(model.Schema):
         default=False,
     )
 
-    directives.order_before(category="ICategorization.subjects")
-    model.fieldset("categorization", fields=["category", "topics"])
-    category = schema.Choice(
-        title=_(u"Category"),
-        source=CATEGORY_TAXONOMY,
-        required=False,
-    )
-
-    directives.order_after(topics="category")
-    topics = schema.List(
-        title=_(u"Topics"),
-        value_type=schema.Choice(source=TOPIC_TAXONOMY),
-        required=False,
-    )
-
 
 @implementer(IContact)
 class Contact(Container):
     """ """
-
-    category_taxonomy = CATEGORY_TAXONOMY
-    topic_taxonomy = TOPIC_TAXONOMY
 
 
 @implementer(INameChooser)
