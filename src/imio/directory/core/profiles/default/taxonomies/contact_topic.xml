@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='utf-8'?>
+<vdex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.imsglobal.org/xsd/imsvdex_v1p0" xsi:schemaLocation="http://www.imsglobal.org/xsd/imsvdex_v1p0 imsvdex_v1p0.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd" profileType="hierarchicalTokenTerms" orderSignificant="false" language="fr">
+  <vocabName>
+    <langstring language="fr">Thématique d'un contact</langstring>
+    <langstring language="en">Contact topic</langstring>
+  </vocabName>
+  <vocabIdentifier>contact_topic</vocabIdentifier>
+  <term>
+    <termIdentifier>arts-martiaux</termIdentifier>
+    <caption>
+      <langstring language="fr">Arts martiaux</langstring>
+      <langstring language="en">Martial arts</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>concert</termIdentifier>
+    <caption>
+      <langstring language="fr">Concert</langstring>
+      <langstring language="en">Concert</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>culture</termIdentifier>
+    <caption>
+      <langstring language="fr">Culture</langstring>
+      <langstring language="en">Education</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>escalade</termIdentifier>
+    <caption>
+      <langstring language="fr">Escalade</langstring>
+      <langstring language="en">Climbing</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>musee</termIdentifier>
+    <caption>
+      <langstring language="fr">Musée</langstring>
+      <langstring language="en">Museum</langstring>
+    </caption>
+  </term>
+  <term>
+    <termIdentifier>sport</termIdentifier>
+    <caption>
+      <langstring language="fr">Sport</langstring>
+      <langstring language="en">Sport</langstring>
+    </caption>
+  </term>
+</vdex>

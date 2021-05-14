@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from imio.directory.core.taxonomies.utils import add_contact_taxonomy
 from Products.CMFPlone.interfaces import INonInstallable
 from zope.interface import implementer
 
@@ -17,8 +16,6 @@ class HiddenProfiles(object):
 
 def post_install(context):
     """Post install script"""
-    add_contact_taxonomy("category")
-    add_contact_taxonomy("topic")
 
 
 def uninstall(context):
