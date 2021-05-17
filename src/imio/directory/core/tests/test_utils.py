@@ -43,9 +43,7 @@ class UtilsIntegrationTest(unittest.TestCase):
             str(view.export_contact_to_vcard()),
             "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nGENDER:M\r\nTEL;TYPE=cell:+32496111111\r\nEND:VCARD\r\n",
         )
-        contact.urls = [
-            {"type": "website", "url": "https://www.imio.be"}
-        ]
+        contact.urls = [{"type": "website", "url": "https://www.imio.be"}]
         self.assertEqual(
             str(view.export_contact_to_vcard()),
             "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nGENDER:M\r\nTEL;TYPE=cell:+32496111111\r\nURL;TYPE=website:https://www.imio.be\r\nEND:VCARD\r\n",

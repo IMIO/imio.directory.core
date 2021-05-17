@@ -133,9 +133,7 @@ class ContactIntegrationTest(unittest.TestCase):
             type="imio.directory.Contact",
             title="contact",
         )
-        view = getMultiAdapter(
-            (contact, self.request), name="view"
-        )
+        view = getMultiAdapter((contact, self.request), name="view")
         view.update()
         self.assertNotIn("contact-gallery", view.render())
         api.content.create(
