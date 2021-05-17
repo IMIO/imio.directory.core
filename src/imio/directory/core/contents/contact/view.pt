@@ -4,7 +4,7 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       lang="en"
       metal:use-macro="context/@@main_template/macros/master"
-      i18n:domain="plone">
+      i18n:domain="imio.smartweb">
 <body>
 
 <metal:main fill-slot="main">
@@ -31,7 +31,8 @@
         </div>
     </fieldset>
 
-    <div class="contact-gallery" tal:define="images view/images"
+    <div class="contact-gallery"
+         tal:define="images view/images"
          tal:condition="images">
         <img tal:repeat="image images"
              tal:attributes="src string:${image/absolute_url}/@@images/image/mini;
@@ -39,6 +40,31 @@
                             title image/title" />
     </div>
 
+    <div class="contact-files"
+         tal:define="files view/files"
+         tal:condition="files">
+      <ul>
+        <li tal:repeat="item files">
+            <div tal:define="item_has_image python:item.getIcon;
+                            thumb_scale view/get_thumb_scale_list;
+                            image_scale item/@@images;">
+              <a tal:attributes="href item/absolute_url;
+                                 alt item/title">
+                <span>
+                    <img class="mime-icon"
+                         tal:attributes="src python:view.get_mime_type_icon(item)">
+                    <span tal:content="item/title">Item Title</span>
+                    <span class="discreet">&mdash; <span tal:replace="python:view.human_readable_size(item)" /></span>
+                </span>
+                <p>
+                  <span tal:replace="item/description" />
+                </p>
+                <img tal:replace="structure python:image_scale.tag('image', scale=thumb_scale)" />
+              </a>
+            </div>
+        </li>
+      </ul>
+    </div>
 
 </metal:main>
 
