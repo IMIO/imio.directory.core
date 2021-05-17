@@ -13,10 +13,7 @@ import unittest
 
 def image(filename):
     file_path = os.path.join(os.path.dirname(__file__), filename)
-    return NamedBlobImage(
-        data=open(file_path, 'rb').read(),
-        filename=file_path
-    )
+    return NamedBlobImage(data=open(file_path, "rb").read(), filename=file_path)
 
 
 class UtilsIntegrationTest(unittest.TestCase):
@@ -59,11 +56,15 @@ class UtilsIntegrationTest(unittest.TestCase):
             "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nGENDER:M\r\nTEL;TYPE=cell:+32496111111\r\nURL;TYPE=website:https://www.imio.be\r\nEND:VCARD\r\n",
         )
         contact.logo = image("resources/logo.png")
-        self.assertIn("PHOTO;ENCODING=B;TYPE=IMAGE/JPEG:", view.export_contact_to_vcard())
+        self.assertIn(
+            "PHOTO;ENCODING=B;TYPE=IMAGE/JPEG:", view.export_contact_to_vcard()
+        )
 
         contact.firstname = "Kamou"
         contact.lastname = "lox"
-        self.assertIn("FN:Kamou lox\r\nGENDER:M\r\nN:lox;Kamou;", view.export_contact_to_vcard())
+        self.assertIn(
+            "FN:Kamou lox\r\nGENDER:M\r\nN:lox;Kamou;", view.export_contact_to_vcard()
+        )
         contact.firstname = ""
         contact.lastname = ""
         self.assertIn("FN:contact\r\n", view.export_contact_to_vcard())
