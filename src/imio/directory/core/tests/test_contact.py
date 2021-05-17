@@ -162,10 +162,9 @@ class ContactIntegrationTest(unittest.TestCase):
         )
         file_obj.file = NamedBlobFile(data="file data", filename=u"file.txt")
         view = queryMultiAdapter((contact, self.request), name="view")
-        self.assertEqual(
-            view.get_mime_type_icon(file_obj), "++resource++mimetype.icons/txt.png"
-        )
-        self.assertEqual(view.human_readable_size(file_obj), "1 KB")
+        view.update()
+        self.assertIn("++resource++mimetype.icons/txt.png", view.render())
+        self.assertIn("1 KB", view.render())
         self.assertEqual(view.get_thumb_scale_list(), "thumb")
         api.portal.set_registry_record("plone.thumb_scale_listing", "preview")
         annotations = IAnnotations(self.request)
