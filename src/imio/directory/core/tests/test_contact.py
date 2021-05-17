@@ -8,8 +8,11 @@ from plone.api.exc import InvalidParameterError
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.dexterity.interfaces import IDexterityFTI
+from plone.namedfile.file import NamedBlobFile
+from zope.annotation.interfaces import IAnnotations
 from zope.component import createObject
 from zope.component import getMultiAdapter
+from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 from zope.interface.exceptions import Invalid
 import unittest
@@ -142,3 +145,37 @@ class ContactIntegrationTest(unittest.TestCase):
             title="image",
         )
         self.assertIn("contact-gallery", view.render())
+
+    def test_files_in_contact_view(self):
+        contact = api.content.create(
+            container=self.portal,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        view = getMultiAdapter((contact, self.request), name="view")
+        view.update()
+        self.assertNotIn("contact-files", view.render())
+        file_obj = api.content.create(
+            container=contact,
+            type="File",
+            title="file",
+        )
+        file_obj.file = NamedBlobFile(data="file data", filename=u"file.txt")
+        view = queryMultiAdapter((contact, self.request), name="view")
+        self.assertEqual(
+            view.get_mime_type_icon(file_obj), "++resource++mimetype.icons/txt.png"
+        )
+        self.assertEqual(view.human_readable_size(file_obj), "1 KB")
+        self.assertEqual(view.get_thumb_scale_list(), "thumb")
+        api.portal.set_registry_record("plone.thumb_scale_listing", "preview")
+        annotations = IAnnotations(self.request)
+        del annotations["plone.memoize"]
+        view = queryMultiAdapter((contact, self.request), name="view")
+        self.assertEqual(view.get_thumb_scale_list(), "preview")
+        api.portal.set_registry_record("plone.no_thumbs_lists", True)
+        annotations = IAnnotations(self.request)
+        del annotations["plone.memoize"]
+        view = queryMultiAdapter((contact, self.request), name="view")
+        self.assertIsNone(view.get_thumb_scale_list())
+        view.update()
+        self.assertIn("contact-files", view.render())

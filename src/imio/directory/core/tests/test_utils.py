@@ -4,9 +4,19 @@ from imio.directory.core.testing import IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.namedfile.file import NamedBlobImage
 from zope.component import getMultiAdapter
 
+import os
 import unittest
+
+
+def image(filename):
+    file_path = os.path.join(os.path.dirname(__file__), filename)
+    return NamedBlobImage(
+        data=open(file_path, 'rb').read(),
+        filename=file_path
+    )
 
 
 class UtilsIntegrationTest(unittest.TestCase):
@@ -19,7 +29,7 @@ class UtilsIntegrationTest(unittest.TestCase):
         self.portal = self.layer["portal"]
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
 
-    def test_exort_to_vcard(self):
+    def test_export_to_vcard(self):
         contact = api.content.create(
             container=self.portal,
             type="imio.directory.Contact",
@@ -48,6 +58,15 @@ class UtilsIntegrationTest(unittest.TestCase):
             str(view.export_contact_to_vcard()),
             "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nGENDER:M\r\nTEL;TYPE=cell:+32496111111\r\nURL;TYPE=website:https://www.imio.be\r\nEND:VCARD\r\n",
         )
+        contact.logo = image("resources/logo.png")
+        self.assertIn("PHOTO;ENCODING=B;TYPE=IMAGE/JPEG:", view.export_contact_to_vcard())
+
+        contact.firstname = "Kamou"
+        contact.lastname = "lox"
+        self.assertIn("FN:Kamou lox\r\nGENDER:M\r\nN:lox;Kamou;", view.export_contact_to_vcard())
+        contact.firstname = ""
+        contact.lastname = ""
+        self.assertIn("FN:contact\r\n", view.export_contact_to_vcard())
 
         view = getMultiAdapter((self.portal, self.request), name="utils")
         self.assertFalse(view.can_export_contact_to_vcard())
