@@ -4,6 +4,9 @@
   <include package="collective.geolocationbehavior" />
   <include package="collective.taxonomy" />
   <include package="collective.z3cform.datagridfield" />
+
+  <include package="imio.smartweb.locales" />
+
   <include package=".contents" />
   <include package=".browser" />
 
