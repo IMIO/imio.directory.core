@@ -37,7 +37,7 @@ class ContactTypeVocabularyFactory:
         values = [
             (u"organization", _(u"Organization")),
             (u"service", _(u"Service")),
-            (u"person", _(u"Person")),
+            (u"position", _(u"Position")),
             (u"matter_mission", _(u"Matter / Mission")),
         ]
         terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
