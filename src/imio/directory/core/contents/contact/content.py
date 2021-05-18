@@ -86,13 +86,13 @@ class IAddress(model.Schema):
         label=_(u"Address"),
         fields=["street", "number", "complement", "zipcode", "city", "country"],
     )
-    street = schema.TextLine(title=u"Street", required=False)
-    number = schema.TextLine(title=u"Number", required=False)
-    complement = schema.TextLine(title=u"Complement", required=False)
-    zipcode = schema.Int(title=u"Zipcode", required=False)
-    city = schema.TextLine(title=u"City", required=False)
+    street = schema.TextLine(title=_(u"Street"), required=False)
+    number = schema.TextLine(title=_(u"Number"), required=False)
+    complement = schema.TextLine(title=_(u"Complement"), required=False)
+    zipcode = schema.Int(title=_(u"Zipcode"), required=False)
+    city = schema.TextLine(title=_(u"City"), required=False)
     country = schema.Choice(
-        title=u"Country",
+        title=_(u"Country"),
         source="imio.directory.vocabulary.Countries",
         default="be",
         required=False,
@@ -114,7 +114,7 @@ class IContactInformations(model.Schema):
         label=_(u"Contact informations"),
         fields=["vat_number", "phones", "mails", "urls"],
     )
-    vat_number = schema.TextLine(title=u"VAT number", required=False)
+    vat_number = schema.TextLine(title=_(u"VAT number"), required=False)
     phones = schema.List(
         title=_(u"Phones"),
         value_type=DictRow(
@@ -183,7 +183,7 @@ class IPrivateContactInformations(model.Schema):
     )
     widget(private_urls=DataGridFieldFactory)
 
-    private_note = schema.Text(title=u"Internal note", required=False)
+    private_note = schema.Text(title=_(u"Internal note"), required=False)
 
     read_permission(
         private_phones="imio.directory.core.ViewContactPrivateInformations",
