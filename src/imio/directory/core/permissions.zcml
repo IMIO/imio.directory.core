@@ -7,4 +7,14 @@
       title="imio.direcotry.core: Add Contact"
       />
 
+  <permission
+      id="imio.directory.core.ViewContactPrivateInformations"
+      title="imio.direcotry.core: View contact private informations"
+      />
+
+  <permission
+      id="imio.directory.core.ModifyContactPrivateInformations"
+      title="imio.direcotry.core: Modify contact private informations"
+      />
+
 </configure>

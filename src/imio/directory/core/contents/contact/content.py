@@ -7,7 +7,9 @@ from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import schema
 from plone.app.content.namechooser import NormalizingNameChooser
 from plone.autoform import directives
+from plone.autoform.directives import read_permission
 from plone.autoform.directives import widget
+from plone.autoform.directives import write_permission
 from plone.dexterity.content import Container
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
@@ -143,22 +145,61 @@ class IContactInformations(model.Schema):
     )
     widget(urls=DataGridFieldFactory)
 
-    hide_description = schema.Bool(
-        title=_(u"Hide description"),
-        description=_(u"If checked, description will be hidden"),
+
+class IPrivateContactInformations(model.Schema):
+
+    model.fieldset(
+        "private_contact_informations",
+        label=_(u"Private contact informations"),
+        fields=["private_phones", "private_mails", "private_urls", "private_note"],
+    )
+    private_phones = schema.List(
+        title=_(u"Phones"),
+        value_type=DictRow(
+            title=u"Value",
+            schema=IPhoneRowSchema,
+        ),
         required=False,
-        default=False,
+    )
+    widget(private_phones=DataGridFieldFactory)
+
+    private_mails = schema.List(
+        title=_(u"E-mails"),
+        value_type=DictRow(
+            title=u"Value",
+            schema=IMailRowSchema,
+        ),
+        required=False,
+    )
+    widget(private_mails=DataGridFieldFactory)
+
+    private_urls = schema.List(
+        title=_(u"URLs"),
+        value_type=DictRow(
+            title=u"Value",
+            schema=IUrlRowSchema,
+        ),
+        required=False,
+    )
+    widget(private_urls=DataGridFieldFactory)
+
+    private_note = schema.Text(title=u"Internal note", required=False)
+
+    read_permission(
+        private_phones="imio.directory.core.ViewContactPrivateInformations",
+        private_mails="imio.directory.core.ViewContactPrivateInformations",
+        private_urls="imio.directory.core.ViewContactPrivateInformations",
+        private_note="imio.directory.core.ViewContactPrivateInformations",
+    )
+    write_permission(
+        private_phones="imio.directory.core.ModifyContactPrivateInformations",
+        private_mails="imio.directory.core.ModifyContactPrivateInformations",
+        private_urls="imio.directory.core.ModifyContactPrivateInformations",
+        private_note="imio.directory.core.ModifyContactPrivateInformations",
     )
 
-    hide_phones = schema.Bool(
-        title=_(u"Hide phones"),
-        description=_(u"If checked, phones will be hidden"),
-        required=False,
-        default=False,
-    )
 
-
-class IContact(IContactInformations, IAddress):
+class IContact(IPrivateContactInformations, IContactInformations, IAddress):
     """ """
 
     directives.order_before(type="IBasic.title")
