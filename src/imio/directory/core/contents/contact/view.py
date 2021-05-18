@@ -8,6 +8,8 @@ class ContactView(DefaultView, FolderView):
     FolderView brings get_thumb_scale_list
     """
 
+    GALLERY_IMAGES_NUMBER = 3
+
     def description(self):
         """Description with html carriage return"""
         description = self.context.description
@@ -18,4 +20,9 @@ class ContactView(DefaultView, FolderView):
         return self.context.listFolderContents(contentFilter={"portal_type": "File"})
 
     def images(self):
-        return self.context.listFolderContents(contentFilter={"portal_type": "Image"})
+        images = self.context.listFolderContents(contentFilter={"portal_type": "Image"})
+        rows = []
+        for i in range(0, len(images)):
+            if i % self.GALLERY_IMAGES_NUMBER == 0:
+                rows.append(images[i:i + self.GALLERY_IMAGES_NUMBER])
+        return rows

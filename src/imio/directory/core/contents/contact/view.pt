@@ -31,14 +31,55 @@
         </div>
     </fieldset>
 
-    <div class="contact-gallery"
-         tal:define="images view/images"
-         tal:condition="images">
-        <img tal:repeat="image images"
-             tal:attributes="src string:${image/absolute_url}/@@images/image/mini;
-                             alt image/title;
-                             title image/title" />
+
+    <!-- Carousel wrapper -->
+    <div
+        id="carouselMultiItemExample"
+        class="carousel slide carousel-dark text-center contact-gallery"
+        data-mdb-ride="carousel"
+        tal:define="images view/images"
+        tal:condition="images">
+        <!-- Controls -->
+        <div class="d-flex justify-content-center mb-4">
+            <button
+              class="carousel-control-prev position-relative"
+              type="button"
+              data-mdb-target="#carouselMultiItemExample"
+              data-mdb-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next position-relative"
+                    type="button"
+                    data-mdb-target="#carouselMultiItemExample"
+                    data-mdb-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <!-- Inner -->
+        <div class="carousel-inner py-4">
+            <!-- Single item active-->
+            <div class="carousel-item"
+                 tal:repeat="row_images images">
+                <div class="container">
+                    <div class="row">
+                        <!--  d-none d-lg-block-->
+                        <div class="col-lg-4">
+                            <div class="card"
+                                 tal:repeat="image row_images">
+                                <img tal:attributes="src string:${image/absolute_url}/@@images/image/mini;
+                                                     alt image/title;
+                                                     title image/title" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END Inner -->
     </div>
+    <!-- END Carousel wrapper -->
 
     <div class="contact-files"
          tal:define="files view/files"
@@ -65,6 +106,16 @@
             </div>
         </li>
       </ul>
+    </div>
+
+    <div class="contact-site" tal:condition="context/urls">
+        <tal:loop repeat="site context/urls">
+            <span i18n:translate=""
+                  tal:content="string:${site/type} : "></span>
+            <a target="_blank"
+               tal:attributes="href string:${site/url}"
+               tal:content="string:${site/url}"></a>
+        </tal:loop>
     </div>
 
 </metal:main>
