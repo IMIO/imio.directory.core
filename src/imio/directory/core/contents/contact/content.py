@@ -88,7 +88,10 @@ class IContact(model.Schema):
     zipcode = schema.Int(title=u"Zipcode", required=False)
     city = schema.TextLine(title=u"City", required=False)
     country = schema.Choice(
-        title=u"Country", source="imio.directory.vocabulary.Countries", required=False
+        title=u"Country",
+        source="imio.directory.vocabulary.Countries",
+        default="be",
+        required=False,
     )
 
     vat_number = schema.TextLine(title=u"VAT number", required=False)
