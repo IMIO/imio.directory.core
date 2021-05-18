@@ -1,14 +1,19 @@
 # -*- coding: utf-8 -*-
 
+from collective.geolocationbehavior.geolocation import IGeolocatable
 from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.row import DictRow
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import schema
 from plone.app.content.namechooser import NormalizingNameChooser
+from plone.autoform import directives
 from plone.autoform.directives import widget
 from plone.dexterity.content import Container
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
+from plone.supermodel.interfaces import FIELDSETS_KEY
+from plone.supermodel.model import Fieldset
+from z3c.form.browser.radio import RadioFieldWidget
 from zope.container.interfaces import INameChooser
 from zope.interface import implementer
 from zope.interface import Interface
@@ -72,15 +77,12 @@ class IUrlRowSchema(Interface):
     url = schema.URI(title=_(u"Url"), required=True)
 
 
-class IContact(model.Schema):
-    """ """
+class IAddress(model.Schema):
 
-    logo = NamedBlobImage(title=_(u"Logo"), description=_(u""), required=False)
-    subtitle = schema.TextLine(title=_(u"Subtitle"), required=False)
-    type = schema.Choice(
-        title=_(u"Type"),
-        source="imio.directory.vocabulary.ContactTypes",
-        required=False,
+    model.fieldset(
+        "address",
+        label=_(u"Address"),
+        fields=["street", "number", "complement", "zipcode", "city", "country"],
     )
     street = schema.TextLine(title=u"Street", required=False)
     number = schema.TextLine(title=u"Number", required=False)
@@ -94,10 +96,23 @@ class IContact(model.Schema):
         required=False,
     )
 
-    vat_number = schema.TextLine(title=u"VAT number", required=False)
-    phone = schema.TextLine(
-        title=_(u"Phone"), required=False, constraint=phone_constraint
+
+# Move geolocation field to our Address fieldset
+address_fieldset = Fieldset(
+    "address",
+    fields=["geolocation"],
+)
+IGeolocatable.setTaggedValue(FIELDSETS_KEY, [address_fieldset])
+
+
+class IContactInformations(model.Schema):
+
+    model.fieldset(
+        "contact_informations",
+        label=_(u"Contact informations"),
+        fields=["vat_number", "phones", "mails", "urls"],
     )
+    vat_number = schema.TextLine(title=u"VAT number", required=False)
     phones = schema.List(
         title=_(u"Phones"),
         value_type=DictRow(
@@ -141,6 +156,23 @@ class IContact(model.Schema):
         required=False,
         default=False,
     )
+
+
+class IContact(IContactInformations, IAddress):
+    """ """
+
+    directives.order_before(type="IBasic.title")
+    directives.widget(type=RadioFieldWidget)
+    type = schema.Choice(
+        title=_(u"Type"),
+        source="imio.directory.vocabulary.ContactTypes",
+        required=True,
+    )
+
+    directives.order_after(subtitle="IBasic.title")
+    subtitle = schema.TextLine(title=_(u"Subtitle"), required=False)
+
+    logo = NamedBlobImage(title=_(u"Logo"), description=_(u""), required=False)
 
 
 @implementer(IContact)
