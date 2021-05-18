@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
+
+from plone import api
+from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
 import base64
 import vobject
+
+
+def translate_vocabulary_term(vocabulary, term):
+    factory = getUtility(IVocabularyFactory, vocabulary)
+    vocabulary = factory(api.portal.get())
+    term = vocabulary.getTerm(term)
+    return term and term.title or ""
 
 
 def get_vcard(contact):
@@ -32,17 +43,19 @@ def get_vcard(contact):
         "additional": contact.complement or "",
         "zipcode": str(contact.zipcode or ""),
         "city": contact.city or "",
-        "region": "",
-        "country": contact.country or "",
     }
     if any(addr.values()):
+        # If any field values (except country) has been filled in, we consider
+        # that an address has been encooded
         vcard.add("adr")
         vcard.adr.value = vobject.vcard.Address(
             street=addr.get("street"),
             city=addr.get("city"),
-            region=addr.get("region"),
+            region="",
             code=addr.get("zipcode"),
-            country=addr.get("country"),
+            country=translate_vocabulary_term(
+                "imio.directory.vocabulary.Countries", contact.country
+            ),
             box=addr.get("number"),
             extended=addr.get("additional"),
         )

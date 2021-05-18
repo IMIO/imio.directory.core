@@ -39,7 +39,7 @@ class UtilsIntegrationTest(unittest.TestCase):
         self.assertTrue(view.can_export_contact_to_vcard())
         self.assertEqual(
             str(view.export_contact_to_vcard()),
-            "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;\r\nFN:contact\r\nEND:VCARD\r\n",
+            "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;Belgium\r\nFN:contact\r\nEND:VCARD\r\n",
         )
         contact.phones = [{"label": "label", "type": "cell", "number": "+32496111111"}]
         contact.mails = [
@@ -47,12 +47,12 @@ class UtilsIntegrationTest(unittest.TestCase):
         ]
         self.assertEqual(
             str(view.export_contact_to_vcard()),
-            "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nTEL;TYPE=cell:+32496111111\r\nEND:VCARD\r\n",
+            "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;Belgium\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nTEL;TYPE=cell:+32496111111\r\nEND:VCARD\r\n",
         )
         contact.urls = [{"type": "website", "url": "https://www.imio.be"}]
         self.assertEqual(
             str(view.export_contact_to_vcard()),
-            "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nTEL;TYPE=cell:+32496111111\r\nURL;TYPE=website:https://www.imio.be\r\nEND:VCARD\r\n",
+            "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;Belgium\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nTEL;TYPE=cell:+32496111111\r\nURL;TYPE=website:https://www.imio.be\r\nEND:VCARD\r\n",
         )
         contact.logo = image("resources/logo.png")
         self.assertIn(
