@@ -39,8 +39,3 @@ class TestVocabularies(unittest.TestCase):
         factory = getUtility(IVocabularyFactory, "imio.directory.vocabulary.SiteTypes")
         vocabulary = factory()
         self.assertEqual(len(vocabulary), 3)
-
-    def test_genders(self):
-        factory = getUtility(IVocabularyFactory, "imio.directory.vocabulary.Genders")
-        vocabulary = factory()
-        self.assertEqual(len(vocabulary), 4)

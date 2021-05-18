@@ -41,33 +41,23 @@ class UtilsIntegrationTest(unittest.TestCase):
             str(view.export_contact_to_vcard()),
             "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;\r\nFN:contact\r\nEND:VCARD\r\n",
         )
-        contact.gender = "M"
         contact.phones = [{"label": "label", "type": "cell", "number": "+32496111111"}]
         contact.mails = [
             {"label": "label", "type": "home", "mail_address": "test@imio.be"}
         ]
         self.assertEqual(
             str(view.export_contact_to_vcard()),
-            "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nGENDER:M\r\nTEL;TYPE=cell:+32496111111\r\nEND:VCARD\r\n",
+            "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nTEL;TYPE=cell:+32496111111\r\nEND:VCARD\r\n",
         )
         contact.urls = [{"type": "website", "url": "https://www.imio.be"}]
         self.assertEqual(
             str(view.export_contact_to_vcard()),
-            "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nGENDER:M\r\nTEL;TYPE=cell:+32496111111\r\nURL;TYPE=website:https://www.imio.be\r\nEND:VCARD\r\n",
+            "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nTEL;TYPE=cell:+32496111111\r\nURL;TYPE=website:https://www.imio.be\r\nEND:VCARD\r\n",
         )
         contact.logo = image("resources/logo.png")
         self.assertIn(
             "PHOTO;ENCODING=B;TYPE=IMAGE/JPEG:", view.export_contact_to_vcard()
         )
-
-        contact.firstname = "Kamou"
-        contact.lastname = "lox"
-        self.assertIn(
-            "FN:Kamou lox\r\nGENDER:M\r\nN:lox;Kamou;", view.export_contact_to_vcard()
-        )
-        contact.firstname = ""
-        contact.lastname = ""
-        self.assertIn("FN:contact\r\n", view.export_contact_to_vcard())
 
         view = getMultiAdapter((self.portal, self.request), name="utils")
         self.assertFalse(view.can_export_contact_to_vcard())

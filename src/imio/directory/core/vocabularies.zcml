@@ -12,11 +12,6 @@
       component=".vocabularies.ContactTypeVocabulary"
       provides="zope.schema.interfaces.IVocabularyFactory"
       />
- <utility
-    name="imio.directory.vocabulary.Genders"
-    component=".vocabularies.GendersVocabulary"
-    provides="zope.schema.interfaces.IVocabularyFactory"
-    />
 
   <utility
       name="imio.directory.vocabulary.PhoneTypes"

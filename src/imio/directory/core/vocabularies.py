@@ -76,22 +76,6 @@ class MailTypeVocabularyFactory:
 MailTypeVocabulary = MailTypeVocabularyFactory()
 
 
-class GendersVocabularyFactory:
-    def __call__(self, context=None):
-        """vcard spec : M stands for "male", F stands for "female", O stands for "other", N stands for "none or not applicable", U stands for "unknown" """
-        values = [
-            (u"F", _(u"Female")),
-            (u"M", _(u"Male")),
-            (u"O", _(u"Other")),
-            (u"U", _(u"Unknow")),
-        ]
-        terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
-        return SimpleVocabulary(terms)
-
-
-GendersVocabulary = GendersVocabularyFactory()
-
-
 class SiteTypeVocabularyFactory:
     def __call__(self, context=None):
         values = [

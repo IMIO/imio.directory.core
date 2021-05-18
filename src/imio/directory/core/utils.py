@@ -6,19 +6,8 @@ import vobject
 def get_vcard(contact):
     vcard = vobject.vCard()
 
-    if contact.firstname or contact.lastname:
-        firstname = contact.firstname or ""
-        lastname = contact.lastname or ""
-        vcard.add("n")
-        vcard.n.value = vobject.vcard.Name(family=lastname, given=firstname)
-        vcard.add("fn")
-        vcard.fn.value = " ".join([e for e in (firstname, lastname) if e])
-    else:
-        vcard.add("fn")
-        vcard.fn.value = contact.Title()
-    if contact.gender:
-        vcard.add("gender")
-        vcard.gender.value = contact.gender
+    vcard.add("fn")
+    vcard.fn.value = contact.Title()
     emails = contact.mails or []
     for email in emails:
         vcard.add("email")

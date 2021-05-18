@@ -75,11 +75,6 @@ class IUrlRowSchema(Interface):
 class IContact(model.Schema):
     """ """
 
-    firstname = schema.TextLine(title=u"Firstname", required=False)
-    lastname = schema.TextLine(title=u"Lastname", required=False)
-    gender = schema.Choice(
-        title=u"Gender", source="imio.directory.vocabulary.Genders", required=False
-    )
     logo = NamedBlobImage(title=_(u"Logo"), description=_(u""), required=False)
     subtitle = schema.TextLine(title=_(u"Subtitle"), required=False)
     type = schema.Choice(
