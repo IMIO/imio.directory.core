@@ -24,5 +24,5 @@ class ContactView(DefaultView, FolderView):
         rows = []
         for i in range(0, len(images)):
             if i % self.GALLERY_IMAGES_NUMBER == 0:
-                rows.append(images[i:i + self.GALLERY_IMAGES_NUMBER])
+                rows.append(images[i : i + self.GALLERY_IMAGES_NUMBER])  # NOQA
         return rows
