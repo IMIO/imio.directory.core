@@ -30,6 +30,11 @@ class ContactIntegrationTest(unittest.TestCase):
         self.request = self.layer["request"]
         self.portal = self.layer["portal"]
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.entity = api.content.create(
+            container=self.portal,
+            type="imio.directory.Entity",
+            title="Entity",
+        )
 
     def test_ct_contact_schema(self):
         fti = queryUtility(IDexterityFTI, name="imio.directory.Contact")
@@ -55,7 +60,7 @@ class ContactIntegrationTest(unittest.TestCase):
     def test_ct_contact_adding(self):
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])
         contact = api.content.create(
-            container=self.portal,
+            container=self.entity,
             type="imio.directory.Contact",
             title="contact",
         )
@@ -73,17 +78,15 @@ class ContactIntegrationTest(unittest.TestCase):
         api.content.delete(obj=contact)
         self.assertNotIn("contact", parent.objectIds())
 
-    def test_ct_contact_globally_addable(self):
+    def test_ct_contact_not_globally_addable(self):
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])
         fti = queryUtility(IDexterityFTI, name="imio.directory.Contact")
-        self.assertTrue(
-            fti.global_allow, u"{0} is not globally addable!".format(fti.id)
-        )
+        self.assertFalse(fti.global_allow, u"{0} is globally addable!".format(fti.id))
 
-    def test_ct_contact_filter_content_type_true(self):
+    def test_ct_contact_filter_content_type(self):
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])
         contact = api.content.create(
-            container=self.portal,
+            container=self.entity,
             type="imio.directory.Contact",
             title="contact",
         )
@@ -116,7 +119,7 @@ class ContactIntegrationTest(unittest.TestCase):
 
     def test_name_chooser(self):
         contact = api.content.create(
-            container=self.portal,
+            container=self.entity,
             type="imio.directory.Contact",
             title="contact",
         )
@@ -132,7 +135,7 @@ class ContactIntegrationTest(unittest.TestCase):
 
     def test_gallery_in_contact_view(self):
         contact = api.content.create(
-            container=self.portal,
+            container=self.entity,
             type="imio.directory.Contact",
             title="contact",
         )
@@ -148,7 +151,7 @@ class ContactIntegrationTest(unittest.TestCase):
 
     def test_files_in_contact_view(self):
         contact = api.content.create(
-            container=self.portal,
+            container=self.entity,
             type="imio.directory.Contact",
             title="contact",
         )

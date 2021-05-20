@@ -25,10 +25,15 @@ class UtilsIntegrationTest(unittest.TestCase):
         self.request = self.layer["request"]
         self.portal = self.layer["portal"]
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.entity = api.content.create(
+            container=self.portal,
+            type="imio.directory.Entity",
+            title="Entity",
+        )
 
     def test_export_to_vcard(self):
         contact = api.content.create(
-            container=self.portal,
+            container=self.entity,
             type="imio.directory.Contact",
             title="contact",
         )
@@ -60,5 +65,9 @@ class UtilsIntegrationTest(unittest.TestCase):
         )
 
         view = getMultiAdapter((self.portal, self.request), name="utils")
+        self.assertFalse(view.can_export_contact_to_vcard())
+        self.assertIsNone(view.export_contact_to_vcard())
+
+        view = getMultiAdapter((self.entity, self.request), name="utils")
         self.assertFalse(view.can_export_contact_to_vcard())
         self.assertIsNone(view.export_contact_to_vcard())
