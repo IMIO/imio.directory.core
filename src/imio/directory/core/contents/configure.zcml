@@ -2,5 +2,6 @@
     xmlns="http://namespaces.zope.org/zope">
 
   <include package=".contact" />
+  <include package=".entity" />
 
 </configure>

@@ -9,5 +9,10 @@
       <role name="Contributor"/>
     </permission>
 
+    <permission name="imio.direcotry.core: Add Entity" acquire="True">
+      <role name="Manager"/>
+      <role name="Site Administrator"/>
+    </permission>
+
   </permissions>
 </rolemap>

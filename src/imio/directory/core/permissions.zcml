@@ -8,6 +8,11 @@
       />
 
   <permission
+      id="imio.directory.core.AddEntity"
+      title="imio.direcotry.core: Add Entity"
+      />
+
+  <permission
       id="imio.directory.core.ViewContactPrivateInformations"
       title="imio.direcotry.core: View contact private informations"
       />

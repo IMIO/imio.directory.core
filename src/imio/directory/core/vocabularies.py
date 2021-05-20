@@ -2,11 +2,13 @@
 
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import api
+from plone.registry.interfaces import IRegistry
 from plone.i18n.normalizer.interfaces import IIDNormalizer
 from zope.i18n.locales import locales
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.component import getUtility
+import json
 
 
 class CountryVocabularyFactory:
@@ -88,3 +90,20 @@ class SiteTypeVocabularyFactory:
 
 
 SiteTypeVocabulary = SiteTypeVocabularyFactory()
+
+
+class CitiesVocabularyFactory:
+    def __call__(self, context=None):
+        registry = getUtility(IRegistry)
+        json_str = registry.get("imio.directory.cities")
+        cities = json.loads(json_str)
+        terms = [
+            SimpleVocabulary.createTerm(
+                city["zip"], city["zip"], u"{0} {1}".format(city["zip"], city["city"])
+            )
+            for city in cities
+        ]
+        return SimpleVocabulary(terms)
+
+
+CitiesVocabulary = CitiesVocabularyFactory()
