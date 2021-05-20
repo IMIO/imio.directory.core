@@ -29,9 +29,6 @@
 
   <!-- Enabled behaviors -->
   <property name="behaviors" purge="false">
-    <element value="plone.excludefromnavigation"/>
-    <element value="plone.shortname"/>
-    <element value="plone.publication"/>
     <element value="plone.categorization"/>
     <element value="plone.basic"/>
     <element value="plone.locking"/>
