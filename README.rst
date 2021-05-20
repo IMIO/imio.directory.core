@@ -29,19 +29,24 @@
 imio.directory.core
 ===================
 
-Tell me what your product does
+Directory product for 'Contacts authentic source' website
 
 Features
 --------
 
-- Can be bullet points
+This products contains two content types: Entity & Contact.
+
+An entity is bound to one or more belgian zip codes and contains editable contacts.
+
+This directory product is made to be used only by editors, to build the authentic source.
+The website is then queried (RESTAPI) from other iMio websites.
+Contacts are displayed in those sites by `imio.smartweb.core <https://github.com/IMIO/imio.smartweb.core>`_ contact section.
 
 
 Examples
 --------
 
-This add-on can be seen in action at the following sites:
-- Is there a page on the internet where everybody can see the features?
+Hopefully soon in production :-)
 
 
 Documentation
@@ -55,7 +60,9 @@ Translations
 
 This product has been translated into
 
-- Klingon (thanks, K'Plai)
+- French
+
+The translation domain is ``imio.smartweb`` and the translations are stored in `imio.smartweb.locales <https://github.com/IMIO/imio.smartweb.locales>`_ package.
 
 
 Installation
