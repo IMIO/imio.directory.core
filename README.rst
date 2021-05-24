@@ -36,7 +36,9 @@ Features
 
 This products contains two content types: Entity & Contact.
 
-An entity is bound to one or more belgian zip codes and contains editable contacts.
+An entity is bound to one or more belgian zip codes and contains editable geolocated contacts.
+
+A contact can be exported to a vcard file using an object action.
 
 This directory product is made to be used only by editors, to build the authentic source.
 The website is then queried (RESTAPI) from other iMio websites.
