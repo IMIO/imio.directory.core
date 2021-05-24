@@ -3,6 +3,7 @@
 from plone import api
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
+
 import base64
 import vobject
 

@@ -17,9 +17,10 @@ from plone.supermodel.interfaces import FIELDSETS_KEY
 from plone.supermodel.model import Fieldset
 from z3c.form.browser.radio import RadioFieldWidget
 from zope.container.interfaces import INameChooser
-from zope.interface import implementer
 from zope.interface import Interface
 from zope.interface import Invalid
+from zope.interface import implementer
+
 import re
 
 

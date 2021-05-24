@@ -3,6 +3,7 @@
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
+
 import unittest
 
 

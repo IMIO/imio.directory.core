@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from imio.directory.core.testing import (
-    IMIO_DIRECTORY_CORE_ACCEPTANCE_TESTING,
-)  # noqa: E501
+
+from imio.directory.core.testing import IMIO_DIRECTORY_CORE_ACCEPTANCE_TESTING
 from plone.app.testing import ROBOT_TEST_LEVEL
 from plone.testing import layered
 

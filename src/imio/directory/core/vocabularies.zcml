@@ -37,5 +37,4 @@
       provides="zope.schema.interfaces.IVocabularyFactory"
       />
 
-
 </configure>

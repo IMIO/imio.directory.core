@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from plone.app.contenttypes.browser.folder import FolderView
 from plone.dexterity.browser.view import DefaultView
 

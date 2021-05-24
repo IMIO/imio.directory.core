@@ -1,7 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope">
 
-    <adapter
+  <adapter
       for="Products.CMFCore.interfaces.IFolderish"
       factory="imio.directory.core.contents.contact.content.ContactNameChooser"
       provides="zope.container.interfaces.INameChooser"

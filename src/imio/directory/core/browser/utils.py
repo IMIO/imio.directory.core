@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from imio.directory.core.contents import IContact
 from imio.directory.core.utils import get_vcard
 from Products.Five.browser import BrowserView
