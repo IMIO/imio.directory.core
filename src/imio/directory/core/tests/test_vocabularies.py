@@ -24,7 +24,7 @@ class TestVocabularies(unittest.TestCase):
             IVocabularyFactory, "imio.directory.vocabulary.ContactTypes"
         )
         vocabulary = factory()
-        self.assertEqual(len(vocabulary), 4)
+        self.assertEqual(len(vocabulary), 3)
 
     def test_phone_types(self):
         factory = getUtility(IVocabularyFactory, "imio.directory.vocabulary.PhoneTypes")

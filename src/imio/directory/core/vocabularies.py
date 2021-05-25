@@ -38,10 +38,19 @@ CountryVocabulary = CountryVocabularyFactory()
 class ContactTypeVocabularyFactory:
     def __call__(self, context=None):
         values = [
-            (u"organization", _(u"Organization")),
-            (u"service", _(u"Service")),
-            (u"position", _(u"Position")),
-            (u"matter_mission", _(u"Matter / Mission")),
+            (
+                u"standard",
+                _(
+                    u"Standard (municipal administration, municipal service, CPAS, shop, etc.)"
+                ),
+            ),
+            (
+                u"position",
+                _(
+                    u"Position (mayor, alderman, advisor, director, head of department, etc.)"
+                ),
+            ),
+            (u"mission", _(u"Mission (passports, reception, parking, etc.)")),
         ]
         terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
         return SimpleVocabulary(terms)
