@@ -59,7 +59,7 @@ setup(
         "embeddify",
         "imio.smartweb.locales",
         "collective.instancebehavior",
-        "collective.z3cform.datagridfield",
+        "collective.z3cform.datagridfield>=2.0",
         "collective.geolocationbehavior",
         "vobject",
     ],
