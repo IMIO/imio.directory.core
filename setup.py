@@ -74,6 +74,7 @@ setup(
             "plone.app.robotframework[debug]",
             "requests-mock",
             "beautifulsoup4",
+            "plone.restapi[test]",
         ],
     },
     entry_points="""""",
