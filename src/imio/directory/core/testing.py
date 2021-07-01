@@ -21,6 +21,7 @@ class ImioDirectoryCoreLayer(PloneSandboxLayer):
         # layer.
         import plone.app.dexterity
 
+        z2.installProduct(app, "plone.restapi")
         self.loadZCML(package=plone.app.dexterity)
         import plone.restapi
 
@@ -39,9 +40,11 @@ IMIO_DIRECTORY_CORE_INTEGRATION_TESTING = IntegrationTesting(
     name="ImioDirectoryCoreLayer:IntegrationTesting",
 )
 
-
 IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING = FunctionalTesting(
-    bases=(IMIO_DIRECTORY_CORE_FIXTURE,),
+    bases=(
+        IMIO_DIRECTORY_CORE_FIXTURE,
+        z2.ZSERVER_FIXTURE,
+    ),
     name="ImioDirectoryCoreLayer:FunctionalTesting",
 )
 

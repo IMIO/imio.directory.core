@@ -1,0 +1,79 @@
+{
+	"@id":"http://localhost:55001/plone/entity/a57c479bb3a8485ab75073e2c40907a3",
+	"id":"a57c479bb3a8485ab75073e2c40907a3",
+	"@type":"imio.directory.Contact",
+	"parent":{
+		"title":"Entity",
+		"@type":"imio.directory.Entity",
+		"review_state":"private",
+		"@id":"http://localhost:55001/plone/entity",
+		"description":""
+	},
+	"created":"2021-05-31T11:43:41+00:00",
+	"modified":"2021-05-31T11:43:41+00:00",
+	"review_state":"private",
+	"UID":"a57c479bb3a8485ab75073e2c40907a3",
+	"version":"current",
+	"layout":"view",
+	"is_folderish":true,
+	"previous_item":{
+
+	},
+	"next_item":{
+
+	},
+	"@components":{
+		"actions":{
+			"@id":"http://localhost:55001/plone/entity/a57c479bb3a8485ab75073e2c40907a3/@actions"
+		},
+		"breadcrumbs":{
+			"@id":"http://localhost:55001/plone/entity/a57c479bb3a8485ab75073e2c40907a3/@breadcrumbs"
+		},
+		"navigation":{
+			"@id":"http://localhost:55001/plone/entity/a57c479bb3a8485ab75073e2c40907a3/@navigation"
+		},
+		"contextnavigation":{
+			"@id":"http://localhost:55001/plone/entity/a57c479bb3a8485ab75073e2c40907a3/@contextnavigation"
+		},
+		"workflow":{
+			"@id":"http://localhost:55001/plone/entity/a57c479bb3a8485ab75073e2c40907a3/@workflow"
+		},
+		"types":{
+			"@id":"http://localhost:55001/plone/entity/a57c479bb3a8485ab75073e2c40907a3/@types"
+		}
+	},
+	"type":"None",
+	"subtitle":"None",
+	"logo":"None",
+	"vat_number":"None",
+	"phones":"None",
+	"mails":"None",
+	"urls":"None",
+	"street":"None",
+	"number":"None",
+	"complement":"None",
+	"zipcode":"None",
+	"city":"None",
+	"country":{
+		"token":"be",
+		"title":"Belgium"
+	},
+	"subjects":[
+
+	],
+	"language":"",
+	"title":"contact",
+	"description":"",
+	"image":"None",
+	"image_caption":"None",
+	"geolocation":{
+
+	},
+	"taxonomy_contact_category":"None",
+	"taxonomy_contact_topic":"None",
+	"allow_discussion":false,
+	"items_total":0,
+	"items":[
+
+	]
+}
