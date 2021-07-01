@@ -36,6 +36,8 @@
     <element value="geolocatable"/>
     <element value="collective.taxonomy.generated.contact_category"/>
     <element value="collective.taxonomy.generated.contact_topic"/>
+    <element value="collective.schedulefield.behavior.IMultiScheduledContent"/>
+    <element value="collective.schedulefield.behavior.IExceptionalClosureContent"/>
   </property>
 
   <!-- View information -->

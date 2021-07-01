@@ -2,13 +2,20 @@
 
 from imio.directory.core.contents import IContact
 from imio.directory.core.contents.contact.content import phone_constraint
-from imio.directory.core.testing import IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
+# from imio.directory.core.tests.utils import get_json
+from imio.directory.core.testing import IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 from plone import api
 from plone.api.exc import InvalidParameterError
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+# from plone.app.testing import TEST_USER_NAME
+# from plone.app.testing import TEST_USER_PASSWORD
+from plone.app.testing import SITE_OWNER_NAME
+from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.namedfile.file import NamedBlobFile
+# from plone.restapi.interfaces import ISerializeToJson
+from plone.restapi.testing import RelativeSession
 from zope.annotation.interfaces import IAnnotations
 from zope.component import createObject
 from zope.component import getMultiAdapter
@@ -16,12 +23,14 @@ from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 from zope.interface.exceptions import Invalid
 
+# import json
+import transaction
 import unittest
 
 
-class ContactIntegrationTest(unittest.TestCase):
+class ContactFunctionalTest(unittest.TestCase):
 
-    layer = IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
+    layer = IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 
     def setUp(self):
         """Custom shared utility setup for tests"""
@@ -30,12 +39,20 @@ class ContactIntegrationTest(unittest.TestCase):
 
         self.request = self.layer["request"]
         self.portal = self.layer["portal"]
+        self.portal_url = self.portal.absolute_url()
+        self.api_session = RelativeSession(self.portal_url)
+        self.api_session.headers.update({"Accept": "application/json"})
+        # self.api_session.auth = (TEST_USER_NAME, TEST_USER_PASSWORD)
+        self.api_session.auth = (SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         self.entity = api.content.create(
             container=self.portal,
             type="imio.directory.Entity",
             title="Entity",
         )
+
+    def tearDown(self):
+        self.api_session.close()
 
     def test_ct_contact_schema(self):
         fti = queryUtility(IDexterityFTI, name="imio.directory.Contact")
@@ -182,3 +199,28 @@ class ContactIntegrationTest(unittest.TestCase):
         self.assertIsNone(view.get_thumb_scale_list())
         view.update()
         self.assertIn("contact-files", view.render())
+
+    def test_overall_response_format(self):
+        setRoles(self.portal, TEST_USER_ID, ["Contributor"])
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        transaction.commit()
+        response = self.api_session.get(contact.absolute_url())
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers.get("Content-Type"), "application/json")
+
+        results = response.json()
+        self.assertEqual(
+            results[u"items_total"],
+            len(results[u"items"]),
+            "items_total property should match actual item count.",
+        )
+
+        # dict_contact = get_json("resources/json_contact.json")
+        # serializer = getMultiAdapter((contact, self.request), ISerializeToJson)
+        # result = serializer()
+        # import pdb;pdb.set_trace()
+        # self.assertEqual(result, dict_contact)
