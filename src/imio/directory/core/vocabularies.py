@@ -63,6 +63,7 @@ class PhoneTypeVocabularyFactory:
     def __call__(self, context=None):
         """vcard spec : cell, home, work, text, voice, fax, video, pager, textphone"""
         values = [
+            (u"fax", _(u"Fax")),
             (u"cell", _(u"Mobile")),
             (u"home", _(u"Personal phone")),
             (u"work", _(u"Work phone")),
