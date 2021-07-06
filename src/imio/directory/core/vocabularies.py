@@ -39,9 +39,9 @@ class ContactTypeVocabularyFactory:
     def __call__(self, context=None):
         values = [
             (
-                u"standard",
+                u"organization",
                 _(
-                    u"Standard (municipal administration, municipal service, CPAS, shop, etc.)"
+                    u"Organization (municipal administration, municipal service, CPAS, shop, etc.)"
                 ),
             ),
             (
