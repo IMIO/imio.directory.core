@@ -70,7 +70,7 @@
 
 	},
 	"taxonomy_contact_category":"None",
-	"taxonomy_contact_topic":"None",
+	"topics":[],
 	"allow_discussion":false,
 	"items_total":0,
 	"items":[
