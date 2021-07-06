@@ -7,5 +7,6 @@
     <dependency>profile-collective.z3cform.datagridfield:default</dependency>
     <dependency>profile-collective.geolocationbehavior:default</dependency>
     <dependency>profile-collective.taxonomy:default</dependency>
+    <dependency>profile-imio.smartweb.common:default</dependency>
   </dependencies>
 </metadata>

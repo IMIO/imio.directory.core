@@ -6,6 +6,7 @@
   <include package="collective.taxonomy" />
   <include package="collective.z3cform.datagridfield" />
 
+  <include package="imio.smartweb.common" />
   <include package="imio.smartweb.locales" />
   <include package="plone.restapi" />
 
