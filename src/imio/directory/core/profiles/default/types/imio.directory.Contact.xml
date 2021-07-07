@@ -37,6 +37,7 @@
     <element value="collective.taxonomy.generated.contact_category"/>
     <element value="collective.schedulefield.behavior.IMultiScheduledContent"/>
     <element value="collective.schedulefield.behavior.IExceptionalClosureContent"/>
+    <element value="imio.smartweb.topics"/>
   </property>
 
   <!-- View information -->
