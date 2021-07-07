@@ -29,7 +29,7 @@ class TestVocabularies(unittest.TestCase):
     def test_phone_types(self):
         factory = getUtility(IVocabularyFactory, "imio.directory.vocabulary.PhoneTypes")
         vocabulary = factory()
-        self.assertEqual(len(vocabulary), 3)
+        self.assertEqual(len(vocabulary), 4)
 
     def test_mail_types(self):
         factory = getUtility(IVocabularyFactory, "imio.directory.vocabulary.MailTypes")
