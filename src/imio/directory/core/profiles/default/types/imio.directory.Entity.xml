@@ -34,7 +34,6 @@
     <element value="plone.basic"/>
     <element value="plone.locking"/>
     <element value="plone.leadimage"/>
-    <element value="imio.smartweb.topics"/>
   </property>
 
   <!-- View information -->
