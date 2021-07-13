@@ -27,3 +27,6 @@ class ContactView(DefaultView, FolderView):
             if i % self.GALLERY_IMAGES_NUMBER == 0:
                 rows.append(images[i : i + self.GALLERY_IMAGES_NUMBER])  # NOQA
         return rows
+
+    def contacts(self):
+        return self.context.listFolderContents(contentFilter={"portal_type": "imio.directory.Contact"})

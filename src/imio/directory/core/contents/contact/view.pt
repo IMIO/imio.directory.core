@@ -31,7 +31,6 @@
         </div>
     </fieldset>
 
-
     <!-- Carousel wrapper -->
     <div
         id="carouselMultiItemExample"
@@ -118,6 +117,16 @@
         </tal:loop>
     </div>
 
+    <tal:def tal:define="contacts view/contacts">
+      <div class="contacts" tal:condition="contacts">
+        <h3 i18n:translate="">Sub contacts</h3>
+        <ul class="contact">
+          <li tal:repeat="contact contacts">
+            <a tal:attributes="href contact/absolute_url" tal:content="contact/Title"></a>
+          </li>
+        </ul>
+      </div>
+    </tal:def>
 </metal:main>
 
 </body>
