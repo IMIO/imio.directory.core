@@ -29,4 +29,6 @@ class ContactView(DefaultView, FolderView):
         return rows
 
     def contacts(self):
-        return self.context.listFolderContents(contentFilter={"portal_type": "imio.directory.Contact"})
+        return self.context.listFolderContents(
+            contentFilter={"portal_type": "imio.directory.Contact"}
+        )
