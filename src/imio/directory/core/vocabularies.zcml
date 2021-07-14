@@ -20,10 +20,10 @@
       />
 
   <utility
-    name="imio.directory.vocabulary.MailTypes"
-    component=".vocabularies.MailTypeVocabulary"
-    provides="zope.schema.interfaces.IVocabularyFactory"
-    />
+      name="imio.directory.vocabulary.MailTypes"
+      component=".vocabularies.MailTypeVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      />
 
   <utility
       name="imio.directory.vocabulary.SiteTypes"
