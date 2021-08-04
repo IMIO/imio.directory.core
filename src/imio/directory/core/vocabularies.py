@@ -41,7 +41,7 @@ class ContactTypeVocabularyFactory:
             (
                 u"organization",
                 _(
-                    u"Organization (municipal administration, municipal service, CPAS, shop, etc.)"
+                    u"Organization (administrative service, business, professional, sports club, association, etc.)"
                 ),
             ),
             (
