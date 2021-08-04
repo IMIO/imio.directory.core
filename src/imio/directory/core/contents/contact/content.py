@@ -16,9 +16,9 @@ from plone.supermodel import model
 from plone.supermodel.interfaces import FIELDSETS_KEY
 from plone.supermodel.model import Fieldset
 from z3c.form.browser.radio import RadioFieldWidget
+from z3c.form.converter import FormatterValidationError
 from zope.container.interfaces import INameChooser
 from zope.interface import Interface
-from zope.interface import Invalid
 from zope.interface import implementer
 
 import re
@@ -26,7 +26,7 @@ import re
 
 def phone_constraint(value):
     if re.match(r"\+\d{7,15}", value) is None:
-        raise Invalid(_(u"Bad phone format"))
+        raise FormatterValidationError(_(u"Bad phone format"), value)
     return True
 
 
