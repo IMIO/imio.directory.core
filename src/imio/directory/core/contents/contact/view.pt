@@ -117,14 +117,17 @@
         </tal:loop>
     </div>
 
-    <tal:def tal:define="contacts view/contacts">
-      <div class="contacts" tal:condition="contacts">
+    <tal:def tal:define="sub_contacts view/sub_contacts">
+      <div class="sub_contacts" tal:condition="sub_contacts">
         <h3 i18n:translate="">Sub contacts</h3>
-        <ul class="contact">
-          <li tal:repeat="contact contacts">
-            <a tal:attributes="href contact/absolute_url" tal:content="contact/Title"></a>
-          </li>
-        </ul>
+        <span tal:repeat="sub_contact_type sub_contacts">
+          <h4 tal:content="sub_contact_type" />
+          <ul>
+            <li tal:repeat="sub_contact python: sub_contacts[sub_contact_type]">
+              <a tal:attributes="href sub_contact/getURL" tal:content="sub_contact/Title"></a>
+            </li>
+          </ul>
+        </span>
       </div>
     </tal:def>
 </metal:main>

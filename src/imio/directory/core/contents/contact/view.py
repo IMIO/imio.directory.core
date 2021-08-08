@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 
+from plone import api
 from plone.app.contenttypes.browser.folder import FolderView
 from plone.dexterity.browser.view import DefaultView
+from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
 
 
 class ContactView(DefaultView, FolderView):
@@ -28,7 +31,20 @@ class ContactView(DefaultView, FolderView):
                 rows.append(images[i : i + self.GALLERY_IMAGES_NUMBER])  # NOQA
         return rows
 
-    def contacts(self):
-        return self.context.listFolderContents(
-            contentFilter={"portal_type": "imio.directory.Contact"}
+    def sub_contacts(self):
+        factory = getUtility(
+            IVocabularyFactory, "imio.directory.vocabulary.ContactTypes"
         )
+        vocabulary = factory()
+        sub_contacts = {}
+        for term in vocabulary:
+            sub_contacts_for_type = api.content.find(
+                context=self.context,
+                depth=1,
+                portal_type="imio.directory.Contact",
+                type=term.value,
+                sort_on="sortable_title",
+            )
+            if sub_contacts_for_type:
+                sub_contacts[term.title] = sub_contacts_for_type
+        return sub_contacts
