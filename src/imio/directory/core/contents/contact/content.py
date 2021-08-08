@@ -46,7 +46,9 @@ class IPhoneRowSchema(Interface):
     )
 
     number = schema.TextLine(
-        title=_(u"Number"), required=True, constraint=phone_constraint
+        title=_(u"Number (format: +32475010203)"),
+        required=True,
+        constraint=phone_constraint,
     )
 
 
