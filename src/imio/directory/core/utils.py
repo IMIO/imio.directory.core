@@ -55,7 +55,7 @@ def get_vcard(contact):
             region="",
             code=addr.get("zipcode"),
             country=translate_vocabulary_term(
-                "imio.directory.vocabulary.Countries", contact.country
+                "imio.smartweb.vocabulary.Countries", contact.country
             ),
             box=addr.get("number"),
             extended=addr.get("additional"),

@@ -96,7 +96,7 @@ class IAddress(model.Schema):
     city = schema.TextLine(title=_(u"City"), required=False)
     country = schema.Choice(
         title=_(u"Country"),
-        source="imio.directory.vocabulary.Countries",
+        source="imio.smartweb.vocabulary.Countries",
         default="be",
         required=False,
     )

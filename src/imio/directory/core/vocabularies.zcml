@@ -2,12 +2,6 @@
     xmlns="http://namespaces.zope.org/zope">
 
   <utility
-      name="imio.directory.vocabulary.Countries"
-      component=".vocabularies.CountryVocabulary"
-      provides="zope.schema.interfaces.IVocabularyFactory"
-      />
-
-  <utility
       name="imio.directory.vocabulary.ContactTypes"
       component=".vocabularies.ContactTypeVocabulary"
       provides="zope.schema.interfaces.IVocabularyFactory"
@@ -28,12 +22,6 @@
   <utility
       name="imio.directory.vocabulary.SiteTypes"
       component=".vocabularies.SiteTypeVocabulary"
-      provides="zope.schema.interfaces.IVocabularyFactory"
-      />
-
-  <utility
-      name="imio.directory.vocabulary.Cities"
-      component=".vocabularies.CitiesVocabulary"
       provides="zope.schema.interfaces.IVocabularyFactory"
       />
 

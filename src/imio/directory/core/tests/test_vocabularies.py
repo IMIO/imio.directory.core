@@ -14,11 +14,6 @@ class TestVocabularies(unittest.TestCase):
     def setUp(self):
         self.portal = self.layer["portal"]
 
-    def test_countries(self):
-        factory = getUtility(IVocabularyFactory, "imio.directory.vocabulary.Countries")
-        vocabulary = factory()
-        self.assertEqual(len(vocabulary), 240)
-
     def test_contact_types(self):
         factory = getUtility(
             IVocabularyFactory, "imio.directory.vocabulary.ContactTypes"
@@ -40,11 +35,6 @@ class TestVocabularies(unittest.TestCase):
         factory = getUtility(IVocabularyFactory, "imio.directory.vocabulary.SiteTypes")
         vocabulary = factory()
         self.assertEqual(len(vocabulary), 3)
-
-    def test_cities_types(self):
-        factory = getUtility(IVocabularyFactory, "imio.directory.vocabulary.Cities")
-        vocabulary = factory()
-        self.assertEqual(len(vocabulary), 898)
 
     def test_facilities(self):
         factory = getUtility(IVocabularyFactory, "imio.directory.vocabulary.Facilities")

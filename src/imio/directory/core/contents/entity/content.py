@@ -17,7 +17,7 @@ class IEntity(model.Schema):
     zip_codes = schema.List(
         title=_(u"Zip codes and cities"),
         description=_(u"Choose zip codes for this entity"),
-        value_type=schema.Choice(vocabulary="imio.directory.vocabulary.Cities"),
+        value_type=schema.Choice(vocabulary="imio.smartweb.vocabulary.Cities"),
     )
 
     logo = NamedBlobImage(title=_(u"Logo"), description=_(u""), required=False)
