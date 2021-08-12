@@ -6,6 +6,7 @@ from collective.z3cform.datagridfield.row import DictRow
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import schema
 from plone.app.content.namechooser import NormalizingNameChooser
+from plone.app.z3cform.widget import SelectFieldWidget
 from plone.autoform import directives
 from plone.autoform.directives import read_permission
 from plone.autoform.directives import widget
@@ -217,6 +218,14 @@ class IContact(IPrivateContactInformations, IContactInformations, IAddress):
     subtitle = schema.TextLine(title=_(u"Subtitle"), required=False)
 
     logo = NamedBlobImage(title=_(u"Logo"), description=_(u""), required=False)
+
+    model.fieldset("categorization", label=_(u"Categorization"), fields=["facilities"])
+    facilities = schema.List(
+        title=_(u"Facilities"),
+        value_type=schema.Choice(vocabulary="imio.directory.vocabulary.Facilities"),
+        required=False,
+    )
+    directives.widget(facilities=SelectFieldWidget)
 
 
 @implementer(IContact)
