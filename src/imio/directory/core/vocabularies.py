@@ -118,3 +118,20 @@ class CitiesVocabularyFactory:
 
 
 CitiesVocabulary = CitiesVocabularyFactory()
+
+
+class FacilitiesVocabularyFactory:
+    def __call__(self, context=None):
+        values = [
+            (u"accessibility", _(u"Accessibility (PMR)")),
+            (u"defibrillator", _(u"Defibrillator")),
+            (u"useful_numbers", _(u"Useful numbers")),
+            (u"drinking_water_point", _(u"Drinking water point")),
+            (u"public_toilets", _(u"Public toilets")),
+            (u"free_wifi", _(u"Free WIFI")),
+        ]
+        terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
+        return SimpleVocabulary(terms)
+
+
+FacilitiesVocabulary = FacilitiesVocabularyFactory()

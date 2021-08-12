@@ -37,4 +37,10 @@
       provides="zope.schema.interfaces.IVocabularyFactory"
       />
 
+  <utility
+      name="imio.directory.vocabulary.Facilities"
+      component=".vocabularies.FacilitiesVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      />
+
 </configure>
