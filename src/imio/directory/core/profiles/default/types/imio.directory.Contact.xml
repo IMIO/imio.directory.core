@@ -29,15 +29,16 @@
 
   <!-- Enabled behaviors -->
   <property name="behaviors" purge="false">
-    <element value="plone.categorization"/>
     <element value="plone.basic"/>
     <element value="plone.locking"/>
     <element value="plone.leadimage"/>
     <element value="geolocatable"/>
-    <element value="collective.taxonomy.generated.contact_category"/>
     <element value="collective.schedulefield.behavior.IMultiScheduledContent"/>
     <element value="collective.schedulefield.behavior.IExceptionalClosureContent"/>
+    <element value="collective.taxonomy.generated.contact_category"/>
     <element value="imio.smartweb.topics"/>
+    <element value="imio.smartweb.iam"/>
+    <element value="plone.categorization"/>
   </property>
 
   <!-- View information -->
