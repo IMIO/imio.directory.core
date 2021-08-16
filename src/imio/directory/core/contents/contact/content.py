@@ -222,6 +222,9 @@ class IContact(IPrivateContactInformations, IContactInformations, IAddress):
     model.fieldset("categorization", label=_(u"Categorization"), fields=["facilities"])
     facilities = schema.List(
         title=_(u"Facilities"),
+        description=_(
+            u"Important! These categories make it possible to highlight and geolocate certain basic services"
+        ),
         value_type=schema.Choice(vocabulary="imio.directory.vocabulary.Facilities"),
         required=False,
     )
