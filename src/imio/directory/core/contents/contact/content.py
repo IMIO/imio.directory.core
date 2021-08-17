@@ -219,7 +219,7 @@ class IContact(IPrivateContactInformations, IContactInformations, IAddress):
 
     logo = NamedBlobImage(title=_(u"Logo"), description=_(u""), required=False)
 
-    model.fieldset("categorization", label=_(u"Categorization"), fields=["facilities"])
+    model.fieldset("categorization", fields=["facilities"])
     facilities = schema.List(
         title=_(u"Facilities"),
         description=_(
