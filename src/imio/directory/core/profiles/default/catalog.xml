@@ -3,5 +3,9 @@
   <index name="contact_type" meta_type="FieldIndex">
     <indexed_attr value="type"/>
   </index>
+  <index name="facilities" meta_type="KeywordIndex">
+    <indexed_attr value="facilities"/>
+  </index>
   <column value="contact_type"/>
+  <column value="facilities"/>
 </object>
