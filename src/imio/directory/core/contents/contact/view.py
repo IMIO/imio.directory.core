@@ -42,7 +42,7 @@ class ContactView(DefaultView, FolderView):
                 context=self.context,
                 depth=1,
                 portal_type="imio.directory.Contact",
-                type=term.value,
+                contact_type=term.value,
                 sort_on="sortable_title",
             )
             if sub_contacts_for_type:
