@@ -98,7 +98,6 @@ class IAddress(model.Schema):
     country = schema.Choice(
         title=_(u"Country"),
         source="imio.smartweb.vocabulary.Countries",
-        default="be",
         required=False,
     )
 
