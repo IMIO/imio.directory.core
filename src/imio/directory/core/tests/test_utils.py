@@ -40,6 +40,7 @@ class UtilsIntegrationTest(unittest.TestCase):
         contact.street = "My street"
         contact.number = "1"
         contact.zipcode = 5000
+        contact.country = "be"
         view = getMultiAdapter((contact, self.request), name="utils")
         self.assertTrue(view.can_export_contact_to_vcard())
         self.assertEqual(
