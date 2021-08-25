@@ -5,7 +5,6 @@ from plone.dexterity.browser.add import DefaultAddView
 from plone.dexterity.browser.edit import DefaultEditForm
 from plone.z3cform import layout
 from z3c.form.interfaces import HIDDEN_MODE
-from plone.autoform.widgets import ParameterizedWidget
 
 
 class CustomAddForm(DefaultAddForm):
@@ -17,22 +16,6 @@ class CustomAddForm(DefaultAddForm):
         if "ILeadImageBehavior.image_caption" in self.fields:
             # We don't use leadimage caption anywhere
             self.fields["ILeadImageBehavior.image_caption"].mode = HIDDEN_MODE
-        for group in self.groups:
-            print(group.fields.keys())
-            if "number" in group.fields:
-                print("OK")
-                group.fields["number"].widgetFactory = ParameterizedWidget(
-                    None,
-                    placeholder=u"ex: Jean",
-                )
-            if "IPhoneRowSchema.number" in group.fields:
-                print("OK 2")
-                group.fields[
-                    "IPhoneRowSchema.number"
-                ].widgetFactory = ParameterizedWidget(
-                    None,
-                    placeholder=u"ex: Jean",
-                )
 
 
 class CustomAddView(DefaultAddView):
