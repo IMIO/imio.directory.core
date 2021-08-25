@@ -78,8 +78,8 @@ class FacilitiesVocabularyFactory:
         values = [
             (u"accessibility", _(u"Accessibility (PMR)")),
             (u"defibrillator", _(u"Defibrillator")),
-            (u"useful_numbers", _(u"Useful numbers")),
             (u"drinking_water_point", _(u"Drinking water point")),
+            (u"useful_numbers", _(u"Useful numbers")),
             (u"public_toilets", _(u"Public toilets")),
             (u"free_wifi", _(u"Free WIFI")),
         ]
