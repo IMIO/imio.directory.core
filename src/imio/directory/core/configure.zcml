@@ -13,6 +13,7 @@
   <include package=".contents" />
   <include package=".browser" />
 
+  <include file="indexers.zcml" />
   <include file="permissions.zcml" />
   <include file="profiles.zcml" />
   <include file="subscribers.zcml" />

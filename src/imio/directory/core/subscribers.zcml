@@ -5,4 +5,12 @@
                    zope.lifecycleevent.interfaces.IObjectAddedEvent"
               handler=".subscribers.added_entity" />
 
+  <subscriber for="imio.directory.core.contents.IEntity
+                   zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+              handler=".subscribers.modified_content" />
+
+  <subscriber for="imio.directory.core.contents.IContact
+                   zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+              handler=".subscribers.modified_content" />
+
 </configure>
