@@ -222,8 +222,48 @@ class ContactFunctionalTest(unittest.TestCase):
             "items_total property should match actual item count.",
         )
 
-        # dict_contact = get_json("resources/json_contact.json")
-        # serializer = getMultiAdapter((contact, self.request), ISerializeToJson)
-        # result = serializer()
-        # import pdb;pdb.set_trace()
-        # self.assertEqual(result, dict_contact)
+    def test_subscriber_to_select_current_entity(self):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="My contact",
+        )
+        self.assertEqual(contact.selected_entities, [self.entity.UID()])
+
+    def test_index(self):
+        contact1 = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="Contact1",
+        )
+        contact2 = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="Contact2",
+        )
+        entity2 = api.content.create(
+            container=self.portal,
+            type="imio.directory.Entity",
+            title="Entity2",
+        )
+        contact1.selected_entities = [self.entity.UID()]
+        contact1.reindexObject()
+        brains = api.content.find(selected_entities=self.entity.UID())
+        lst = [brain.UID for brain in brains]
+        self.assertEqual(lst, [contact1.UID(), contact2.UID()])
+
+        contact2.selected_entities = [entity2.UID(), self.entity.UID()]
+        contact2.reindexObject()
+        brains = api.content.find(selected_entities=entity2.UID())
+        lst = [brain.UID for brain in brains]
+        self.assertEqual(lst, [contact2.UID()])
+
+        brains = api.content.find(selected_entities=[entity2.UID(), self.entity.UID()])
+        lst = [brain.UID for brain in brains]
+        self.assertEqual(lst, [contact1.UID(), contact2.UID()])
+
+        contact2.selected_entities = [entity2.UID()]
+        contact2.reindexObject()
+        brains = api.content.find(selected_entities=[entity2.UID(), self.entity.UID()])
+        lst = [brain.UID for brain in brains]
+        self.assertEqual(lst, [contact1.UID(), contact2.UID()])

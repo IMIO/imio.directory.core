@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from imio.smartweb.locales import SmartwebMessageFactory as _
+from plone import api
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
@@ -88,3 +89,18 @@ class FacilitiesVocabularyFactory:
 
 
 FacilitiesVocabulary = FacilitiesVocabularyFactory()
+
+
+class EntitiesUIDsVocabularyFactory:
+    def __call__(self, context=None):
+        portal = api.portal.get()
+        brains = api.content.find(
+            context=portal,
+            portal_type="imio.directory.Entity",
+            sort_on="sortable_title",
+        )
+        terms = [SimpleTerm(value=b.UID, token=b.UID, title=b.Title) for b in brains]
+        return SimpleVocabulary(terms)
+
+
+EntitiesUIDsVocabulary = EntitiesUIDsVocabularyFactory()

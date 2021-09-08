@@ -7,10 +7,14 @@
 
   <subscriber for="imio.directory.core.contents.IEntity
                    zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-              handler=".subscribers.modified_content" />
+              handler=".subscribers.modified_entity" />
+
+  <subscriber for="imio.directory.core.contents.IContact
+                   zope.lifecycleevent.interfaces.IObjectAddedEvent"
+              handler=".subscribers.added_contact" />
 
   <subscriber for="imio.directory.core.contents.IContact
                    zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-              handler=".subscribers.modified_content" />
+              handler=".subscribers.modified_contact" />
 
 </configure>

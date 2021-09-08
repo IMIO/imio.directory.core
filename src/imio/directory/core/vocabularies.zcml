@@ -31,4 +31,10 @@
       provides="zope.schema.interfaces.IVocabularyFactory"
       />
 
+  <utility
+      name="imio.directory.vocabulary.EntitiesUIDs"
+      component=".vocabularies.EntitiesUIDsVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      />
+
 </configure>

@@ -1,11 +1,21 @@
 # -*- coding: utf-8 -*-
 
+from imio.directory.core.contents.entity.content import IEntity
 from plone import api
+from Products.CMFPlone.utils import parent
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 
 import base64
 import vobject
+
+
+def get_entity_uid_for_contact(contact):
+    obj = contact
+    while not IEntity.providedBy(obj):
+        obj = parent(obj)
+    entity = obj
+    return entity.UID()
 
 
 def translate_vocabulary_term(vocabulary, term):

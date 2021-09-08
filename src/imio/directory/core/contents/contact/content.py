@@ -218,7 +218,17 @@ class IContact(IPrivateContactInformations, IContactInformations, IAddress):
 
     logo = NamedBlobImage(title=_(u"Logo"), description=_(u""), required=False)
 
-    model.fieldset("categorization", fields=["facilities"])
+    model.fieldset("categorization", fields=["selected_entities", "facilities"])
+    directives.widget(selected_entities=SelectFieldWidget)
+    selected_entities = schema.List(
+        title=_(u"Selected entities"),
+        description=_(
+            u"Select entities where this contact will be displayed. Current entity will always be selected."
+        ),
+        value_type=schema.Choice(vocabulary="imio.directory.vocabulary.EntitiesUIDs"),
+        required=False,
+    )
+
     facilities = schema.List(
         title=_(u"Facilities"),
         description=_(
