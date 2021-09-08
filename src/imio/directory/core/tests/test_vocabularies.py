@@ -61,7 +61,9 @@ class TestVocabularies(unittest.TestCase):
             type="imio.directory.Contact",
             title="Contact1",
         )
-        factory = getUtility(IVocabularyFactory, "imio.directory.vocabulary.EntitiesUIDs")
+        factory = getUtility(
+            IVocabularyFactory, "imio.directory.vocabulary.EntitiesUIDs"
+        )
         vocabulary = factory(contact1)
         self.assertEqual(len(vocabulary), 2)
 
