@@ -13,29 +13,4 @@
     <value>4.7184485</value>
   </record>
 
-  <records prefix="plone.resources/directory-edit"
-           interface='Products.CMFPlone.interfaces.IResourceRegistry'>
-    <value key="js">++plone++imio.directory.core/edit.js</value>
-    <value key="css">
-      <element>++plone++imio.directory.core/edit.less</element>
-    </value>
-  </records>
-
-  <records prefix="plone.bundles/directory-edit"
-           interface='Products.CMFPlone.interfaces.IBundleRegistry'>
-    <value key="resources">
-      <element>directory-edit</element>
-    </value>
-    <value key="enabled">True</value>
-    <value key="compile">True</value>
-    <value key="expression">python: member is not None</value>
-    <value key="merge_with">logged-in</value>
-    <value key="csscompilation">++plone++imio.directory.core/directory-edit-compiled.css</value>
-    <value key="jscompilation">++plone++imio.directory.core/directory-edit-compiled.js</value>
-    <value key="last_compilation">2021-05-18 13:00:00</value>
-    <value key="stub_js_modules">
-      <element>jquery</element>
-    </value>
-  </records>
-
 </registry>
