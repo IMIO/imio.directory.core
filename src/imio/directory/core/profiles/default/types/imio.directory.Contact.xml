@@ -28,7 +28,7 @@
   <property name="schema">imio.directory.core.contents.IContact</property>
 
   <!-- Enabled behaviors -->
-  <property name="behaviors" purge="false">
+  <property name="behaviors" purge="true">
     <element value="plone.basic"/>
     <element value="plone.locking"/>
     <element value="plone.leadimage"/>

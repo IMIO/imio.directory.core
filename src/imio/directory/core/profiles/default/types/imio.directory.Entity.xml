@@ -28,7 +28,7 @@
   <property name="schema">imio.directory.core.contents.IEntity</property>
 
   <!-- Enabled behaviors -->
-  <property name="behaviors" purge="false">
+  <property name="behaviors" purge="true">
     <element value="plone.namefromtitle"/>
     <element value="plone.shortname"/>
     <element value="plone.excludefromnavigation"/>
