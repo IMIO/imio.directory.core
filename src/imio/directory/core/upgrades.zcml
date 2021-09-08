@@ -1,0 +1,15 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    i18n_domain="imio.smartweb">
+
+  <genericsetup:upgradeStep
+      title="Add selected_entities to existing contacts"
+      description="Every contact should have its current entity in selected_entities"
+      source="1000"
+      destination="1001"
+      handler=".upgrades.add_current_entity_on_contacts"
+      profile="imio.directory.core:default"
+      />
+
+</configure>
