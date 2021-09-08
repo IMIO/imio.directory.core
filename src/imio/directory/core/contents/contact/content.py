@@ -226,6 +226,7 @@ class IContact(IPrivateContactInformations, IContactInformations, IAddress):
             u"Select entities where this contact will be displayed. Current entity will always be selected."
         ),
         value_type=schema.Choice(vocabulary="imio.directory.vocabulary.EntitiesUIDs"),
+        default=[],
         required=False,
     )
 
