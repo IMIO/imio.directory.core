@@ -1,6 +1,8 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:genericsetup="http://namespaces.zope.org/genericsetup">
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="imio.smartweb.locales">
 
   <genericsetup:registerProfile
       name="default"
@@ -15,7 +17,7 @@
       name="testing"
       title="imio.directory.core (testing)"
       directory="profiles/testing"
-      description="Installs imio.directory.core.testing profile."
+      description="Installs imio.directory.core testing profile."
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
