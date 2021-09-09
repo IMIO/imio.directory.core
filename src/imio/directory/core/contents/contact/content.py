@@ -240,6 +240,9 @@ class IContact(IPrivateContactInformations, IContactInformations, IAddress):
     )
     directives.widget(facilities=SelectFieldWidget)
 
+    read_permission(selected_entities="imio.directory.core.AddEntity")
+    write_permission(selected_entities="imio.directory.core.AddEntity")
+
 
 @implementer(IContact)
 class Contact(Container):
