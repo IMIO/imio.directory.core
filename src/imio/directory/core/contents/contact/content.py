@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from collective.geolocationbehavior.geolocation import IGeolocatable
+# from collective.geolocationbehavior.geolocation import IGeolocatable
 from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.row import DictRow
 from imio.smartweb.locales import SmartwebMessageFactory as _
@@ -14,8 +14,8 @@ from plone.autoform.directives import write_permission
 from plone.dexterity.content import Container
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
-from plone.supermodel.interfaces import FIELDSETS_KEY
-from plone.supermodel.model import Fieldset
+# from plone.supermodel.interfaces import FIELDSETS_KEY
+# from plone.supermodel.model import Fieldset
 from z3c.form.browser.radio import RadioFieldWidget
 from z3c.form.converter import FormatterValidationError
 from zope.container.interfaces import INameChooser
@@ -102,12 +102,12 @@ class IAddress(model.Schema):
     )
 
 
-# Move geolocation field to our Address fieldset
-address_fieldset = Fieldset(
-    "address",
-    fields=["geolocation"],
-)
-IGeolocatable.setTaggedValue(FIELDSETS_KEY, [address_fieldset])
+# # Move geolocation field to our Address fieldset
+# address_fieldset = Fieldset(
+#     "address",
+#     fields=["geolocation"],
+# )
+# IGeolocatable.setTaggedValue(FIELDSETS_KEY, [address_fieldset])
 
 
 class IContactInformations(model.Schema):
