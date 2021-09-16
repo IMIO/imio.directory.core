@@ -23,6 +23,7 @@ def reindex_breadcrumb(obj, event):
 
 
 def set_default_entity_uid(contact):
+    contact.selected_entities = contact.selected_entities or []
     uid = get_entity_uid_for_contact(contact)
     if uid not in contact.selected_entities:
         contact.selected_entities = contact.selected_entities + [uid]
