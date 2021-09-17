@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 <object name="portal_catalog">
 
-  <index name="breadcrumb" meta_type="FieldIndex">
-    <indexed_attr value="breadcrumb"/>
-  </index>
   <index name="contact_type" meta_type="FieldIndex">
     <indexed_attr value="type"/>
   </index>
@@ -14,7 +11,6 @@
     <indexed_attr value="selected_entities"/>
   </index>
 
-  <column value="breadcrumb"/>
   <column value="contact_type"/>
   <column value="facilities"/>
   <column value="selected_entities"/>
