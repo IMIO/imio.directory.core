@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# from collective.geolocationbehavior.geolocation import IGeolocatable
 from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.row import DictRow
 from imio.smartweb.locales import SmartwebMessageFactory as _
@@ -14,8 +13,6 @@ from plone.autoform.directives import write_permission
 from plone.dexterity.content import Container
 from plone.namedfile.field import NamedBlobImage
 from plone.supermodel import model
-# from plone.supermodel.interfaces import FIELDSETS_KEY
-# from plone.supermodel.model import Fieldset
 from z3c.form.browser.radio import RadioFieldWidget
 from z3c.form.converter import FormatterValidationError
 from zope.container.interfaces import INameChooser
@@ -23,6 +20,10 @@ from zope.interface import Interface
 from zope.interface import implementer
 
 import re
+
+# from collective.geolocationbehavior.geolocation import IGeolocatable
+# from plone.supermodel.interfaces import FIELDSETS_KEY
+# from plone.supermodel.model import Fieldset
 
 
 def phone_constraint(value):
