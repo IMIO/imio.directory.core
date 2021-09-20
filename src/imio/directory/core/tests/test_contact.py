@@ -3,23 +3,16 @@
 from collective.geolocationbehavior.geolocation import IGeolocatable
 from imio.directory.core.contents import IContact
 from imio.directory.core.contents.contact.content import phone_constraint
-
-# from imio.directory.core.tests.utils import get_json
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 from plone import api
 from plone.api.exc import InvalidParameterError
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-
-# from plone.app.testing import TEST_USER_NAME
-# from plone.app.testing import TEST_USER_PASSWORD
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.formwidget.geolocation.geolocation import Geolocation
 from plone.namedfile.file import NamedBlobFile
-
-# from plone.restapi.interfaces import ISerializeToJson
 from plone.restapi.testing import RelativeSession
 from zope.annotation.interfaces import IAnnotations
 from zope.component import createObject
@@ -28,7 +21,6 @@ from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 from zope.interface.exceptions import Invalid
 
-# import json
 import transaction
 import unittest
 
