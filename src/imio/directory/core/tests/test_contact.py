@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from collective.geolocationbehavior.geolocation import IGeolocatable
 from imio.directory.core.contents import IContact
 from imio.directory.core.contents.contact.content import phone_constraint
 
@@ -15,6 +16,7 @@ from plone.app.testing import TEST_USER_ID
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.dexterity.interfaces import IDexterityFTI
+from plone.formwidget.geolocation.geolocation import Geolocation
 from plone.namedfile.file import NamedBlobFile
 
 # from plone.restapi.interfaces import ISerializeToJson
@@ -230,12 +232,24 @@ class ContactFunctionalTest(unittest.TestCase):
         )
         self.assertEqual(contact.selected_entities, [self.entity.UID()])
 
-    def test_index(self):
+    def test_indexes(self):
         contact1 = api.content.create(
             container=self.entity,
             type="imio.directory.Contact",
             title="Contact1",
         )
+        catalog = api.portal.get_tool("portal_catalog")
+        brain = api.content.find(UID=contact1.UID())[0]
+        indexes = catalog.getIndexDataForRID(brain.getRID())
+        self.assertFalse(indexes.get("is_geolocated"))
+        IGeolocatable(contact1).geolocation = Geolocation(
+            latitude="4.5", longitude="45"
+        )
+        contact1.reindexObject(idxs=["is_geolocated"])
+        brain = api.content.find(UID=contact1.UID())[0]
+        indexes = catalog.getIndexDataForRID(brain.getRID())
+        self.assertTrue(indexes.get("is_geolocated"))
+
         contact2 = api.content.create(
             container=self.entity,
             type="imio.directory.Contact",

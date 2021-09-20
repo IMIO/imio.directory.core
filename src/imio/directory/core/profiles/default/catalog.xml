@@ -7,12 +7,16 @@
   <index name="facilities" meta_type="KeywordIndex">
     <indexed_attr value="facilities"/>
   </index>
+  <index name="is_geolocated" meta_type="FieldIndex">
+    <indexed_attr value="is_geolocated"/>
+  </index>
   <index name="selected_entities" meta_type="KeywordIndex">
     <indexed_attr value="selected_entities"/>
   </index>
 
   <column value="contact_type"/>
   <column value="facilities"/>
+  <column value="is_geolocated"/>
   <column value="selected_entities"/>
 
 </object>

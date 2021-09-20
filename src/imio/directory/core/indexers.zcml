@@ -1,0 +1,9 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope">
+
+  <adapter
+      name="is_geolocated"
+      factory=".indexers.is_geolocated"
+      />
+
+</configure>
