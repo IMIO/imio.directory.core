@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from collective.geolocationbehavior.geolocation import IGeolocatable
 from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.row import DictRow
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import schema
+from plone.api.portal import get_registry_record
 from plone.app.content.namechooser import NormalizingNameChooser
 from plone.app.z3cform.widget import SelectFieldWidget
 from plone.autoform import directives
@@ -248,6 +250,17 @@ class IContact(IPrivateContactInformations, IContactInformations, IAddress):
 @implementer(IContact)
 class Contact(Container):
     """ """
+
+    @property
+    def is_geolocated(obj):
+        coordinates = IGeolocatable(obj).geolocation
+        if not coordinates:
+            return False
+        longitude = coordinates.longitude
+        latitude = coordinates.latitude
+        defaut_latitude = get_registry_record("geolocation.default_latitude")
+        defaut_longitude = get_registry_record("geolocation.default_longitude")
+        return [latitude, longitude] != [defaut_latitude, defaut_longitude]
 
 
 @implementer(INameChooser)
