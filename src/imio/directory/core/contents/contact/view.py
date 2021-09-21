@@ -8,7 +8,7 @@ from zope.schema.interfaces import IVocabularyFactory
 
 
 class ContactView(DefaultView, FolderView):
-    """imio.dirctory.core.Contact view
+    """imio.directory.core.Contact view
     FolderView brings get_thumb_scale_list
     """
 
