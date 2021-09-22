@@ -7,6 +7,7 @@ from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 
 import base64
+import geopy
 import vobject
 
 
@@ -18,7 +19,34 @@ def get_entity_uid_for_contact(contact):
     return entity.UID()
 
 
+def geocode_contact(contact):
+    street_parts = [
+        contact.number and str(contact.number) or "",
+        contact.street,
+        contact.complement,
+    ]
+    street = " ".join(filter(None, street_parts))
+    entity_parts = [
+        contact.zipcode and str(contact.zipcode) or "",
+        contact.city,
+    ]
+    entity = " ".join(filter(None, entity_parts))
+    country = translate_vocabulary_term(
+        "imio.smartweb.vocabulary.Countries", contact.country
+    )
+    address = " ".join(filter(None, [street, entity, country]))
+    if not address:
+        return
+    geolocator = geopy.geocoders.Nominatim(user_agent="contact@imio.be", timeout=3)
+    location = geolocator.geocode(address)
+    if location:
+        contact.geolocation.latitude = location.latitude
+        contact.geolocation.longitude = location.longitude
+
+
 def translate_vocabulary_term(vocabulary, term):
+    if term is None:
+        return ""
     factory = getUtility(IVocabularyFactory, vocabulary)
     vocabulary = factory(api.portal.get())
     term = vocabulary.getTerm(term)

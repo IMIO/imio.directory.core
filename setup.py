@@ -57,6 +57,7 @@ setup(
         "plone.app.dexterity",
         "collective.taxonomy",
         "embeddify",
+        "geopy",
         "imio.smartweb.common",
         "imio.smartweb.locales",
         "collective.instancebehavior",

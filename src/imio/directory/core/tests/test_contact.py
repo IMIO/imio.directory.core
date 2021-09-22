@@ -4,6 +4,7 @@ from collective.geolocationbehavior.geolocation import IGeolocatable
 from imio.directory.core.contents import IContact
 from imio.directory.core.contents.contact.content import phone_constraint
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
+from imio.directory.core.utils import geocode_contact
 from plone import api
 from plone.api.exc import InvalidParameterError
 from plone.app.testing import setRoles
@@ -14,6 +15,7 @@ from plone.dexterity.interfaces import IDexterityFTI
 from plone.formwidget.geolocation.geolocation import Geolocation
 from plone.namedfile.file import NamedBlobFile
 from plone.restapi.testing import RelativeSession
+from unittest import mock
 from zope.annotation.interfaces import IAnnotations
 from zope.component import createObject
 from zope.component import getMultiAdapter
@@ -21,6 +23,7 @@ from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 from zope.interface.exceptions import Invalid
 
+import geopy
 import transaction
 import unittest
 
@@ -273,3 +276,21 @@ class ContactFunctionalTest(unittest.TestCase):
         brains = api.content.find(selected_entities=[entity2.UID(), self.entity.UID()])
         lst = [brain.UID for brain in brains]
         self.assertEqual(lst, [contact1.UID(), contact2.UID()])
+
+    def test_geolocation(self):
+        attr = {"geocode.return_value": mock.Mock(latitude=1, longitude=2)}
+        geopy.geocoders.Nominatim = mock.Mock(return_value=mock.Mock(**attr))
+
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+
+        self.assertFalse(contact.is_geolocated)
+        contact.geolocation = Geolocation(0, 0)
+        contact.street = "My beautiful street"
+        geocode_contact(contact)
+        self.assertTrue(contact.is_geolocated)
+        self.assertEqual(contact.geolocation.latitude, 1)
+        self.assertEqual(contact.geolocation.longitude, 2)
