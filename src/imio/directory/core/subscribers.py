@@ -4,6 +4,8 @@ from imio.directory.core.contents.contact.content import IAddress
 from imio.directory.core.utils import geocode_contact
 from imio.directory.core.utils import get_entity_uid_for_contact
 from imio.smartweb.common.faceted.utils import configure_faceted
+from zope.component import getMultiAdapter
+from zope.globalrequest import getRequest
 
 import os
 
@@ -21,6 +23,13 @@ def added_entity(obj, event):
         os.path.dirname(__file__)
     )
     configure_faceted(obj, faceted_config_path)
+    request = getRequest()
+    request.form = {
+        "cid": "entity",
+        "faceted.entity.default": obj.UID(),
+    }
+    handler = getMultiAdapter((obj, request), name=u"faceted_update_criterion")
+    handler.edit(**request.form)
 
 
 def added_contact(obj, event):
