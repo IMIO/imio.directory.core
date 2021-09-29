@@ -11,6 +11,7 @@
            plone.dexterity.interfaces.IDexterityFTI"
       provides="zope.publisher.interfaces.browser.IBrowserPage"
       factory=".forms.ContactCustomAddView"
+      name="imio.directory.Contact"
       />
   <class class=".forms.ContactCustomAddView">
       <require
