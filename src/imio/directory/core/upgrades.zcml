@@ -12,4 +12,13 @@
       profile="imio.directory.core:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Refresh faceted"
+      description="Refresh faceted configurations on all entities"
+      source="1001"
+      destination="1002"
+      handler=".upgrades.refresh_entities_faceted"
+      profile="imio.directory.core:default"
+      />
+
 </configure>
