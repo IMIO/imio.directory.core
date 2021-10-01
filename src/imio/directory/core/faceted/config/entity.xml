@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<object name="entite1" meta_type="Dexterity Container">
+<object name="entity" meta_type="Dexterity Container">
  <criteria>
-  <criterion name="current">
-   <property name="widget">criteria</property>
-   <property name="title">Filtres courant</property>
-   <property name="hidecriteriaenabled">True</property>
+  <criterion name="search">
+   <property name="widget">text</property>
+   <property name="title">Rechercher</property>
+   <property name="index">SearchableText</property>
+   <property name="onlyallelements">True</property>
+   <property name="wildcard">True</property>
    <property name="position">top</property>
    <property name="section">default</property>
    <property name="hidden">False</property>
-   <property name="custom_css"></property>
   </criterion>
-  <criterion name="contact-type">
+  <criterion name="topics">
    <property name="widget">select</property>
-   <property name="title">Type de contacts</property>
-   <property name="index">contact_type</property>
-   <property
-      name="vocabulary">imio.directory.vocabulary.ContactTypes</property>
+   <property name="title">Thématiques</property>
+   <property name="index">topics</property>
+   <property name="vocabulary">imio.smartweb.vocabulary.Topics</property>
    <property name="catalog"></property>
    <property name="hidealloption">False</property>
    <property name="position">top</property>
@@ -43,11 +43,11 @@
    <property name="hidezerocount">True</property>
    <property name="sortreversed">False</property>
   </criterion>
-  <criterion name="topics">
+  <criterion name="iam">
    <property name="widget">select</property>
-   <property name="title">Thématiques</property>
-   <property name="index">topics</property>
-   <property name="vocabulary">imio.smartweb.vocabulary.Topics</property>
+   <property name="title">Je suis</property>
+   <property name="index">iam</property>
+   <property name="vocabulary">imio.smartweb.vocabulary.IAm</property>
    <property name="catalog"></property>
    <property name="hidealloption">False</property>
    <property name="position">top</property>
@@ -75,11 +75,12 @@
    <property name="hidezerocount">True</property>
    <property name="sortreversed">False</property>
   </criterion>
-  <criterion name="iam">
+  <criterion name="contact-type">
    <property name="widget">select</property>
-   <property name="title">Je suis</property>
-   <property name="index">iam</property>
-   <property name="vocabulary">imio.smartweb.vocabulary.IAm</property>
+   <property name="title">Type de contacts</property>
+   <property name="index">contact_type</property>
+   <property
+      name="vocabulary">imio.directory.vocabulary.ContactTypes</property>
    <property name="catalog"></property>
    <property name="hidealloption">False</property>
    <property name="position">top</property>
@@ -91,6 +92,15 @@
    <property name="hidezerocount">True</property>
    <property name="sortreversed">False</property>
   </criterion>
+  <criterion name="current">
+   <property name="widget">criteria</property>
+   <property name="title">Filtres courant</property>
+   <property name="hidecriteriaenabled">True</property>
+   <property name="position">top</property>
+   <property name="section">default</property>
+   <property name="hidden">False</property>
+   <property name="custom_css"></property>
+  </criterion>
   <criterion name="entity">
    <property name="widget">radio</property>
    <property name="title">Entité</property>
@@ -101,6 +111,7 @@
    <property name="position">bottom</property>
    <property name="section">default</property>
    <property name="hidden">True</property>
+   <property name="custom_css"></property>
    <property name="count">False</property>
    <property name="sortcountable">False</property>
    <property name="hidezerocount">False</property>
