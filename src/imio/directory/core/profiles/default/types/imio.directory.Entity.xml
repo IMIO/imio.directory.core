@@ -36,6 +36,7 @@
     <element value="plone.basic"/>
     <element value="plone.locking"/>
     <element value="plone.leadimage"/>
+    <element value="plone.imagecropping"/>
   </property>
 
   <!-- View information -->

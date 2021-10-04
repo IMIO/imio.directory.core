@@ -4,6 +4,12 @@
 
   <adapter factory=".serializer.SerializeContactToJson" />
 
+  <adapter
+      for=".content.Contact"
+      provides="imio.smartweb.common.interfaces.ICropping"
+      factory=".content.ContactCroppingProvider"
+      />
+
   <!-- Custom add view and form - invoked from ++add++ traverser -->
   <adapter
       for="Products.CMFCore.interfaces.IFolderish

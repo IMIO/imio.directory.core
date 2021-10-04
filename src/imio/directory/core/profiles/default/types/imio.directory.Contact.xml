@@ -32,6 +32,7 @@
     <element value="plone.basic"/>
     <element value="plone.locking"/>
     <element value="plone.leadimage"/>
+    <element value="plone.imagecropping"/>
     <element value="geolocatable"/>
     <element value="collective.schedulefield.behavior.IMultiScheduledContent"/>
     <element value="collective.schedulefield.behavior.IExceptionalClosureContent"/>

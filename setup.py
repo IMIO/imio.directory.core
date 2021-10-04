@@ -55,6 +55,7 @@ setup(
         "plone.gallery",
         "plone.restapi",
         "plone.app.dexterity",
+        "plone.app.imagecropping",
         "collective.taxonomy",
         "embeddify",
         "geopy",

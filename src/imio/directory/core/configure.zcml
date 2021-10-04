@@ -5,6 +5,7 @@
   <include package="collective.schedulefield" />
   <include package="collective.taxonomy" />
   <include package="collective.z3cform.datagridfield" />
+  <include package="plone.app.imagecropping" />
 
   <include package="imio.smartweb.common" />
   <include package="imio.smartweb.locales" />

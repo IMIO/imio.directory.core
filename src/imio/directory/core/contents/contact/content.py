@@ -3,6 +3,7 @@
 from collective.geolocationbehavior.geolocation import IGeolocatable
 from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.row import DictRow
+from imio.smartweb.common.adapters import BaseCroppingProvider
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import schema
 from plone.app.content.namechooser import NormalizingNameChooser
@@ -25,6 +26,18 @@ import re
 # from collective.geolocationbehavior.geolocation import IGeolocatable
 # from plone.supermodel.interfaces import FIELDSETS_KEY
 # from plone.supermodel.model import Fieldset
+
+
+class ContactCroppingProvider(BaseCroppingProvider):
+    def get_scales(self, fieldname, request=None):
+        if fieldname == "image":
+            # scale used for lead image field
+            return ["preview"]
+        elif fieldname == "logo":
+            # scale used for logo field
+            return ["medium"]
+        else:
+            return super(ContactCroppingProvider, self).get_scales(fieldname, request)
 
 
 def phone_constraint(value):
