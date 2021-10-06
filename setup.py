@@ -58,7 +58,6 @@ setup(
         "plone.app.imagecropping",
         "collective.taxonomy",
         "embeddify",
-        "geopy",
         "imio.smartweb.common",
         "imio.smartweb.locales",
         "collective.instancebehavior",

@@ -4,7 +4,7 @@ from collective.geolocationbehavior.geolocation import IGeolocatable
 from imio.directory.core.contents import IContact
 from imio.directory.core.contents.contact.content import phone_constraint
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
-from imio.directory.core.utils import geocode_contact
+from imio.smartweb.common.utils import geocode_object
 from plone import api
 from plone.api.exc import InvalidParameterError
 from plone.app.testing import setRoles
@@ -290,7 +290,7 @@ class ContactFunctionalTest(unittest.TestCase):
         self.assertFalse(contact.is_geolocated)
         contact.geolocation = Geolocation(0, 0)
         contact.street = "My beautiful street"
-        geocode_contact(contact)
+        geocode_object(contact)
         self.assertTrue(contact.is_geolocated)
         self.assertEqual(contact.geolocation.latitude, 1)
         self.assertEqual(contact.geolocation.longitude, 2)

@@ -4,6 +4,7 @@ from collective.geolocationbehavior.geolocation import IGeolocatable
 from collective.z3cform.datagridfield.datagridfield import DataGridFieldFactory
 from collective.z3cform.datagridfield.row import DictRow
 from imio.smartweb.common.adapters import BaseCroppingProvider
+from imio.smartweb.common.interfaces import IAddress
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import schema
 from plone.app.content.namechooser import NormalizingNameChooser
@@ -96,25 +97,6 @@ class IUrlRowSchema(Interface):
     )
 
     url = schema.URI(title=_(u"Url"), required=True)
-
-
-class IAddress(model.Schema):
-
-    model.fieldset(
-        "address",
-        label=_(u"Address"),
-        fields=["street", "number", "complement", "zipcode", "city", "country"],
-    )
-    street = schema.TextLine(title=_(u"Street"), required=False)
-    number = schema.TextLine(title=_(u"Number"), required=False)
-    complement = schema.TextLine(title=_(u"Complement"), required=False)
-    zipcode = schema.Int(title=_(u"Zipcode"), required=False)
-    city = schema.TextLine(title=_(u"City"), required=False)
-    country = schema.Choice(
-        title=_(u"Country"),
-        source="imio.smartweb.vocabulary.Countries",
-        required=False,
-    )
 
 
 # # Move geolocation field to our Address fieldset

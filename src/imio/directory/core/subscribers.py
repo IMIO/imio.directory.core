@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from imio.directory.core.contents.contact.content import IAddress
-from imio.directory.core.utils import geocode_contact
 from imio.directory.core.utils import get_entity_uid_for_contact
 from imio.smartweb.common.faceted.utils import configure_faceted
+from imio.smartweb.common.interfaces import IAddress
+from imio.smartweb.common.utils import geocode_object
 from zope.component import getMultiAdapter
 from zope.globalrequest import getRequest
 
@@ -36,8 +36,7 @@ def added_contact(obj, event):
     set_default_entity_uid(obj)
     if not obj.is_geolocated:
         # geocode only if the user has not already changed geolocation
-        geocode_contact(obj)
-        obj.reindexObject(idxs=["longitude", "latitude"])
+        geocode_object(obj)
 
 
 def modified_contact(obj, event):
@@ -48,6 +47,5 @@ def modified_contact(obj, event):
     for d in event.descriptions:
         if d.interface is IAddress and d.attributes:
             # an address field has been changed
-            geocode_contact(obj)
-            obj.reindexObject(idxs=["longitude", "latitude"])
+            geocode_object(obj)
             return
