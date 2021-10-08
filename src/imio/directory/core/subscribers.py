@@ -6,6 +6,7 @@ from imio.smartweb.common.interfaces import IAddress
 from imio.smartweb.common.utils import geocode_object
 from zope.component import getMultiAdapter
 from zope.globalrequest import getRequest
+from zope.lifecycleevent.interfaces import IAttributes
 
 import os
 
@@ -45,6 +46,9 @@ def modified_contact(obj, event):
     if not hasattr(event, "descriptions") or not event.descriptions:
         return
     for d in event.descriptions:
+        if not IAttributes.providedBy(d):
+            # we do not have fields change description, but maybe a request
+            continue
         if d.interface is IAddress and d.attributes:
             # an address field has been changed
             geocode_object(obj)

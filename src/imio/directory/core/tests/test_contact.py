@@ -9,12 +9,15 @@ from plone import api
 from plone.api.exc import InvalidParameterError
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import TEST_USER_PASSWORD
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.formwidget.geolocation.geolocation import Geolocation
 from plone.namedfile.file import NamedBlobFile
 from plone.restapi.testing import RelativeSession
+from plone.testing.zope import Browser
 from unittest import mock
 from zope.annotation.interfaces import IAnnotations
 from zope.component import createObject
@@ -294,3 +297,26 @@ class ContactFunctionalTest(unittest.TestCase):
         self.assertTrue(contact.is_geolocated)
         self.assertEqual(contact.geolocation.latitude, 1)
         self.assertEqual(contact.geolocation.longitude, 2)
+
+    def test_sharing(self):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        transaction.commit()
+        browser = Browser(self.layer["app"])
+        browser.handleErrors = False
+        browser.addHeader(
+            "Authorization",
+            "Basic %s:%s"
+            % (
+                TEST_USER_NAME,
+                TEST_USER_PASSWORD,
+            ),
+        )
+        browser.open("{}/@@sharing".format(contact.absolute_url()))
+        checkbox = browser.getControl(name="entries.role_Reader:records")
+        checkbox.value = True
+        # be sure there is no traceback when sharing (subscriber related)
+        browser.getControl(name="form.button.Save").click()
