@@ -13,7 +13,7 @@ from zope.component import queryUtility
 import unittest
 
 
-class EntityIntegrationTest(unittest.TestCase):
+class TestEntity(unittest.TestCase):
 
     layer = IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
 

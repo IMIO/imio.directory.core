@@ -10,7 +10,7 @@ from zope.component import getMultiAdapter
 import unittest
 
 
-class CroppingIntegrationTest(unittest.TestCase):
+class TestCropping(unittest.TestCase):
 
     layer = IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
 

@@ -10,7 +10,7 @@ from zope.component import queryMultiAdapter
 import unittest
 
 
-class DescriptionIntegrationTest(unittest.TestCase):
+class TestDescription(unittest.TestCase):
 
     layer = IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
 

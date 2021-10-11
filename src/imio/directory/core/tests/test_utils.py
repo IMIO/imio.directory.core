@@ -16,7 +16,7 @@ def image(filename):
     return NamedBlobImage(data=open(file_path, "rb").read(), filename=file_path)
 
 
-class UtilsIntegrationTest(unittest.TestCase):
+class TestUtils(unittest.TestCase):
 
     layer = IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
 
