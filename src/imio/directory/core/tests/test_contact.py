@@ -31,7 +31,7 @@ import transaction
 import unittest
 
 
-class TestContact(unittest.TestCase):
+class ContactFunctionalTest(unittest.TestCase):
 
     layer = IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 
@@ -283,13 +283,11 @@ class TestContact(unittest.TestCase):
     def test_geolocation(self):
         attr = {"geocode.return_value": mock.Mock(latitude=1, longitude=2)}
         geopy.geocoders.Nominatim = mock.Mock(return_value=mock.Mock(**attr))
-
         contact = api.content.create(
             container=self.entity,
             type="imio.directory.Contact",
             title="contact",
         )
-
         self.assertFalse(contact.is_geolocated)
         contact.geolocation = Geolocation(0, 0)
         contact.street = "My beautiful street"
@@ -297,6 +295,29 @@ class TestContact(unittest.TestCase):
         self.assertTrue(contact.is_geolocated)
         self.assertEqual(contact.geolocation.latitude, 1)
         self.assertEqual(contact.geolocation.longitude, 2)
+
+    def test_subcontacts_in_contact_view(self):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        view = getMultiAdapter((contact, self.request), name="view")
+        view.update()
+        self.assertNotIn("contact1", view.render())
+        self.assertNotIn("contact2", view.render())
+        for cpt_contact in [1, 2]:
+            subcontact = api.content.create(
+                container=contact,
+                type="imio.directory.Contact",
+                title="contact{}".format(cpt_contact),
+            )
+            subcontact.type = "organization"
+            subcontact.reindexObject()
+        view = getMultiAdapter((contact, self.request), name="view")
+        view.update()
+        self.assertIn("contact1", view.render())
+        self.assertIn("contact2", view.render())
 
     def test_sharing(self):
         contact = api.content.create(
