@@ -39,7 +39,7 @@ def refresh_entities_faceted(context):
             "cid": "entity",
             "faceted.entity.default": obj.UID(),
         }
-        handler = getMultiAdapter((obj, request), name=u"faceted_update_criterion")
+        handler = getMultiAdapter((obj, request), name="faceted_update_criterion")
         handler.edit(**request.form)
         logger.info("Faceted refreshed on {}".format(obj.Title()))
 
