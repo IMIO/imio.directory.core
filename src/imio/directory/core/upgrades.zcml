@@ -21,4 +21,13 @@
       profile="imio.directory.core:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Geocode contacts"
+      description="Geocode all contacts that are not yet geolocated"
+      source="1002"
+      destination="1003"
+      handler=".upgrades.geocode_all_contacts"
+      profile="imio.directory.core:default"
+      />
+
 </configure>
