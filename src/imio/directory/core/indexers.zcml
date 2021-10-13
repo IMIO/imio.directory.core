@@ -1,0 +1,9 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope">
+
+  <adapter
+      name="container_uid"
+      factory=".indexers.container_uid"
+      />
+
+</configure>

@@ -240,6 +240,7 @@ class TestContact(unittest.TestCase):
         brain = api.content.find(UID=contact1.UID())[0]
         indexes = catalog.getIndexDataForRID(brain.getRID())
         self.assertFalse(indexes.get("is_geolocated"))
+        self.assertEqual(indexes.get("container_uid"), self.entity.UID())
         IGeolocatable(contact1).geolocation = Geolocation(
             latitude="4.5", longitude="45"
         )
@@ -279,6 +280,11 @@ class TestContact(unittest.TestCase):
         brains = api.content.find(selected_entities=[entity2.UID(), self.entity.UID()])
         lst = [brain.UID for brain in brains]
         self.assertEqual(lst, [contact1.UID(), contact2.UID()])
+
+        api.content.move(contact1, entity2)
+        brain = api.content.find(UID=contact1.UID())[0]
+        indexes = catalog.getIndexDataForRID(brain.getRID())
+        self.assertEqual(indexes.get("container_uid"), entity2.UID())
 
     def test_geolocation(self):
         attr = {"geocode.return_value": mock.Mock(latitude=1, longitude=2)}

@@ -4,6 +4,9 @@
   <index name="contact_type" meta_type="FieldIndex">
     <indexed_attr value="type"/>
   </index>
+  <index name="container_uid" meta_type="FieldIndex">
+    <indexed_attr value="container_uid"/>
+  </index>
   <index name="facilities" meta_type="KeywordIndex">
     <indexed_attr value="facilities"/>
   </index>
@@ -15,6 +18,7 @@
   </index>
 
   <column value="contact_type"/>
+  <column value="container_uid"/>
   <column value="facilities"/>
   <column value="is_geolocated"/>
   <column value="selected_entities"/>
