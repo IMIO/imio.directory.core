@@ -60,7 +60,7 @@ def geocode_all_contacts(context):
             logger.info(f"Contact has no location : {contact.absolute_url()}")
         elif (
             coordinates.latitude == default_latitude
-            and coordinates.longitude == default_longitude
+            and coordinates.longitude == default_longitude  # NOQA
         ):
             # contact was automatically geolocated on IMIO (by default)
             geocoded = geocode_object(contact)
