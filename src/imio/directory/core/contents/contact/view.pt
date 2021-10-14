@@ -86,7 +86,7 @@
       <ul>
         <li tal:repeat="item files">
             <div tal:define="file_view nocall:item/@@file_view;
-                             item_has_image python:item.getIcon;
+                             item_has_image python:item.has_leadimage;
                              thumb_scale view/get_thumb_scale_list;
                              image_scale item/@@images;">
               <a tal:attributes="href item/absolute_url;
