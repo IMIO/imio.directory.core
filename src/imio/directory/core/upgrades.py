@@ -109,6 +109,7 @@ def geocode_all_contacts(context):
             continue
 
         if location:
-            obj.geolocation.latitude = location.latitude
-            obj.geolocation.longitude = location.longitude
+            obj.geolocation = Geolocation(
+                latitude=location.latitude, longitude=location.longitude
+            )
             obj.reindexObject(idxs=["longitude", "latitude"])
