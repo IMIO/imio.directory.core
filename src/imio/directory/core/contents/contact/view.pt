@@ -11,7 +11,7 @@
 
     <h1 class="documentFirstHeading" tal:content="context/Title" />
 
-    <p class="documentDescription" tal:content="structure view/description" />
+    <p class="documentDescription" tal:content="structure context/@@description" />
 
     <tal:block repeat="widget view/widgets/values">
         <div class="field" tal:condition="python:widget.__name__ not in ('IBasic.title', 'IBasic.description', 'title', 'description',)">
@@ -98,7 +98,7 @@
                     <span class="discreet">&mdash; <span tal:replace="file_view/human_readable_size" /></span>
                 </span>
                 <p>
-                  <span tal:replace="item/description" />
+                  <span tal:replace="structure item/@@description" />
                 </p>
                 <img tal:replace="structure python:image_scale.tag('image', scale=thumb_scale)" />
               </a>

@@ -26,13 +26,4 @@
       layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
       />
 
-  <browser:page
-      for="*"
-      name="description"
-      class=".description.RichDescription"
-      template="description.pt"
-      permission="zope.Public"
-      layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
-      />
-
 </configure>
