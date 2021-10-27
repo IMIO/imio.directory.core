@@ -95,7 +95,7 @@
   <criterion name="current">
    <property name="widget">criteria</property>
    <property name="title">Filtres courant</property>
-   <property name="hidecriteriaenabled">True</property>
+   <property name="hidecriteriaenabled">False</property>
    <property name="position">top</property>
    <property name="section">default</property>
    <property name="hidden">False</property>
