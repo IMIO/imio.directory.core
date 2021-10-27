@@ -92,6 +92,35 @@
    <property name="hidezerocount">True</property>
    <property name="sortreversed">False</property>
   </criterion>
+  <criterion name="state">
+   <property name="widget">select</property>
+   <property name="title">Etat</property>
+   <property name="index">review_state</property>
+   <property
+      name="vocabulary">plone.app.vocabularies.WorkflowStates</property>
+   <property name="hidealloption">False</property>
+   <property name="position">top</property>
+   <property name="section">default</property>
+   <property name="hidden">False</property>
+   <property name="count">True</property>
+   <property name="sortcountable">False</property>
+   <property name="hidezerocount">True</property>
+   <property name="sortreversed">False</property>
+  </criterion>
+  <criterion name="author">
+   <property name="widget">select</property>
+   <property name="title">Auteur</property>
+   <property name="index">Creator</property>
+   <property name="catalog">portal_catalog</property>
+   <property name="hidealloption">False</property>
+   <property name="position">top</property>
+   <property name="section">default</property>
+   <property name="hidden">False</property>
+   <property name="count">True</property>
+   <property name="sortcountable">False</property>
+   <property name="hidezerocount">True</property>
+   <property name="sortreversed">False</property>
+  </criterion>
   <criterion name="current">
    <property name="widget">criteria</property>
    <property name="title">Filtres courant</property>
