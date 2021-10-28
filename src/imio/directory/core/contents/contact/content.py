@@ -33,12 +33,8 @@ class ContactCroppingProvider(BaseCroppingProvider):
     def get_scales(self, fieldname, request=None):
         if fieldname == "image":
             # scale used for lead image field
-            return ["preview"]
-        elif fieldname == "logo":
-            # scale used for logo field
-            return ["medium"]
-        else:
-            return super(ContactCroppingProvider, self).get_scales(fieldname, request)
+            return ["vignette"]
+        return []
 
 
 def phone_constraint(value):

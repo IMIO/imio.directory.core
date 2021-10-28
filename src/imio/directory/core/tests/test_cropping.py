@@ -33,12 +33,12 @@ class TestCropping(unittest.TestCase):
     def test_cropping_adapter(self):
         adapter = ICropping(self.contact, alternate=None)
         self.assertIsNotNone(adapter)
-        self.assertEqual(adapter.get_scales("image", self.request), ["preview"])
-        self.assertEqual(adapter.get_scales("logo", self.request), ["medium"])
+        self.assertEqual(adapter.get_scales("image", self.request), ["vignette"])
+        self.assertEqual(adapter.get_scales("logo", self.request), [])
 
     def test_cropping_view(self):
         cropping_view = getMultiAdapter(
             (self.contact, self.request), name="croppingeditor"
         )
         self.assertEqual(len(list(cropping_view._scales("image"))), 1)
-        self.assertEqual(len(list(cropping_view._scales("logo"))), 1)
+        self.assertEqual(len(list(cropping_view._scales("logo"))), 0)
