@@ -169,5 +169,16 @@
    <property name="maxitems">5</property>
    <property name="sortreversed">True</property>
   </criterion>
+  <criterion name="sort">
+   <property name="widget">sorting</property>
+   <property name="title">Trier par</property>
+   <property
+      name="vocabulary">eea.faceted.vocabularies.SortingCatalogIndexes</property>
+   <property name="default">sortable_title</property>
+   <property name="position">bottom</property>
+   <property name="section">default</property>
+   <property name="hidden">True</property>
+   <property name="custom_css"></property>
+  </criterion>
  </criteria>
 </object>
