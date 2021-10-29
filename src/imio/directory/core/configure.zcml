@@ -7,6 +7,10 @@
   <include package="collective.z3cform.datagridfield" />
   <include package="plone.app.imagecropping" />
 
+  <!-- Temporary fix for plone.gallery 1.0.1 -->
+  <include package="plone.app.contentmenu" />
+  <include package="plone.gallery" />
+
   <include package="imio.smartweb.common" />
   <include package="imio.smartweb.locales" />
   <include package="plone.restapi" />

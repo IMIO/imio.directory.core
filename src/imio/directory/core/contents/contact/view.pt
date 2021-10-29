@@ -8,7 +8,11 @@
 <body>
 
 <metal:main fill-slot="main">
-
+    <!-- fix some css for usage in Plone  -->
+    <style type="text/css">
+     #spotlight .header { padding-right: 120px !important; }
+     #content-core a { border-bottom: 0px solid transparent !important;}
+    </style>
     <h1 class="documentFirstHeading" tal:content="context/Title" />
 
     <p class="documentDescription" tal:content="structure context/@@description" />
@@ -31,54 +35,21 @@
         </div>
     </fieldset>
 
-    <!-- Carousel wrapper -->
-    <div
-        id="carouselMultiItemExample"
-        class="carousel slide carousel-dark text-center contact-gallery"
-        data-mdb-ride="carousel"
-        tal:define="images view/images"
-        tal:condition="images">
-        <!-- Controls -->
-        <div class="d-flex justify-content-center mb-4">
-            <button
-              class="carousel-control-prev position-relative"
-              type="button"
-              data-mdb-target="#carouselMultiItemExample"
-              data-mdb-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next position-relative"
-                    type="button"
-                    data-mdb-target="#carouselMultiItemExample"
-                    data-mdb-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-        <!-- Inner -->
-        <div class="carousel-inner py-4">
-            <!-- Single item active-->
-            <div class="carousel-item"
-                 tal:repeat="row_images images">
-                <div class="container">
-                    <div class="row">
-                        <!--  d-none d-lg-block-->
-                        <div class="col-lg-4">
-                            <div class="card"
-                                 tal:repeat="image row_images">
-                                <img tal:attributes="src string:${image/absolute_url}/@@images/image/mini;
-                                                     alt image/title;
-                                                     title image/title" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- END Inner -->
+    <div tal:define="images view/images;
+                     thumb_scale string:preview"
+         tal:condition="images"
+         class="contact-gallery flexbin flexbin-margin">
+        <tal:images tal:repeat="item images">
+            <a class="spotlight gallery_item"
+               tal:attributes="href string:${item/absolute_url}/@@images/image/large;
+                               title item/title;
+                               data-description item/description">
+              <img tal:attributes="src string:${item/absolute_url}/@@images/image/${thumb_scale};
+                                   alt item/title;
+                                   title item/title" />
+            </a>
+        </tal:images>
     </div>
-    <!-- END Carousel wrapper -->
 
     <div class="contact-files"
          tal:define="files view/files"

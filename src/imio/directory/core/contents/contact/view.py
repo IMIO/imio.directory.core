@@ -3,6 +3,7 @@
 from plone import api
 from plone.app.contenttypes.browser.folder import FolderView
 from plone.dexterity.browser.view import DefaultView
+from Products.CMFPlone.resources import add_bundle_on_request
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 
@@ -12,18 +13,19 @@ class ContactView(DefaultView, FolderView):
     FolderView brings get_thumb_scale_list
     """
 
-    GALLERY_IMAGES_NUMBER = 3
+    def __call__(self):
+        images = self.context.listFolderContents(contentFilter={"portal_type": "Image"})
+        if len(images) > 0:
+            add_bundle_on_request(self.request, "spotlightjs")
+            add_bundle_on_request(self.request, "flexbin")
+        self.update()
+        return self.index()
 
     def files(self):
         return self.context.listFolderContents(contentFilter={"portal_type": "File"})
 
     def images(self):
-        images = self.context.listFolderContents(contentFilter={"portal_type": "Image"})
-        rows = []
-        for i in range(0, len(images)):
-            if i % self.GALLERY_IMAGES_NUMBER == 0:
-                rows.append(images[i : i + self.GALLERY_IMAGES_NUMBER])  # NOQA
-        return rows
+        return self.context.listFolderContents(contentFilter={"portal_type": "Image"})
 
     def sub_contacts(self):
         factory = getUtility(

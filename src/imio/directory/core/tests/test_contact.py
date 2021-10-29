@@ -3,6 +3,7 @@
 from collective.geolocationbehavior.geolocation import IGeolocatable
 from imio.directory.core.contents import IContact
 from imio.directory.core.contents.contact.content import phone_constraint
+from imio.directory.core.interfaces import IImioDirectoryCoreLayer
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 from imio.smartweb.common.utils import geocode_object
 from plone import api
@@ -24,6 +25,7 @@ from zope.component import createObject
 from zope.component import getMultiAdapter
 from zope.component import queryMultiAdapter
 from zope.component import queryUtility
+from zope.interface import alsoProvides
 from zope.interface.exceptions import Invalid
 
 import geopy
@@ -347,3 +349,24 @@ class TestContact(unittest.TestCase):
         checkbox.value = True
         # be sure there is no traceback when sharing (subscriber related)
         browser.getControl(name="form.button.Save").click()
+
+    def test_js_bundles(self):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        alsoProvides(self.request, IImioDirectoryCoreLayer)
+        getMultiAdapter((contact, self.request), name="view")()
+        bundles = getattr(self.request, "enabled_bundles", [])
+        self.assertEqual(len(bundles), 1)
+        api.content.create(
+            container=contact,
+            type="Image",
+            title="Image",
+        )
+        getMultiAdapter((contact, self.request), name="view")()
+        bundles = getattr(self.request, "enabled_bundles", [])
+        self.assertEqual(len(bundles), 3)
+        # leaflet is for geolocation
+        self.assertListEqual(bundles, ["bundle-leaflet", "spotlightjs", "flexbin"])
