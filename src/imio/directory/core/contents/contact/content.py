@@ -119,7 +119,7 @@ class IContactInformations(model.Schema):
         ),
         required=False,
     )
-    widget(phones=DataGridFieldFactory)
+    widget("phones", DataGridFieldFactory, allow_reorder=True)
 
     mails = schema.List(
         title=_(u"E-mails"),
@@ -129,7 +129,7 @@ class IContactInformations(model.Schema):
         ),
         required=False,
     )
-    widget(mails=DataGridFieldFactory)
+    widget("mails", DataGridFieldFactory, allow_reorder=True)
 
     urls = schema.List(
         title=_(u"URLs"),
@@ -139,7 +139,7 @@ class IContactInformations(model.Schema):
         ),
         required=False,
     )
-    widget(urls=DataGridFieldFactory)
+    widget("urls", DataGridFieldFactory, allow_reorder=True)
 
 
 class IPrivateContactInformations(model.Schema):
@@ -157,7 +157,7 @@ class IPrivateContactInformations(model.Schema):
         ),
         required=False,
     )
-    widget(private_phones=DataGridFieldFactory)
+    widget("private_phones", DataGridFieldFactory, allow_reorder=True)
 
     private_mails = schema.List(
         title=_(u"E-mails"),
@@ -167,7 +167,7 @@ class IPrivateContactInformations(model.Schema):
         ),
         required=False,
     )
-    widget(private_mails=DataGridFieldFactory)
+    widget("private_mails", DataGridFieldFactory, allow_reorder=True)
 
     private_urls = schema.List(
         title=_(u"URLs"),
@@ -177,7 +177,7 @@ class IPrivateContactInformations(model.Schema):
         ),
         required=False,
     )
-    widget(private_urls=DataGridFieldFactory)
+    widget("private_urls", DataGridFieldFactory, allow_reorder=True)
 
     private_note = schema.Text(title=_(u"Internal note"), required=False)
 
