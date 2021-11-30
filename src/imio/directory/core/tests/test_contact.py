@@ -16,6 +16,7 @@ from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.formwidget.geolocation.geolocation import Geolocation
+from plone.i18n.utility import setLanguageBinding
 from plone.namedfile.file import NamedBlobFile
 from plone.restapi.testing import RelativeSession
 from plone.testing.zope import Browser
@@ -287,6 +288,53 @@ class TestContact(unittest.TestCase):
         brain = api.content.find(UID=contact1.UID())[0]
         indexes = catalog.getIndexDataForRID(brain.getRID())
         self.assertEqual(indexes.get("container_uid"), entity2.UID())
+
+    def test_searchable_text(self):
+        # use French (taxonomy is only translated in French)
+        self.request["set_language"] = "fr"
+        setLanguageBinding(self.request)
+
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="Title",
+        )
+        catalog = api.portal.get_tool("portal_catalog")
+        brain = api.content.find(UID=contact.UID())[0]
+        indexes = catalog.getIndexDataForRID(brain.getRID())
+        self.assertEqual(indexes.get("SearchableText"), ["title"])
+
+        contact.subtitle = "Subtitle"
+        contact.description = "Description"
+        contact.taxonomy_contact_category = [
+            "brog42mktt",  # Auberge de jeunesse
+            "hlsm9bijb1",  # Alimentation
+        ]
+        contact.topics = ["agriculture"]
+        contact.reindexObject()
+
+        catalog = api.portal.get_tool("portal_catalog")
+        brain = api.content.find(UID=contact.UID())[0]
+        indexes = catalog.getIndexDataForRID(brain.getRID())
+        self.assertEqual(
+            indexes.get("SearchableText"),
+            [
+                "title",
+                "subtitle",
+                "description",
+                "agriculture",
+                "commerces",
+                "entreprises",
+                "hebergements",
+                "restauration",
+                "auberge",
+                "de",
+                "jeunesse",
+                "commerces",
+                "entreprises",
+                "alimentation",
+            ],
+        )
 
     def test_geolocation(self):
         attr = {"geocode.return_value": mock.Mock(latitude=1, longitude=2)}

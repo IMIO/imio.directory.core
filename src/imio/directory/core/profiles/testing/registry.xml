@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<registry>
+
+  <record name="plone.available_languages"
+          interface="Products.CMFPlone.interfaces.controlpanel.ILanguageSchema"
+          field="available_languages">
+    <value>
+      <element>fr</element>
+      <element>en</element>
+    </value>
+  </record>
+
+  <record name="plone.use_cookie_negotiation"
+          interface="Products.CMFPlone.interfaces.controlpanel.ILanguageSchema"
+          field="use_cookie_negotiation">
+    <value>True</value>
+  </record>
+
+</registry>

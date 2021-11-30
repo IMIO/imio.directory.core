@@ -6,4 +6,9 @@
       factory=".indexers.container_uid"
       />
 
+  <adapter
+      name="SearchableText"
+      factory=".indexers.SearchableText_contact"
+      />
+
 </configure>
