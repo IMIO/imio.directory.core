@@ -21,21 +21,32 @@ import re
 logger = logging.getLogger("imio.directory.core")
 
 
+def empty_val(value):
+    if value == "---":
+        # --- is used as blank field in sheet template listbox
+        value = ""
+    return value
+
+
 class ContactRow(object):
     def __init__(self, row_number, contact_row):
         # keep row values in var to make some validation tests.
         self.row_number = row_number
-        self.contact_type = None if contact_row[0] == "" else str(contact_row[0])
-        self.title = None if contact_row[1] == "" else str(contact_row[1])
+        self.contact_type = (
+            None if empty_val(contact_row[0]) == "" else str(contact_row[0])
+        )
+        self.title = None if empty_val(contact_row[1]) == "" else str(contact_row[1])
         self.subtitle = contact_row[2]
         self.description = contact_row[3]
         self.street = contact_row[4]
         self.number = str(contact_row[5])
         self.complement = contact_row[6]
-        self.zipcode = None if contact_row[7] == "" else str(contact_row[7])
+        self.zipcode = None if empty_val(contact_row[7]) == "" else str(contact_row[7])
         self.city = contact_row[8]
         self.country = contact_row[9]
-        self.vat_number = None if contact_row[10] == "" else str(contact_row[10])
+        self.vat_number = (
+            None if empty_val(contact_row[10]) == "" else str(contact_row[10])
+        )
         self.geoloc = Geolocation(
             latitude=str(contact_row[11]), longitude=str(contact_row[12])
         )
@@ -60,7 +71,9 @@ class ContactRow(object):
         self.phones = [
             phone
             for phone in self.phones
-            if phone.get("type") or phone.get("label") or phone.get("number")
+            if empty_val(phone.get("type"))
+            or empty_val(phone.get("label"))
+            or empty_val(phone.get("number"))
         ]
         self.mails = [
             {
@@ -82,26 +95,36 @@ class ContactRow(object):
         self.mails = [
             mail
             for mail in self.mails
-            if mail.get("type") or mail.get("label") or mail.get("mail_address")
+            if empty_val(mail.get("type"))
+            or empty_val(mail.get("label"))
+            or empty_val(mail.get("mail_address"))
         ]
         self.urls = [
             {"type": contact_row[31], "url": contact_row[32]},
             {"type": contact_row[33], "url": contact_row[34]},
             {"type": contact_row[35], "url": contact_row[36]},
         ]
-        self.urls = [url for url in self.urls if url.get("type") or url.get("url")]
+        self.urls = [
+            url
+            for url in self.urls
+            if empty_val(url.get("type")) or empty_val(url.get("url"))
+        ]
         # Remove duplicates values
         self.topics = list(set([contact_row[37], contact_row[38], contact_row[39]]))
         # Remove empty values
-        self.topics = [topic for topic in self.topics if topic]
+        self.topics = [topic for topic in self.topics if empty_val(topic)]
         # Remove duplicates values
         self.categories = list(set([contact_row[40], contact_row[41], contact_row[42]]))
         # Remove empty values
-        self.categories = [category for category in self.categories if category]
+        self.categories = [
+            category for category in self.categories if empty_val(category)
+        ]
         self.facilities = list(set([contact_row[43], contact_row[44], contact_row[45]]))
-        self.facilities = [facility for facility in self.facilities if facility]
+        self.facilities = [
+            facility for facility in self.facilities if empty_val(facility)
+        ]
         self.iam = list(set([contact_row[46], contact_row[47], contact_row[48]]))
-        self.iam = [me for me in self.iam if me]
+        self.iam = [me for me in self.iam if empty_val(me)]
 
     def uri_validator(self, url):
         try:
