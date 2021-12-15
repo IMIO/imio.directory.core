@@ -242,8 +242,8 @@ class Contact(Container):
     """ """
 
     @property
-    def is_geolocated(obj):
-        coordinates = IGeolocatable(obj).geolocation
+    def is_geolocated(self):
+        coordinates = IGeolocatable(self).geolocation
         if coordinates is None:
             return False
         return all([coordinates.latitude, coordinates.longitude])

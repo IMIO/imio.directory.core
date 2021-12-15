@@ -16,10 +16,10 @@
 
     <object name="object_buttons" meta_type="CMF Action Category">
       <object name="import_in_directory" meta_type="CMF Action" i18n:domain="imio.smartweb">
-        <property name="title" i18n:translate="">Import contact</property>
-        <property name="description" i18n:translate="">Click to import contact.</property>
+        <property name="title" i18n:translate="">Import contacts</property>
+        <property name="description" i18n:translate="">Click to import contacts.</property>
         <property name="url_expr">string:$object_url/@@import_contacts</property>
-        <property name="available_expr">object/@@utils/can_import_contact_in_directory</property>
+        <property name="available_expr">object/@@utils/can_import_contacts</property>
         <property name="permissions">
           <element value="Modify portal content"/>
         </property>

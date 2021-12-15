@@ -21,13 +21,11 @@
       name="utils"
       for="*"
       class=".utils.UtilsView"
-      allowed_attributes="can_export_contact_to_vcard export_contact_to_vcard
-                          can_import_contact_in_directory import_contact_in_directory"
+      allowed_attributes="can_export_contact_to_vcard export_contact_to_vcard can_import_contacts"
       permission="zope2.View"
       layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
       />
 
-  <!-- allowed_attributes="renderData" -->
   <browser:page
     for="*"
     name="import_contacts"

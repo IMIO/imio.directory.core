@@ -19,14 +19,5 @@ class UtilsView(BrowserView):
         vcard = get_vcard(self.context)
         return vcard.serialize()
 
-    def can_import_contact_in_directory(self):
+    def can_import_contacts(self):
         return IContact.providedBy(self.context) or IEntity.providedBy(self.context)
-
-    def import_contact_in_directory(self):
-        if not self.can_import_contact_in_directory():
-            return
-        self.request.response.setHeader("Content-type", "text/x-vCard; charset=utf-8")
-        content_disposition = "attachment; filename=%s.vcf" % (self.context.id)
-        self.request.response.setHeader("Content-Disposition", content_disposition)
-        vcard = get_vcard(self.context)
-        return vcard.serialize()
