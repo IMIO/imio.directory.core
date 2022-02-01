@@ -47,7 +47,7 @@ class TestEntity(unittest.TestCase):
 
         self.assertTrue(
             IEntity.providedBy(obj),
-            u"IEntity not provided by {0}!".format(
+            "IEntity not provided by {0}!".format(
                 obj,
             ),
         )
@@ -61,7 +61,7 @@ class TestEntity(unittest.TestCase):
         )
         self.assertTrue(
             IEntity.providedBy(entity),
-            u"IEntity not provided by {0}!".format(
+            "IEntity not provided by {0}!".format(
                 entity.id,
             ),
         )
@@ -75,9 +75,7 @@ class TestEntity(unittest.TestCase):
     def test_ct_entity_globally_addable(self):
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])
         fti = queryUtility(IDexterityFTI, name="imio.directory.Entity")
-        self.assertTrue(
-            fti.global_allow, u"{0} is not globally addable!".format(fti.id)
-        )
+        self.assertTrue(fti.global_allow, "{0} is not globally addable!".format(fti.id))
 
     def test_ct_entity_filter_content_type(self):
         setRoles(self.portal, TEST_USER_ID, ["Manager"])

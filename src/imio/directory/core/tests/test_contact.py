@@ -76,7 +76,7 @@ class TestContact(unittest.TestCase):
 
         self.assertTrue(
             IContact.providedBy(obj),
-            u"IContact not provided by {0}!".format(
+            "IContact not provided by {0}!".format(
                 obj,
             ),
         )
@@ -90,7 +90,7 @@ class TestContact(unittest.TestCase):
         )
         self.assertTrue(
             IContact.providedBy(contact),
-            u"IContact not provided by {0}!".format(
+            "IContact not provided by {0}!".format(
                 contact.id,
             ),
         )
@@ -105,7 +105,7 @@ class TestContact(unittest.TestCase):
     def test_ct_contact_not_globally_addable(self):
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])
         fti = queryUtility(IDexterityFTI, name="imio.directory.Contact")
-        self.assertFalse(fti.global_allow, u"{0} is globally addable!".format(fti.id))
+        self.assertFalse(fti.global_allow, "{0} is globally addable!".format(fti.id))
 
     def test_ct_contact_filter_content_type(self):
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])
@@ -187,7 +187,7 @@ class TestContact(unittest.TestCase):
             type="File",
             title="file",
         )
-        file_obj.file = NamedBlobFile(data="file data", filename=u"file.txt")
+        file_obj.file = NamedBlobFile(data="file data", filename="file.txt")
         view = queryMultiAdapter((contact, self.request), name="view")
         view.update()
         self.assertIn("++resource++mimetype.icons/txt.png", view.render())
@@ -220,8 +220,8 @@ class TestContact(unittest.TestCase):
 
         results = response.json()
         self.assertEqual(
-            results[u"items_total"],
-            len(results[u"items"]),
+            results["items_total"],
+            len(results["items"]),
             "items_total property should match actual item count.",
         )
 

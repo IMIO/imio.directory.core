@@ -10,18 +10,18 @@ class ContactTypeVocabularyFactory:
     def __call__(self, context=None):
         values = [
             (
-                u"organization",
+                "organization",
                 _(
-                    u"Organization (administrative service, business, professional, sports club, association, etc.)"
+                    "Organization (administrative service, business, professional, sports club, association, etc.)"
                 ),
             ),
             (
-                u"position",
+                "position",
                 _(
-                    u"Position (mayor, alderman, advisor, director, head of department, etc.)"
+                    "Position (mayor, alderman, advisor, director, head of department, etc.)"
                 ),
             ),
-            (u"mission", _(u"Mission (passports, reception, parking, etc.)")),
+            ("mission", _("Mission (passports, reception, parking, etc.)")),
         ]
         terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
         return SimpleVocabulary(terms)
@@ -34,10 +34,10 @@ class PhoneTypeVocabularyFactory:
     def __call__(self, context=None):
         """vcard spec : cell, home, work, text, voice, fax, video, pager, textphone"""
         values = [
-            (u"fax", _(u"Fax")),
-            (u"cell", _(u"Mobile")),
-            (u"home", _(u"Personal phone")),
-            (u"work", _(u"Work phone")),
+            ("fax", _("Fax")),
+            ("cell", _("Mobile")),
+            ("home", _("Personal phone")),
+            ("work", _("Work phone")),
         ]
         terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
         return SimpleVocabulary(terms)
@@ -50,8 +50,8 @@ class MailTypeVocabularyFactory:
     def __call__(self, context=None):
         """vcard spec : home, work"""
         values = [
-            (u"home", _(u"Personal email")),
-            (u"work", _(u"Work email")),
+            ("home", _("Personal email")),
+            ("work", _("Work email")),
         ]
         terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
         return SimpleVocabulary(terms)
@@ -63,9 +63,9 @@ MailTypeVocabulary = MailTypeVocabularyFactory()
 class SiteTypeVocabularyFactory:
     def __call__(self, context=None):
         values = [
-            (u"facebook", _(u"Facebook")),
-            (u"twitter", _(u"Twitter")),
-            (u"website", _(u"Website")),
+            ("facebook", _("Facebook")),
+            ("twitter", _("Twitter")),
+            ("website", _("Website")),
         ]
         terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
         return SimpleVocabulary(terms)
@@ -77,12 +77,12 @@ SiteTypeVocabulary = SiteTypeVocabularyFactory()
 class FacilitiesVocabularyFactory:
     def __call__(self, context=None):
         values = [
-            (u"accessibility", _(u"Accessibility (PMR)")),
-            (u"defibrillator", _(u"Defibrillator")),
-            (u"drinking_water_point", _(u"Drinking water point")),
-            (u"useful_numbers", _(u"Useful numbers")),
-            (u"public_toilets", _(u"Public toilets")),
-            (u"free_wifi", _(u"Free WIFI")),
+            ("accessibility", _("Accessibility (PMR)")),
+            ("defibrillator", _("Defibrillator")),
+            ("drinking_water_point", _("Drinking water point")),
+            ("useful_numbers", _("Useful numbers")),
+            ("public_toilets", _("Public toilets")),
+            ("free_wifi", _("Free WIFI")),
         ]
         terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
         return SimpleVocabulary(terms)

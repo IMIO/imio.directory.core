@@ -39,27 +39,27 @@ class ContactCroppingProvider(BaseCroppingProvider):
 
 def phone_constraint(value):
     if re.match(r"\+\d{7,15}", value) is None:
-        raise FormatterValidationError(_(u"Bad phone format"), value)
+        raise FormatterValidationError(_("Bad phone format"), value)
     return True
 
 
 class IPhoneRowSchema(Interface):
 
     label = schema.TextLine(
-        title=_(u"Label (direction, Main number,...)"),
-        description=_(u""),
+        title=_("Label (direction, Main number,...)"),
+        description=_(""),
         required=False,
     )
 
     type = schema.Choice(
-        title=_(u"Type"),
+        title=_("Type"),
         source="imio.directory.vocabulary.PhoneTypes",
-        description=_(u""),
+        description=_(""),
         required=True,
     )
 
     number = schema.TextLine(
-        title=_(u"Number (format: +32475010203)"),
+        title=_("Number (format: +32475010203)"),
         required=True,
         constraint=phone_constraint,
     )
@@ -68,31 +68,31 @@ class IPhoneRowSchema(Interface):
 class IMailRowSchema(Interface):
 
     label = schema.TextLine(
-        title=_(u"Label (Secretariat, Manager office, Sales,...)"),
-        description=_(u""),
+        title=_("Label (Secretariat, Manager office, Sales,...)"),
+        description=_(""),
         required=False,
     )
 
     type = schema.Choice(
-        title=_(u"Type"),
+        title=_("Type"),
         source="imio.directory.vocabulary.MailTypes",
-        description=_(u""),
+        description=_(""),
         required=True,
     )
 
-    mail_address = schema.Email(title=_(u"E-mail"), required=True)
+    mail_address = schema.Email(title=_("E-mail"), required=True)
 
 
 class IUrlRowSchema(Interface):
 
     type = schema.Choice(
-        title=_(u"Type"),
+        title=_("Type"),
         source="imio.directory.vocabulary.SiteTypes",
-        description=_(u""),
+        description=_(""),
         required=True,
     )
 
-    url = schema.URI(title=_(u"Url"), required=True)
+    url = schema.URI(title=_("Url"), required=True)
 
 
 # # Move geolocation field to our Address fieldset
@@ -107,14 +107,14 @@ class IContactInformations(model.Schema):
 
     model.fieldset(
         "contact_informations",
-        label=_(u"Contact informations"),
+        label=_("Contact informations"),
         fields=["vat_number", "phones", "mails", "urls"],
     )
-    vat_number = schema.TextLine(title=_(u"VAT number"), required=False)
+    vat_number = schema.TextLine(title=_("VAT number"), required=False)
     phones = schema.List(
-        title=_(u"Phones"),
+        title=_("Phones"),
         value_type=DictRow(
-            title=u"Value",
+            title="Value",
             schema=IPhoneRowSchema,
         ),
         required=False,
@@ -122,9 +122,9 @@ class IContactInformations(model.Schema):
     widget("phones", DataGridFieldFactory, allow_reorder=True)
 
     mails = schema.List(
-        title=_(u"E-mails"),
+        title=_("E-mails"),
         value_type=DictRow(
-            title=u"Value",
+            title="Value",
             schema=IMailRowSchema,
         ),
         required=False,
@@ -132,9 +132,9 @@ class IContactInformations(model.Schema):
     widget("mails", DataGridFieldFactory, allow_reorder=True)
 
     urls = schema.List(
-        title=_(u"URLs"),
+        title=_("URLs"),
         value_type=DictRow(
-            title=u"Value",
+            title="Value",
             schema=IUrlRowSchema,
         ),
         required=False,
@@ -146,13 +146,13 @@ class IPrivateContactInformations(model.Schema):
 
     model.fieldset(
         "private_contact_informations",
-        label=_(u"Private contact informations"),
+        label=_("Private contact informations"),
         fields=["private_phones", "private_mails", "private_urls", "private_note"],
     )
     private_phones = schema.List(
-        title=_(u"Phones"),
+        title=_("Phones"),
         value_type=DictRow(
-            title=u"Value",
+            title="Value",
             schema=IPhoneRowSchema,
         ),
         required=False,
@@ -160,9 +160,9 @@ class IPrivateContactInformations(model.Schema):
     widget("private_phones", DataGridFieldFactory, allow_reorder=True)
 
     private_mails = schema.List(
-        title=_(u"E-mails"),
+        title=_("E-mails"),
         value_type=DictRow(
-            title=u"Value",
+            title="Value",
             schema=IMailRowSchema,
         ),
         required=False,
@@ -170,16 +170,16 @@ class IPrivateContactInformations(model.Schema):
     widget("private_mails", DataGridFieldFactory, allow_reorder=True)
 
     private_urls = schema.List(
-        title=_(u"URLs"),
+        title=_("URLs"),
         value_type=DictRow(
-            title=u"Value",
+            title="Value",
             schema=IUrlRowSchema,
         ),
         required=False,
     )
     widget("private_urls", DataGridFieldFactory, allow_reorder=True)
 
-    private_note = schema.Text(title=_(u"Internal note"), required=False)
+    private_note = schema.Text(title=_("Internal note"), required=False)
 
     read_permission(
         private_phones="imio.directory.core.ViewContactPrivateInformations",
@@ -201,22 +201,22 @@ class IContact(IPrivateContactInformations, IContactInformations, IAddress):
     directives.order_before(type="IBasic.title")
     directives.widget(type=RadioFieldWidget)
     type = schema.Choice(
-        title=_(u"Type"),
+        title=_("Type"),
         source="imio.directory.vocabulary.ContactTypes",
         required=True,
     )
 
     directives.order_after(subtitle="IBasic.title")
-    subtitle = schema.TextLine(title=_(u"Subtitle"), required=False)
+    subtitle = schema.TextLine(title=_("Subtitle"), required=False)
 
-    logo = NamedBlobImage(title=_(u"Logo"), description=_(u""), required=False)
+    logo = NamedBlobImage(title=_("Logo"), description=_(""), required=False)
 
     model.fieldset("categorization", fields=["selected_entities", "facilities"])
     directives.widget(selected_entities=SelectFieldWidget)
     selected_entities = schema.List(
-        title=_(u"Selected entities"),
+        title=_("Selected entities"),
         description=_(
-            u"Select entities where this contact will be displayed. Current entity will always be selected."
+            "Select entities where this contact will be displayed. Current entity will always be selected."
         ),
         value_type=schema.Choice(vocabulary="imio.directory.vocabulary.EntitiesUIDs"),
         default=[],
@@ -224,9 +224,9 @@ class IContact(IPrivateContactInformations, IContactInformations, IAddress):
     )
 
     facilities = schema.List(
-        title=_(u"Facilities"),
+        title=_("Facilities"),
         description=_(
-            u"Important! These categories make it possible to highlight and geolocate certain basic services"
+            "Important! These categories make it possible to highlight and geolocate certain basic services"
         ),
         value_type=schema.Choice(vocabulary="imio.directory.vocabulary.Facilities"),
         required=False,

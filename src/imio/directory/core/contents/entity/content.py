@@ -14,8 +14,8 @@ class IEntity(model.Schema):
 
     directives.widget(zip_codes=SelectFieldWidget)
     zip_codes = schema.List(
-        title=_(u"Zip codes and cities"),
-        description=_(u"Choose zip codes for this entity"),
+        title=_("Zip codes and cities"),
+        description=_("Choose zip codes for this entity"),
         value_type=schema.Choice(vocabulary="imio.smartweb.vocabulary.Cities"),
     )
 
