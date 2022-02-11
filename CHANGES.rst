@@ -5,6 +5,9 @@ Changelog
 1.0a2 (unreleased)
 ------------------
 
+- Add more checks / automatic corrections in contacts CSV import
+  [laulaz]
+
 - Update buildout to use Plone 6.0.0a3 packages versions
   [boulch]
 

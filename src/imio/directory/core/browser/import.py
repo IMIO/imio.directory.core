@@ -32,7 +32,7 @@ def convert_empty_val(value):
     if value in ["---", ""]:
         # --- is used as blank field in sheet template listbox
         return None
-    return str(value)
+    return str(value).strip()
 
 
 def cleanup(lst):
@@ -153,6 +153,11 @@ class ContactRow(object):
             },
         ]
         self.phones = [p for p in self.phones if convert_empty_val(p.get("number"))]
+        for phone in self.phones:
+            phone["number"] = phone["number"].replace(" ", "")
+            if not phone["number"].startswith("+"):
+                # add '+' in phone number if missing
+                phone["number"] = f"+{phone['number']}"
         self.mails = [
             {
                 "label": contact_row[22],
@@ -171,12 +176,19 @@ class ContactRow(object):
             },
         ]
         self.mails = [m for m in self.mails if convert_empty_val(m.get("mail_address"))]
+        for mail in self.mails:
+            mail["mail_address"] = mail["mail_address"].strip()
         self.urls = [
             {"type": contact_row[31], "url": contact_row[32]},
             {"type": contact_row[33], "url": contact_row[34]},
             {"type": contact_row[35], "url": contact_row[36]},
         ]
         self.urls = [u for u in self.urls if convert_empty_val(u.get("url"))]
+        for url in self.urls:
+            url["url"] = url["url"].strip()
+            if not url["url"].startswith("http"):
+                # add 'https://' in website url if missing
+                url["url"] = f"https://{url['url']}"
         self.topics = cleanup([contact_row[37], contact_row[38], contact_row[39]])
         # XXX categories are not inserted yet
         self.categories = cleanup([contact_row[40], contact_row[41], contact_row[42]])
@@ -241,7 +253,7 @@ class ContactsImporter(object):
         self.contact_rows = []
         reader = csv.reader(
             StringIO(data.decode("utf-8")),
-            delimiter=",",
+            delimiter=";",
             dialect="excel",
             quotechar='"',
         )
