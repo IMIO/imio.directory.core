@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0a2 (unreleased)
+1.0a2 (2022-02-11)
 ------------------
 
 - Add more checks / automatic corrections in contacts CSV import
