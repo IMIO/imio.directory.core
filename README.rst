@@ -31,6 +31,7 @@ imio.directory.core
 
 Directory product for 'Contacts authentic source' website
 
+
 Features
 --------
 
@@ -54,7 +55,60 @@ Hopefully soon in production :-)
 Documentation
 -------------
 
-TODO
+Contact can be import from a CSV file.
+
+| CSV Delimiter is ";"
+| Contact importation structure (columns indexes) :
+
+| 00  contact_type
+| 01  title
+| 02  subtitle
+| 03  description
+| 04  street
+| 05  number
+| 06  complement
+| 07  zipcode
+| 08  city
+| 09  country
+| 10  vat_number
+| 11  latitude
+| 12  longitude
+| 13  phone label 1
+| 14  phone type 1
+| 15  phone number 1
+| 16  phone label 2
+| 17  phone type 2
+| 18  phone number 2
+| 19  phone label 3
+| 20  phone type 3
+| 21  phone number 3
+| 22  mail label 1
+| 23  mail type 1
+| 24  mail address 1
+| 25  mail label 2
+| 26  mail type 2
+| 27  mail address 2
+| 28  mail label 3
+| 29  mail type 3
+| 30  mail address 3
+| 31  url type 1
+| 32  url link 1
+| 33  url type 2
+| 34  url link 2
+| 35  url type 3
+| 36  url link 3
+| 37  topic 1
+| 38  topic 2
+| 39  topic 3
+| 40  category 1
+| 41  category 2
+| 42  category 3
+| 43  facility 1
+| 44  facility 2
+| 45  facility 3
+| 46  iam 1
+| 47  iam 2
+| 48  iam 3
 
 
 Translations
@@ -77,7 +131,8 @@ Install imio.directory.core by adding it to your buildout::
     ...
 
     eggs =
-        imio.directory.core
+
+  imio.directory.core
 
 
 and then running ``bin/buildout``
