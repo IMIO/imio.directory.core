@@ -5,7 +5,8 @@ Changelog
 1.0a3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Use common.interfaces.ILocalManagerAware to mark a locally manageable content
+  [boulch]
 
 
 1.0a2 (2022-02-11)

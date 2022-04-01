@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from imio.smartweb.common.interfaces import ILocalManagerAware
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import schema
 from plone.app.z3cform.widget import SelectFieldWidget
@@ -20,6 +21,6 @@ class IEntity(model.Schema):
     )
 
 
-@implementer(IEntity)
+@implementer(IEntity, ILocalManagerAware)
 class Entity(Container):
     """Entity content type"""
