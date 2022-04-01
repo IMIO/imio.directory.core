@@ -5,6 +5,9 @@ Changelog
 1.0a3 (unreleased)
 ------------------
 
+- Use unique urls for images scales to ease caching
+  [boulch]
+
 - Use common.interfaces.ILocalManagerAware to mark a locally manageable content
   [boulch]
 

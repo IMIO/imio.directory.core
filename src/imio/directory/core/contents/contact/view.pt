@@ -35,16 +35,18 @@
         </div>
     </fieldset>
 
-    <div tal:define="images view/images;
-                     thumb_scale string:preview"
+    <div tal:define="images view/images;"
          tal:condition="images"
          class="contact-gallery flexbin flexbin-margin">
         <tal:images tal:repeat="item images">
             <a class="spotlight gallery_item"
-               tal:attributes="href string:${item/absolute_url}/@@images/image/large;
+               tal:define="image_view item/@@images;
+                           large python: image_view.scale('image', 'large')"
+               tal:attributes="href large/url | nothing;
                                title item/title;
                                data-description item/description">
-              <img tal:attributes="src string:${item/absolute_url}/@@images/image/${thumb_scale};
+              <img tal:define="thumb python: image_view.scale('image', 'preview')"
+                   tal:attributes="src thumb/url | nothing;
                                    alt item/title;
                                    title item/title" />
             </a>
