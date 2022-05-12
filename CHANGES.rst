@@ -5,7 +5,8 @@ Changelog
 1.0a4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- It's not allowed to put Images or Files in imio.directory.Entity
+  [boulch]
 
 
 1.0a3 (2022-05-03)
