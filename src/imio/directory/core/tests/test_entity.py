@@ -19,7 +19,7 @@ class TestEntity(unittest.TestCase):
 
     def setUp(self):
         """Custom shared utility setup for tests"""
-        self.authorized_types_in_entity = ["imio.directory.Contact", "File", "Image"]
+        self.authorized_types_in_entity = ["imio.directory.Contact"]
         self.unauthorized_types_in_entity = [
             "imio.directory.Entity",
             "Folder",
