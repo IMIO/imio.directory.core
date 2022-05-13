@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    name="imio.directory.Entity"
+    meta_type="Dexterity FTI"
+    i18n:domain="imio.smartweb">
+
+  <property name="allowed_content_types">
+    <element value="imio.directory.Contact" />
+  </property>
+
+</object>

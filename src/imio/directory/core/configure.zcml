@@ -17,12 +17,12 @@
 
   <include package=".contents" />
   <include package=".browser" />
+  <include package=".upgrades" />
 
   <include file="indexers.zcml" />
   <include file="permissions.zcml" />
   <include file="profiles.zcml" />
   <include file="subscribers.zcml" />
-  <include file="upgrades.zcml" />
   <include file="vocabularies.zcml" />
 
   <includeOverrides file="overrides.zcml" />
