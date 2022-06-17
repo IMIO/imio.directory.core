@@ -64,8 +64,11 @@ class SiteTypeVocabularyFactory:
     def __call__(self, context=None):
         values = [
             ("facebook", _("Facebook")),
+            ("instagram", _("Instagram")),
+            ("pinterest", _("Pinterest")),
             ("twitter", _("Twitter")),
             ("website", _("Website")),
+            ("youtube", _("Youtube")),
         ]
         terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
         return SimpleVocabulary(terms)

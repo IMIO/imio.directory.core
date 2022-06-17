@@ -5,6 +5,9 @@ Changelog
 1.0a4 (unreleased)
 ------------------
 
+- [WEBMIGP5-36] Add new vocabulary terms in imio.directory.vocabulary.SiteTypes (Instagram, Pinterest, Youtube)
+  [boulch]
+
 - It's not allowed to put Images or Files in imio.directory.Entity
   [boulch]
 
