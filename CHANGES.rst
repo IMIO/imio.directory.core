@@ -5,6 +5,9 @@ Changelog
 1.0a4 (unreleased)
 ------------------
 
+- Update contact_category taxonomy data to reflect production site data
+  [laulaz]
+
 - [WEBMIGP5-36] Add new vocabulary terms in imio.directory.vocabulary.SiteTypes (Instagram, Pinterest, Youtube)
   [boulch]
 
