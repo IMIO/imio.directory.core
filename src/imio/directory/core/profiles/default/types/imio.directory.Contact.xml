@@ -30,6 +30,7 @@
   <!-- Enabled behaviors -->
   <property name="behaviors" purge="true">
     <element value="plone.basic"/>
+    <element value="plone.translatable"/>
     <element value="plone.locking"/>
     <element value="plone.leadimage"/>
     <element value="plone.imagecropping"/>

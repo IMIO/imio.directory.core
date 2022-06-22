@@ -32,6 +32,7 @@
     <element value="plone.excludefromnavigation"/>
     <element value="plone.categorization"/>
     <element value="plone.basic"/>
+    <element value="plone.translatable"/>
     <element value="plone.locking"/>
     <element value="plone.leadimage"/>
   </property>

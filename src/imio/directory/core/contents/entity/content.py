@@ -3,6 +3,7 @@
 from imio.smartweb.common.interfaces import ILocalManagerAware
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import schema
+from plone.app.multilingual.dx import directives as pam_directives
 from plone.app.z3cform.widget import SelectFieldWidget
 from plone.autoform import directives
 from plone.dexterity.content import Container
@@ -14,6 +15,7 @@ class IEntity(model.Schema):
     """Marker interface and Dexterity Python Schema for Entity"""
 
     directives.widget(zip_codes=SelectFieldWidget)
+    pam_directives.languageindependent("zip_codes")
     zip_codes = schema.List(
         title=_("Zip codes and cities"),
         description=_("Choose zip codes for this entity"),
