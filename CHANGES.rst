@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0a4 (unreleased)
+1.0a4 (2022-07-14)
 ------------------
 
 - Update contact_category taxonomy data to reflect production site data
