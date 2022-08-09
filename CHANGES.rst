@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0a5 (unreleased)
+1.0a5 (2022-08-09)
 ------------------
 
 - WEB-3726 : Add subjects (keyword) in SearchableText
