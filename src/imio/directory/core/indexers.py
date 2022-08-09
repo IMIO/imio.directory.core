@@ -33,7 +33,7 @@ def SearchableText_contact(obj):
         categories.append(
             utility.translate(category, context=obj, target_language=current_lang)
         )
-
+    subjects = obj.Subject()
     result = " ".join(
         (
             safe_unicode(obj.title) or "",
@@ -41,6 +41,7 @@ def SearchableText_contact(obj):
             safe_unicode(obj.description) or "",
             *topics,
             *categories,
+            *subjects,
         )
     )
     return _unicode_save_string_concat(result)

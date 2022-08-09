@@ -3,6 +3,7 @@
 from collective.geolocationbehavior.geolocation import IGeolocatable
 from imio.directory.core.utils import get_entity_uid_for_contact
 from imio.smartweb.common.faceted.utils import configure_faceted
+from imio.smartweb.common.upgrades import upgrades
 from imio.smartweb.common.utils import translate_vocabulary_term
 from plone import api
 from plone.formwidget.geolocation.geolocation import Geolocation
@@ -113,3 +114,7 @@ def geocode_all_contacts(context):
                 latitude=location.latitude, longitude=location.longitude
             )
             obj.reindexObject(idxs=["longitude", "latitude"])
+
+
+def reindex_searchable_text(context):
+    upgrades.reindex_searchable_text(context)
