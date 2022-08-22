@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from eea.facetednavigation.subtypes.interfaces import IFacetedNavigable
 from imio.directory.core.contents import IEntity
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
 from plone import api
@@ -65,6 +66,9 @@ class TestEntity(unittest.TestCase):
                 entity.id,
             ),
         )
+
+        self.assertTrue(IFacetedNavigable.providedBy(entity))
+
         parent = entity.__parent__
         self.assertIn("entity", parent.objectIds())
 

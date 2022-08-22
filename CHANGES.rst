@@ -5,7 +5,8 @@ Changelog
 1.0a6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add eea.faceted.navigable behavior on Entity type
+  [laulaz]
 
 
 1.0a5 (2022-08-09)
