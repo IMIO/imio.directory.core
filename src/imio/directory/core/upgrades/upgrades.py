@@ -118,3 +118,19 @@ def geocode_all_contacts(context):
 
 def reindex_searchable_text(context):
     upgrades.reindex_searchable_text(context)
+
+
+def add_translations_indexes(context):
+    new_indexes = ["translated_in_nl", "translated_in_de", "translated_in_en"]
+    catalog = api.portal.get_tool("portal_catalog")
+    indexes = catalog.indexes()
+    indexables = []
+    for new_index in new_indexes:
+        if new_index in indexes:
+            continue
+        catalog.addIndex(new_index, "BooleanIndex")
+        indexables.append(new_index)
+        logger.info(f"Added BooleanIndex for field {new_index}")
+    if len(indexables) > 0:
+        logger.info(f"Indexing new indexes {', '.join(indexables)}")
+        catalog.manage_reindexIndex(ids=indexables)

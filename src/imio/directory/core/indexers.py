@@ -12,6 +12,21 @@ from zope.component import getSiteManager
 
 
 @indexer(IContact)
+def translated_in_nl(obj):
+    return bool(obj.title_nl)
+
+
+@indexer(IContact)
+def translated_in_de(obj):
+    return bool(obj.title_de)
+
+
+@indexer(IContact)
+def translated_in_en(obj):
+    return bool(obj.title_en)
+
+
+@indexer(IContact)
 def container_uid(obj):
     uid = get_entity_uid_for_contact(obj)
     return uid
@@ -39,6 +54,15 @@ def SearchableText_contact(obj):
             safe_unicode(obj.title) or "",
             safe_unicode(obj.subtitle) or "",
             safe_unicode(obj.description) or "",
+            safe_unicode(obj.title_nl) or "",
+            safe_unicode(obj.subtitle_nl) or "",
+            safe_unicode(obj.description_nl) or "",
+            safe_unicode(obj.title_de) or "",
+            safe_unicode(obj.subtitle_de) or "",
+            safe_unicode(obj.description_de) or "",
+            safe_unicode(obj.title_en) or "",
+            safe_unicode(obj.subtitle_en) or "",
+            safe_unicode(obj.description_en) or "",
             *topics,
             *categories,
             *subjects,

@@ -57,4 +57,13 @@
       profile="imio.directory.core:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Add translations related indexes"
+      description=""
+      source="1005"
+      destination="1006"
+      handler=".upgrades.add_translations_indexes"
+      profile="imio.directory.core:default"
+      />
+
 </configure>

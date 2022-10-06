@@ -195,7 +195,67 @@ class IPrivateContactInformations(model.Schema):
     )
 
 
-class IContact(IPrivateContactInformations, IContactInformations, IAddress):
+class IDETranslations(model.Schema):
+
+    model.fieldset(
+        "de_translations",
+        label=_("German translations"),
+        fields=["title_de", "subtitle_de", "description_de"],
+    )
+    title_de = schema.TextLine(
+        title=_("Title"),
+        description=_(
+            "This field is required if the content must be available in this language"
+        ),
+        required=False,
+    )
+    subtitle_de = schema.TextLine(title=_("Subtitle"), required=False)
+    description_de = schema.Text(title=_("Description"), required=False)
+
+
+class IENTranslations(model.Schema):
+
+    model.fieldset(
+        "en_translations",
+        label=_("English translations"),
+        fields=["title_en", "subtitle_en", "description_en"],
+    )
+    title_en = schema.TextLine(
+        title=_("Title"),
+        description=_(
+            "This field is required if the content must be available in this language"
+        ),
+        required=False,
+    )
+    subtitle_en = schema.TextLine(title=_("Subtitle"), required=False)
+    description_en = schema.Text(title=_("Description"), required=False)
+
+
+class INLTranslations(model.Schema):
+
+    model.fieldset(
+        "nl_translations",
+        label=_("Dutch translations"),
+        fields=["title_nl", "subtitle_nl", "description_nl"],
+    )
+    title_nl = schema.TextLine(
+        title=_("Title"),
+        description=_(
+            "This field is required if the content must be available in this language"
+        ),
+        required=False,
+    )
+    subtitle_nl = schema.TextLine(title=_("Subtitle"), required=False)
+    description_nl = schema.Text(title=_("Description"), required=False)
+
+
+class ITranslations(IENTranslations, IDETranslations, INLTranslations):
+    """ """
+
+
+class IContact(
+    IPrivateContactInformations, IContactInformations, IAddress, ITranslations
+):
     """ """
 
     directives.order_before(type="IBasic.title")
