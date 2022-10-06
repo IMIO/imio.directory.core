@@ -16,6 +16,15 @@
   <index name="selected_entities" meta_type="KeywordIndex">
     <indexed_attr value="selected_entities"/>
   </index>
+  <index name="translated_in_nl" meta_type="BooleanIndex">
+    <indexed_attr value="translated_in_nl"/>
+  </index>
+  <index name="translated_in_de" meta_type="BooleanIndex">
+    <indexed_attr value="translated_in_de"/>
+  </index>
+  <index name="translated_in_en" meta_type="BooleanIndex">
+    <indexed_attr value="translated_in_en"/>
+  </index>
 
   <column value="contact_type"/>
   <column value="container_uid"/>

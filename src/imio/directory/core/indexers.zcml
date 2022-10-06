@@ -2,6 +2,21 @@
     xmlns="http://namespaces.zope.org/zope">
 
   <adapter
+      name="translated_in_nl"
+      factory=".indexers.translated_in_nl"
+      />
+
+  <adapter
+      name="translated_in_de"
+      factory=".indexers.translated_in_de"
+      />
+
+  <adapter
+      name="translated_in_en"
+      factory=".indexers.translated_in_en"
+      />
+
+  <adapter
       name="container_uid"
       factory=".indexers.container_uid"
       />
