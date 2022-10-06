@@ -66,7 +66,7 @@
                                  alt item/title">
                 <span>
                     <img class="mime-icon"
-                         tal:attributes="src file_view/get_mimetype_icon">
+                         tal:attributes="src python:file_view.getMimeTypeIcon(item.file)">
                     <span tal:content="item/title">Item Title</span>
                     <span class="discreet">&mdash; <span tal:replace="file_view/human_readable_size" /></span>
                 </span>

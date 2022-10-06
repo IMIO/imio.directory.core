@@ -5,6 +5,9 @@ Changelog
 1.0a6 (unreleased)
 ------------------
 
+- Migrate buildout to Plone 6.0.0b2 and fix deprecated get_mimetype_icon
+  [boulch]
+
 - Add eea.faceted.navigable behavior on Entity type
   [laulaz]
 
