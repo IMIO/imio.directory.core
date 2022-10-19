@@ -49,7 +49,7 @@ Contacts are displayed in those sites by `imio.smartweb.core <https://github.com
 Examples
 --------
 
-Hopefully soon in production :-)
+- https://annuaire.enwallonie.be
 
 
 Documentation
