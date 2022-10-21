@@ -9,6 +9,7 @@ Changelog
   [boulch]
 
 - Migrate buildout to Plone 6.0.0b2 and fix deprecated get_mimetype_icon
+- WEB-3770 : Force include_items in serializer to True to get files and pictures included in contact
   [boulch]
 
 - Add eea.faceted.navigable behavior on Entity type
