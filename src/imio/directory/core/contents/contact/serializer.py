@@ -12,7 +12,7 @@ from zope.interface import Interface
 @adapter(IContact, Interface)
 class SerializeContactToJson(SerializeFolderToJson):
     def __call__(self, version=None, include_items=True):
-        result = super(SerializeContactToJson, self).__call__(version, include_items)
+        result = super(SerializeContactToJson, self).__call__(version, include_items=True)
         version = "current" if version is None else version
         obj = self.getVersion(version)
         result["is_geolocated"] = obj.is_geolocated
