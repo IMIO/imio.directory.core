@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0a6 (unreleased)
+1.0a6 (2022-10-21)
 ------------------
 
 - WEB-3770 : Force include_items in serializer to True to get files and pictures included in contact
