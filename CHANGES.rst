@@ -5,7 +5,8 @@ Changelog
 1.0a7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- WEB-3762 : Reorder contact fields to encourage good completion + add some fields descriptions
+  [boulch]
 
 
 1.0a6 (2022-10-21)
