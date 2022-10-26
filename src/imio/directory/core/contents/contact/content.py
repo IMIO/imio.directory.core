@@ -209,7 +209,12 @@ class IContact(IPrivateContactInformations, IContactInformations, IAddress):
     directives.order_after(subtitle="IBasic.title")
     subtitle = schema.TextLine(title=_("Subtitle"), required=False)
 
-    logo = NamedBlobImage(title=_("Logo"), description=_(""), required=False)
+    directives.order_after(logo="ILeadImageBehavior.image")
+    logo = NamedBlobImage(
+        title=_("Logo"),
+        description=_("Example : shop, service, association logo"),
+        required=False,
+    )
 
     model.fieldset("categorization", fields=["selected_entities", "facilities"])
     directives.widget(selected_entities=SelectFieldWidget)

@@ -31,6 +31,12 @@ class ContactCustomEditForm(CustomEditForm):
                 "The geolocation is generated on the basis of the address during contact save. "
                 "It is possible to change the pointer manually if it is not correctly positioned."
             )
+        if "ILeadImageBehavior.image" in self.widgets:
+            desc = self.widgets["ILeadImageBehavior.image"].description
+            prepend_desc = _("Example : Photo of a person or organization building")
+            self.widgets[
+                "ILeadImageBehavior.image"
+            ].description = f"{prepend_desc}. {desc}"
 
 
 ContactCustomEditView = layout.wrap_form(ContactCustomEditForm)
