@@ -5,6 +5,9 @@ Changelog
 1.0a7 (unreleased)
 ------------------
 
+- Fix translation
+  [boulch]
+
 - WEB-3762 : Reorder contact fields to encourage good completion + add some fields descriptions
   [boulch]
 
