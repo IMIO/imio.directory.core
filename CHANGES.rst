@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.0a7 (unreleased)
+1.0a7 (2022-10-28)
 ------------------
 
 - Fix translation
