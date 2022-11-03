@@ -7,4 +7,8 @@
       provides="zope.container.interfaces.INameChooser"
       />
 
+  <adapter
+      factory=".converters.i18n_message_converter"
+      />
+
 </configure>

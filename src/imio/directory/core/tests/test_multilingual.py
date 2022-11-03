@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 
+from imio.directory.core.interfaces import IImioDirectoryCoreLayer
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
+from plone.restapi.interfaces import ISerializeToJson
+from plone.restapi.interfaces import ISerializeToJsonSummary
 from plone.restapi.testing import RelativeSession
 from zope.component import getMultiAdapter
+from zope.interface import alsoProvides
 
 import transaction
 import unittest
@@ -123,3 +127,48 @@ class TestContact(unittest.TestCase):
         brain = api.content.find(UID=contact.UID())[0]
         indexes = catalog.getIndexDataForRID(brain.getRID())
         self.assertNotIn("several", indexes.get("SearchableText"))
+
+    def test_contact_serializer(self):
+        alsoProvides(self.request, IImioDirectoryCoreLayer)
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="Mon contact",
+        )
+        contact.title_en = "My contact"
+        contact.title_nl = "Mijn contactpersoon"
+        contact.description = "Ma **description**"
+        contact.description_en = "My **description**"
+        contact.description_nl = "Mijn **beschrijving**"
+        contact.subtitle = "Ma fonction"
+        contact.subtitle_en = "My function"
+        contact.subtitle_nl = "Mijn positie"
+        serializer = getMultiAdapter((contact, self.request), ISerializeToJson)
+        json = serializer()
+        self.assertEqual(json["title"], "Mon contact")
+        self.assertEqual(json["description"], "Ma **description**")
+        self.assertEqual(json["title_fr"], "Mon contact")
+        self.assertEqual(json["description_fr"], "Ma **description**")
+
+        catalog = api.portal.get_tool("portal_catalog")
+        brain = catalog(UID=contact.UID())[0]
+        serializer = getMultiAdapter((brain, self.request), ISerializeToJsonSummary)
+        json_summary = serializer()
+        self.assertEqual(json_summary["title"], "Mon contact")
+        self.assertEqual(json_summary["description"], "Ma description")
+
+        self.request.form["translated_in_nl"] = True
+        serializer = getMultiAdapter((contact, self.request), ISerializeToJson)
+        json = serializer()
+        self.assertEqual(json["title"], "Mijn contactpersoon")
+        self.assertEqual(json["description"], "Mijn **beschrijving**")
+        self.assertEqual(json["subtitle"], "Mijn positie")
+        self.assertEqual(json["title_fr"], "Mon contact")
+        self.assertEqual(json["description_fr"], "Ma **description**")
+        self.assertEqual(json["subtitle_fr"], "Ma fonction")
+
+        brain = catalog(UID=contact.UID())[0]
+        serializer = getMultiAdapter((brain, self.request), ISerializeToJsonSummary)
+        json_summary = serializer()
+        self.assertEqual(json_summary["title"], "Mijn contactpersoon")
+        self.assertEqual(json_summary["description"], "Mijn beschrijving")
