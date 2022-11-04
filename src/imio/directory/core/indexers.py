@@ -27,6 +27,32 @@ def translated_in_en(obj):
 
 
 @indexer(IContact)
+def title_fr(obj):
+    return obj.title
+
+
+@indexer(IContact)
+def title_nl(obj):
+    if not obj.title_nl:
+        raise AttributeError
+    return obj.title_nl
+
+
+@indexer(IContact)
+def title_de(obj):
+    if not obj.title_de:
+        raise AttributeError
+    return obj.title_de
+
+
+@indexer(IContact)
+def title_en(obj):
+    if not obj.title_en:
+        raise AttributeError
+    return obj.title_en
+
+
+@indexer(IContact)
 def container_uid(obj):
     uid = get_entity_uid_for_contact(obj)
     return uid

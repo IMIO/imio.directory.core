@@ -31,5 +31,9 @@
   <column value="facilities"/>
   <column value="is_geolocated"/>
   <column value="selected_entities"/>
+  <column value="title_fr"/>
+  <column value="title_nl"/>
+  <column value="title_de"/>
+  <column value="title_en"/>
 
 </object>
