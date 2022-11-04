@@ -119,6 +119,11 @@ class TestContact(unittest.TestCase):
         indexes = catalog.getIndexDataForRID(brain.getRID())
         self.assertIn("several", indexes.get("SearchableText"))
         self.assertIn("verschillende", indexes.get("SearchableText"))
+        metadatas = catalog.getMetadataForRID(brain.getRID())
+        self.assertEqual(contact.title, metadatas.get("title_fr"))
+        self.assertEqual(contact.title_nl, metadatas.get("title_nl"))
+        self.assertEqual(contact.title_de, metadatas.get("title_de"))
+        self.assertEqual(contact.title_en, metadatas.get("title_en"))
 
         contact.title_en = None
         contact.reindexObject()
