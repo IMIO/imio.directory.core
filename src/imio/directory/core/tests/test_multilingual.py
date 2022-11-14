@@ -5,11 +5,8 @@ from imio.directory.core.testing import IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
-from plone.app.testing import SITE_OWNER_NAME
-from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.restapi.interfaces import ISerializeToJson
 from plone.restapi.interfaces import ISerializeToJsonSummary
-from plone.restapi.testing import RelativeSession
 from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
 
@@ -17,30 +14,20 @@ import transaction
 import unittest
 
 
-class TestContact(unittest.TestCase):
+class TestMultilingual(unittest.TestCase):
 
     layer = IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 
     def setUp(self):
         """Custom shared utility setup for tests"""
-        self.authorized_types_in_contact = ["imio.directory.Contact", "File", "Image"]
-        self.unauthorized_types_in_contact = ["Folder", "Page", "Link"]
-
         self.request = self.layer["request"]
         self.portal = self.layer["portal"]
-        self.portal_url = self.portal.absolute_url()
-        self.api_session = RelativeSession(self.portal_url)
-        self.api_session.headers.update({"Accept": "application/json"})
-        self.api_session.auth = (SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         self.entity = api.content.create(
             container=self.portal,
             type="imio.directory.Entity",
             title="Entity",
         )
-
-    def tearDown(self):
-        self.api_session.close()
 
     def test_create_multilingual_contact(self):
         setRoles(self.portal, TEST_USER_ID, ["Contributor"])
