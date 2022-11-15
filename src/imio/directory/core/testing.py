@@ -27,6 +27,7 @@ class ImioDirectoryCoreLayer(PloneSandboxLayer):
 
         self.loadZCML(package=plone.restapi)
         self.loadZCML(package=imio.directory.core)
+        self.loadZCML(package=imio.directory.core, name="overrides.zcml")
 
     def setUpPloneSite(self, portal):
         applyProfile(portal, "imio.directory.core:testing")

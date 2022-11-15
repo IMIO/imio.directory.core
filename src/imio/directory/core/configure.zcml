@@ -25,6 +25,4 @@
   <include file="subscribers.zcml" />
   <include file="vocabularies.zcml" />
 
-  <includeOverrides file="overrides.zcml" />
-
 </configure>
