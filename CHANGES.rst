@@ -5,7 +5,8 @@ Changelog
 1.0a8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add multilingual features: New fields, vocabularies translations, restapi serializer
+  [laulaz]
 
 
 1.0a7 (2022-10-28)
