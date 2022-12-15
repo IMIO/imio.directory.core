@@ -408,7 +408,7 @@ class TestContact(unittest.TestCase):
         alsoProvides(self.request, IImioDirectoryCoreLayer)
         getMultiAdapter((contact, self.request), name="view")()
         bundles = getattr(self.request, "enabled_bundles", [])
-        self.assertEqual(len(bundles), 1)
+        self.assertEqual(len(bundles), 0)
         api.content.create(
             container=contact,
             type="Image",
@@ -416,6 +416,5 @@ class TestContact(unittest.TestCase):
         )
         getMultiAdapter((contact, self.request), name="view")()
         bundles = getattr(self.request, "enabled_bundles", [])
-        self.assertEqual(len(bundles), 3)
-        # leaflet is for geolocation
-        self.assertListEqual(bundles, ["bundle-leaflet", "spotlightjs", "flexbin"])
+        self.assertEqual(len(bundles), 2)
+        self.assertListEqual(bundles, ["spotlightjs", "flexbin"])
