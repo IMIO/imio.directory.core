@@ -5,7 +5,11 @@ Changelog
 1.0.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update to Plone 6.0.0 final
+  [boulch]
+
+- Add eea.faceted.navigable behavior on Entity type
+  [laulaz]
 
 
 1.0 (2022-11-15)
@@ -28,10 +32,6 @@ Changelog
 1.0a6 (2022-10-21)
 ------------------
 
-- Update to Plone 6.0.0 final
-  [boulch]
-
-- Migrate buildout to Plone 6.0.0b2 and fix deprecated get_mimetype_icon
 - WEB-3770 : Force include_items in serializer to True to get files and pictures included in contact
   [boulch]
 
