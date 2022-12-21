@@ -135,12 +135,17 @@ class TestMultilingual(unittest.TestCase):
         contact.subtitle = "Ma fonction"
         contact.subtitle_en = "My function"
         contact.subtitle_nl = "Mijn positie"
+        contact.taxonomy_contact_category = ["cho96vl9ox"]
+
         serializer = getMultiAdapter((contact, self.request), ISerializeToJson)
         json = serializer()
         self.assertEqual(json["title"], "Mon contact")
         self.assertEqual(json["description"], "Ma **description**")
         self.assertEqual(json["title_fr"], "Mon contact")
         self.assertEqual(json["description_fr"], "Ma **description**")
+        self.assertEqual(
+            json["taxonomy_contact_category"][0]["title"], "Commerces et entreprises"
+        )
 
         catalog = api.portal.get_tool("portal_catalog")
         brain = catalog(UID=contact.UID())[0]
@@ -158,6 +163,9 @@ class TestMultilingual(unittest.TestCase):
         self.assertEqual(json["title_fr"], "Mon contact")
         self.assertEqual(json["description_fr"], "Ma **description**")
         self.assertEqual(json["subtitle_fr"], "Ma fonction")
+        self.assertEqual(
+            json["taxonomy_contact_category"][0]["title"], "Winkels en bedrijven"
+        )
 
         brain = catalog(UID=contact.UID())[0]
         serializer = getMultiAdapter((brain, self.request), ISerializeToJsonSummary)
