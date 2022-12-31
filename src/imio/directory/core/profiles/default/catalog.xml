@@ -25,6 +25,26 @@
   <index name="translated_in_en" meta_type="BooleanIndex">
     <indexed_attr value="translated_in_en"/>
   </index>
+ <index name="SearchableText_fr" meta_type="ZCTextIndex">
+  <indexed_attr value="SearchableText_fr"/>
+  <extra name="index_type" value="Okapi BM25 Rank"/>
+  <extra name="lexicon_id" value="plone_lexicon"/>
+ </index>
+ <index name="SearchableText_nl" meta_type="ZCTextIndex">
+  <indexed_attr value="SearchableText_nl"/>
+  <extra name="index_type" value="Okapi BM25 Rank"/>
+  <extra name="lexicon_id" value="plone_lexicon"/>
+ </index>
+ <index name="SearchableText_de" meta_type="ZCTextIndex">
+  <indexed_attr value="SearchableText_de"/>
+  <extra name="index_type" value="Okapi BM25 Rank"/>
+  <extra name="lexicon_id" value="plone_lexicon"/>
+ </index>
+ <index name="SearchableText_en" meta_type="ZCTextIndex">
+  <indexed_attr value="SearchableText_en"/>
+  <extra name="index_type" value="Okapi BM25 Rank"/>
+  <extra name="lexicon_id" value="plone_lexicon"/>
+ </index>
 
   <column value="contact_type"/>
   <column value="container_uid"/>
@@ -35,5 +55,9 @@
   <column value="title_nl"/>
   <column value="title_de"/>
   <column value="title_en"/>
+  <column value="description_fr"/>
+  <column value="description_nl"/>
+  <column value="description_de"/>
+  <column value="description_en"/>
 
 </object>

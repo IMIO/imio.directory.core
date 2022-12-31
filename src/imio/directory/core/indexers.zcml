@@ -37,13 +37,53 @@
       />
 
   <adapter
+      name="description_fr"
+      factory=".indexers.description_fr"
+      />
+
+  <adapter
+      name="description_nl"
+      factory=".indexers.description_nl"
+      />
+
+  <adapter
+      name="description_de"
+      factory=".indexers.description_de"
+      />
+
+  <adapter
+      name="description_en"
+      factory=".indexers.description_en"
+      />
+
+  <adapter
       name="container_uid"
       factory=".indexers.container_uid"
       />
 
   <adapter
       name="SearchableText"
-      factory=".indexers.SearchableText_contact"
+      factory=".indexers.SearchableText_fr_contact"
+      />
+
+  <adapter
+      name="SearchableText_fr"
+      factory=".indexers.SearchableText_fr_contact"
+      />
+
+  <adapter
+      name="SearchableText_nl"
+      factory=".indexers.SearchableText_nl_contact"
+      />
+
+  <adapter
+      name="SearchableText_de"
+      factory=".indexers.SearchableText_de_contact"
+      />
+
+  <adapter
+      name="SearchableText_en"
+      factory=".indexers.SearchableText_en_contact"
       />
 
 </configure>

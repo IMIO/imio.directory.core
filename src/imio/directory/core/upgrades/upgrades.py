@@ -148,3 +148,8 @@ def add_translations_indexes(context):
     if must_reindex:
         logger.info("Reindexing catalog for new metadatas")
         catalog.clearFindAndRebuild()
+
+
+def reindex_catalog(context):
+    catalog = api.portal.get_tool("portal_catalog")
+    catalog.clearFindAndRebuild()

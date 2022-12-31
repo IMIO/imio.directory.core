@@ -5,7 +5,8 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add new descriptions metadatas and SearchableText indexes for multilingual
+  [laulaz]
 
 
 1.1 (2022-12-20)

@@ -99,18 +99,32 @@ class TestMultilingual(unittest.TestCase):
             "Mijn contactpersoon die ik in verschillende talen zal testen"
         )
         contact.title_de = "Mein Kontakt, den ich in mehreren Sprachen testen werde"
+        contact.description = "Ma description_fr"
+        contact.description_nl = "Mijn beschrijving"
+        contact.description_de = "Meine Beschreibung"
+        contact.description_en = "My description_en"
+
         contact.reindexObject()
         transaction.commit()
         catalog = api.portal.get_tool("portal_catalog")
         brain = api.content.find(UID=contact.UID())[0]
         indexes = catalog.getIndexDataForRID(brain.getRID())
-        self.assertIn("several", indexes.get("SearchableText"))
-        self.assertIn("verschillende", indexes.get("SearchableText"))
+        self.assertNotIn("several", indexes.get("SearchableText"))
+        self.assertNotIn("verschillende", indexes.get("SearchableText"))
+        self.assertEqual(
+            indexes.get("SearchableText"), indexes.get("SearchableText_fr")
+        )
+        self.assertIn("several", indexes.get("SearchableText_en"))
+        self.assertIn("verschillende", indexes.get("SearchableText_nl"))
         metadatas = catalog.getMetadataForRID(brain.getRID())
         self.assertEqual(contact.title, metadatas.get("title_fr"))
         self.assertEqual(contact.title_nl, metadatas.get("title_nl"))
         self.assertEqual(contact.title_de, metadatas.get("title_de"))
         self.assertEqual(contact.title_en, metadatas.get("title_en"))
+        self.assertEqual(contact.description, metadatas.get("description_fr"))
+        self.assertEqual(contact.description_nl, metadatas.get("description_nl"))
+        self.assertEqual(contact.description_de, metadatas.get("description_de"))
+        self.assertEqual(contact.description_en, metadatas.get("description_en"))
 
         contact.title_en = None
         contact.reindexObject()
@@ -118,7 +132,7 @@ class TestMultilingual(unittest.TestCase):
         catalog = api.portal.get_tool("portal_catalog")
         brain = api.content.find(UID=contact.UID())[0]
         indexes = catalog.getIndexDataForRID(brain.getRID())
-        self.assertNotIn("several", indexes.get("SearchableText"))
+        self.assertNotIn("several", indexes.get("SearchableText_en"))
 
     def test_contact_serializer(self):
         alsoProvides(self.request, IImioDirectoryCoreLayer)
