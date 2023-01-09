@@ -150,6 +150,20 @@ def add_translations_indexes(context):
         catalog.clearFindAndRebuild()
 
 
+def add_contact_category_index(context):
+    catalog = api.portal.get_tool("portal_catalog")
+    indexes = catalog.indexes()
+    new_index = "taxonomy_contact_category_for_filtering"
+    if new_index in indexes:
+        return
+    catalog.addIndex(new_index, "KeywordIndex")
+    idx = catalog._catalog.getIndex(new_index)
+    idx.indexed_attrs = ("taxonomy_contact_category",)
+    logger.info(f"Added KeywordIndex {new_index}")
+    logger.info(f"Indexing new index {new_index}")
+    catalog.manage_reindexIndex(ids=[new_index])
+
+
 def reindex_catalog(context):
     catalog = api.portal.get_tool("portal_catalog")
     catalog.clearFindAndRebuild()

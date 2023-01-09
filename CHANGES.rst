@@ -5,6 +5,10 @@ Changelog
 1.1.1 (unreleased)
 ------------------
 
+- Add taxonomy_contact_category_for_filtering index to allow complex queries
+  from smartweb directory views
+  [laulaz]
+
 - Add new descriptions metadatas and SearchableText indexes for multilingual
   [laulaz]
 

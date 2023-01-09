@@ -88,4 +88,13 @@
         />
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeStep
+      title="Add taxonomy_contact_category_for_filtering index"
+      description=""
+      source="1007"
+      destination="1008"
+      handler=".upgrades.add_contact_category_index"
+      profile="imio.directory.core:default"
+      />
+
 </configure>

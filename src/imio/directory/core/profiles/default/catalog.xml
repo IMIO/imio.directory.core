@@ -4,6 +4,9 @@
   <index name="contact_type" meta_type="FieldIndex">
     <indexed_attr value="type"/>
   </index>
+  <index name="taxonomy_contact_category_for_filtering" meta_type="KeywordIndex">
+    <indexed_attr value="taxonomy_contact_category"/>
+  </index>
   <index name="container_uid" meta_type="FieldIndex">
     <indexed_attr value="container_uid"/>
   </index>
