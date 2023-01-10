@@ -81,16 +81,6 @@
       </ul>
     </div>
 
-    <div class="contact-site" tal:condition="context/urls">
-        <tal:loop repeat="site context/urls">
-            <span i18n:translate=""
-                  tal:content="string:${site/type} : "></span>
-            <a target="_blank"
-               tal:attributes="href string:${site/url}"
-               tal:content="string:${site/url}"></a>
-        </tal:loop>
-    </div>
-
     <tal:def tal:define="sub_contacts view/sub_contacts">
       <div class="sub_contacts" tal:condition="sub_contacts">
         <h3 i18n:translate="">Sub contacts</h3>
