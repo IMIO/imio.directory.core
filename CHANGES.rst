@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.1 (unreleased)
+1.1.1 (2023-01-12)
 ------------------
 
 - Add taxonomy_contact_category_for_filtering index to allow complex queries
