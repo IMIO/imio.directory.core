@@ -97,4 +97,13 @@
       profile="imio.directory.core:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Remove SearchableText_fr (Solr will use SearchableText for FR)"
+      description=""
+      source="1008"
+      destination="1009"
+      handler=".upgrades.remove_searchabletext_fr"
+      profile="imio.directory.core:default"
+      />
+
 </configure>

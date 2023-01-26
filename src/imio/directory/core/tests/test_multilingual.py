@@ -111,9 +111,7 @@ class TestMultilingual(unittest.TestCase):
         indexes = catalog.getIndexDataForRID(brain.getRID())
         self.assertNotIn("several", indexes.get("SearchableText"))
         self.assertNotIn("verschillende", indexes.get("SearchableText"))
-        self.assertEqual(
-            indexes.get("SearchableText"), indexes.get("SearchableText_fr")
-        )
+        self.assertIn("plusieurs", indexes.get("SearchableText"))
         self.assertIn("several", indexes.get("SearchableText_en"))
         self.assertIn("verschillende", indexes.get("SearchableText_nl"))
         metadatas = catalog.getMetadataForRID(brain.getRID())

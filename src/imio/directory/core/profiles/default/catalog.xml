@@ -28,11 +28,6 @@
   <index name="translated_in_en" meta_type="BooleanIndex">
     <indexed_attr value="translated_in_en"/>
   </index>
- <index name="SearchableText_fr" meta_type="ZCTextIndex">
-  <indexed_attr value="SearchableText_fr"/>
-  <extra name="index_type" value="Okapi BM25 Rank"/>
-  <extra name="lexicon_id" value="plone_lexicon"/>
- </index>
  <index name="SearchableText_nl" meta_type="ZCTextIndex">
   <indexed_attr value="SearchableText_nl"/>
   <extra name="index_type" value="Okapi BM25 Rank"/>

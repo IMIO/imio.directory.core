@@ -167,3 +167,8 @@ def add_contact_category_index(context):
 def reindex_catalog(context):
     catalog = api.portal.get_tool("portal_catalog")
     catalog.clearFindAndRebuild()
+
+
+def remove_searchabletext_fr(context):
+    catalog = api.portal.get_tool("portal_catalog")
+    catalog.manage_delIndex("SearchableText_fr")

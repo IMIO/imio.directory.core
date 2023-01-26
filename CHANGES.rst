@@ -5,7 +5,8 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Remove SearchableText_fr (Solr will use SearchableText for FR)
+  [laulaz]
 
 
 1.1.1 (2023-01-12)
