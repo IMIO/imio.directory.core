@@ -172,3 +172,9 @@ def reindex_catalog(context):
 def remove_searchabletext_fr(context):
     catalog = api.portal.get_tool("portal_catalog")
     catalog.manage_delIndex("SearchableText_fr")
+
+
+def remove_title_description_fr(context):
+    catalog = api.portal.get_tool("portal_catalog")
+    catalog.delColumn("title_fr")
+    catalog.delColumn("description_fr")

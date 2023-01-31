@@ -17,11 +17,6 @@
       />
 
   <adapter
-      name="title_fr"
-      factory=".indexers.title_fr"
-      />
-
-  <adapter
       name="title_nl"
       factory=".indexers.title_nl"
       />
@@ -34,11 +29,6 @@
   <adapter
       name="title_en"
       factory=".indexers.title_en"
-      />
-
-  <adapter
-      name="description_fr"
-      factory=".indexers.description_fr"
       />
 
   <adapter

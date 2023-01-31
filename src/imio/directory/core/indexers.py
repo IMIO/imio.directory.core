@@ -26,11 +26,6 @@ def translated_in_en(obj):
 
 
 @indexer(IContact)
-def title_fr(obj):
-    return obj.title
-
-
-@indexer(IContact)
 def title_nl(obj):
     if not obj.title_nl:
         raise AttributeError
@@ -49,13 +44,6 @@ def title_en(obj):
     if not obj.title_en:
         raise AttributeError
     return obj.title_en
-
-
-@indexer(IContact)
-def description_fr(obj):
-    if not obj.description:
-        raise AttributeError
-    return obj.description
 
 
 @indexer(IContact)

@@ -106,4 +106,13 @@
       profile="imio.directory.core:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Remove unused title_fr and description_fr metadatas"
+      description=""
+      source="1009"
+      destination="1010"
+      handler=".upgrades.remove_title_description_fr"
+      profile="imio.directory.core:default"
+      />
+
 </configure>

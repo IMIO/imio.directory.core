@@ -5,6 +5,9 @@ Changelog
 1.1.2 (unreleased)
 ------------------
 
+- Remove unused title_fr and description_fr metadatas
+  [laulaz]
+
 - Remove SearchableText_fr (Solr will use SearchableText for FR)
   [laulaz]
 
