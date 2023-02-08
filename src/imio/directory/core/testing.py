@@ -12,7 +12,6 @@ import imio.directory.core
 
 
 class ImioDirectoryCoreLayer(PloneSandboxLayer):
-
     defaultBases = (PLONE_APP_CONTENTTYPES_FIXTURE,)
 
     def setUpZope(self, app, configurationContext):

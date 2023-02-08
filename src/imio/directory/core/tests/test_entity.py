@@ -15,7 +15,6 @@ import unittest
 
 
 class TestEntity(unittest.TestCase):
-
     layer = IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
 
     def setUp(self):

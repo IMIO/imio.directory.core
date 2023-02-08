@@ -35,7 +35,6 @@ import unittest
 
 
 class TestContact(unittest.TestCase):
-
     layer = IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 
     def setUp(self):

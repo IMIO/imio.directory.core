@@ -44,7 +44,6 @@ def phone_constraint(value):
 
 
 class IPhoneRowSchema(Interface):
-
     label = schema.TextLine(
         title=_("Label (direction, Main number,...)"),
         description=_(""),
@@ -66,7 +65,6 @@ class IPhoneRowSchema(Interface):
 
 
 class IMailRowSchema(Interface):
-
     label = schema.TextLine(
         title=_("Label (Secretariat, Manager office, Sales,...)"),
         description=_(""),
@@ -84,7 +82,6 @@ class IMailRowSchema(Interface):
 
 
 class IUrlRowSchema(Interface):
-
     type = schema.Choice(
         title=_("Type"),
         source="imio.directory.vocabulary.SiteTypes",
@@ -104,7 +101,6 @@ class IUrlRowSchema(Interface):
 
 
 class IContactInformations(model.Schema):
-
     model.fieldset(
         "contact_informations",
         label=_("Contact informations"),
@@ -143,7 +139,6 @@ class IContactInformations(model.Schema):
 
 
 class IPrivateContactInformations(model.Schema):
-
     model.fieldset(
         "private_contact_informations",
         label=_("Private contact informations"),
@@ -196,7 +191,6 @@ class IPrivateContactInformations(model.Schema):
 
 
 class IDETranslations(model.Schema):
-
     model.fieldset(
         "de_translations",
         label=_("German translations"),
@@ -214,7 +208,6 @@ class IDETranslations(model.Schema):
 
 
 class IENTranslations(model.Schema):
-
     model.fieldset(
         "en_translations",
         label=_("English translations"),
@@ -232,7 +225,6 @@ class IENTranslations(model.Schema):
 
 
 class INLTranslations(model.Schema):
-
     model.fieldset(
         "nl_translations",
         label=_("Dutch translations"),

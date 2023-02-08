@@ -13,7 +13,6 @@ import unittest
 
 
 class TestLocalRoles(unittest.TestCase):
-
     layer = IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 
     def setUp(self):
