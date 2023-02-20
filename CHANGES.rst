@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.2 (unreleased)
+1.1.2 (2023-02-20)
 ------------------
 
 - Remove unused title_fr and description_fr metadatas
