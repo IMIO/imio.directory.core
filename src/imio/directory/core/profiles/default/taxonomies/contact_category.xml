@@ -8,9 +8,13 @@
     <termIdentifier>cho96vl9ox</termIdentifier>
     <caption>
       <langstring language="fr">Commerces et entreprises</langstring>
-      <langstring language="en">Shops and businesses</langstring>
-      <langstring language="nl">Winkels en bedrijven</langstring>
     </caption>
+    <term>
+      <termIdentifier>i09jveh714</termIdentifier>
+      <caption>
+        <langstring language="fr">Agriculture</langstring>
+      </caption>
+    </term>
     <term>
       <termIdentifier>hlsm9bijb1</termIdentifier>
       <caption>
@@ -98,18 +102,6 @@
         <termIdentifier>jde7jm325k</termIdentifier>
         <caption>
           <langstring language="fr">Supermarché</langstring>
-        </caption>
-      </term>
-    </term>
-    <term>
-      <termIdentifier>1mnkfgij50</termIdentifier>
-      <caption>
-        <langstring language="fr">Agriculture - sylviculture - chasse - pêche</langstring>
-      </caption>
-      <term>
-        <termIdentifier>htmxdlmpk8</termIdentifier>
-        <caption>
-          <langstring language="fr">Armurerie</langstring>
         </caption>
       </term>
     </term>
@@ -203,9 +195,21 @@
         <langstring language="fr">Communication et multimedia</langstring>
       </caption>
       <term>
+        <termIdentifier>43962135gg</termIdentifier>
+        <caption>
+          <langstring language="fr">Agence de communication</langstring>
+        </caption>
+      </term>
+      <term>
         <termIdentifier>h3vsf8u3nv</termIdentifier>
         <caption>
           <langstring language="fr">Bande dessinée</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>8u3qc6u2i3</termIdentifier>
+        <caption>
+          <langstring language="fr">Graphiste</langstring>
         </caption>
       </term>
       <term>
@@ -527,6 +531,12 @@
         </caption>
       </term>
       <term>
+        <termIdentifier>7774o3b4b4</termIdentifier>
+        <caption>
+          <langstring language="fr">Ferronnerie</langstring>
+        </caption>
+      </term>
+      <term>
         <termIdentifier>o5a5c53ncl</termIdentifier>
         <caption>
           <langstring language="fr">Fleuriste</langstring>
@@ -551,15 +561,45 @@
         </caption>
       </term>
       <term>
+        <termIdentifier>hxmev56yg2</termIdentifier>
+        <caption>
+          <langstring language="fr">Matériel de construction</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>36ny59kxy4</termIdentifier>
+        <caption>
+          <langstring language="fr">Maçonnerie</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>a6vcl1jfwb</termIdentifier>
+        <caption>
+          <langstring language="fr">Menuiserie</langstring>
+        </caption>
+      </term>
+      <term>
         <termIdentifier>1d1mxx3w7i</termIdentifier>
         <caption>
           <langstring language="fr">Mobilier</langstring>
         </caption>
       </term>
       <term>
+        <termIdentifier>osqo095x3c</termIdentifier>
+        <caption>
+          <langstring language="fr">Revêtement de sol</langstring>
+        </caption>
+      </term>
+      <term>
         <termIdentifier>2bvo1inf4p</termIdentifier>
         <caption>
           <langstring language="fr">Titres-services</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>n1pwe29524</termIdentifier>
+        <caption>
+          <langstring language="fr">Toiture et isolation</langstring>
         </caption>
       </term>
     </term>
@@ -620,6 +660,48 @@
         <termIdentifier>ae3j25osuc</termIdentifier>
         <caption>
           <langstring language="fr">Vêtement de travail</langstring>
+        </caption>
+      </term>
+    </term>
+    <term>
+      <termIdentifier>1mnkfgij50</termIdentifier>
+      <caption>
+        <langstring language="fr">Nature et forêts</langstring>
+      </caption>
+      <term>
+        <termIdentifier>xlyiud5id3</termIdentifier>
+        <caption>
+          <langstring language="fr">Apiculture</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>siyw79j07l</termIdentifier>
+        <caption>
+          <langstring language="fr">Chasse</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>v8dj1w45gp</termIdentifier>
+        <caption>
+          <langstring language="fr">Pêche</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>93nwskjb9a</termIdentifier>
+        <caption>
+          <langstring language="fr">Pisciculture</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>6d8i7irsoc</termIdentifier>
+        <caption>
+          <langstring language="fr">Scierie</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>toxrnabkl0</termIdentifier>
+        <caption>
+          <langstring language="fr">Sylviculture - Exploitation forectière</langstring>
         </caption>
       </term>
     </term>
@@ -701,6 +783,12 @@
         </caption>
       </term>
       <term>
+        <termIdentifier>mff5h605eq</termIdentifier>
+        <caption>
+          <langstring language="fr">Glacier ambulant</langstring>
+        </caption>
+      </term>
+      <term>
         <termIdentifier>gl55dplfo0</termIdentifier>
         <caption>
           <langstring language="fr">Hamburgers</langstring>
@@ -754,6 +842,12 @@
           <langstring language="fr">Traiteur</langstring>
         </caption>
       </term>
+    </term>
+    <term>
+      <termIdentifier>eo2e027sae</termIdentifier>
+      <caption>
+        <langstring language="fr">Armurerie</langstring>
+      </caption>
     </term>
     <term>
       <termIdentifier>97t8noctur</termIdentifier>
@@ -1217,6 +1311,12 @@
         </caption>
       </term>
       <term>
+        <termIdentifier>na1o59kh5a</termIdentifier>
+        <caption>
+          <langstring language="fr">Paris sportifs</langstring>
+        </caption>
+      </term>
+      <term>
         <termIdentifier>ro7mn6fyao</termIdentifier>
         <caption>
           <langstring language="fr">Plaine de jeux extérieure</langstring>
@@ -1235,24 +1335,6 @@
     <caption>
       <langstring language="fr">Santé</langstring>
     </caption>
-    <term>
-      <termIdentifier>902qcm27bp</termIdentifier>
-      <caption>
-        <langstring language="fr">Autres acteurs de la santé</langstring>
-      </caption>
-      <term>
-        <termIdentifier>ql5xw9rjpr</termIdentifier>
-        <caption>
-          <langstring language="fr">Développement personnel</langstring>
-        </caption>
-      </term>
-      <term>
-        <termIdentifier>kc1dpt52hl</termIdentifier>
-        <caption>
-          <langstring language="fr">Diététique</langstring>
-        </caption>
-      </term>
-    </term>
     <term>
       <termIdentifier>6skgtqev2b</termIdentifier>
       <caption>
@@ -1286,7 +1368,7 @@
     <term>
       <termIdentifier>7nw3qln411</termIdentifier>
       <caption>
-        <langstring language="fr">Professionnels de la santé</langstring>
+        <langstring language="fr">Métiers de la santé</langstring>
       </caption>
       <term>
         <termIdentifier>m0ucl4ld99</termIdentifier>
@@ -1336,6 +1418,24 @@
           <langstring language="fr">Psychologue</langstring>
         </caption>
       </term>
+      <term>
+        <termIdentifier>y9eadd4jb2</termIdentifier>
+        <caption>
+          <langstring language="fr">Kinésiologue</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>35vxssxqqq</termIdentifier>
+        <caption>
+          <langstring language="fr">Développement personnel</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>u49tjujdc5</termIdentifier>
+        <caption>
+          <langstring language="fr">Diététique</langstring>
+        </caption>
+      </term>
     </term>
   </term>
   <term>
@@ -1347,6 +1447,12 @@
       <termIdentifier>xhowidw6kd</termIdentifier>
       <caption>
         <langstring language="fr">Administration communale</langstring>
+      </caption>
+    </term>
+    <term>
+      <termIdentifier>qs5vbftgho</termIdentifier>
+      <caption>
+        <langstring language="fr">CPAS</langstring>
       </caption>
     </term>
     <term>
@@ -1412,6 +1518,18 @@
         <termIdentifier>b5erln49vq</termIdentifier>
         <caption>
           <langstring language="fr">Conseil communal</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>fe722h2phb</termIdentifier>
+        <caption>
+          <langstring language="fr">Conseil de l'action sociale</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>28uj2npn2e</termIdentifier>
+        <caption>
+          <langstring language="fr">Conseil provincial</langstring>
         </caption>
       </term>
       <term>
@@ -2114,7 +2232,9 @@
     <term>
       <termIdentifier>f032co7ls6</termIdentifier>
       <caption>
+        <langstring language="en"></langstring>
         <langstring language="fr">Sports de tir</langstring>
+        <langstring language="nl"></langstring>
       </caption>
       <term>
         <termIdentifier>9tei8u2m2o</termIdentifier>
@@ -2125,9 +2245,19 @@
       <term>
         <termIdentifier>4xennfs00s</termIdentifier>
         <caption>
+          <langstring language="en"></langstring>
           <langstring language="fr">Tir à la cible</langstring>
+          <langstring language="nl"></langstring>
         </caption>
       </term>
     </term>
+  </term>
+  <term>
+    <termIdentifier>902qcm27bp</termIdentifier>
+    <caption>
+      <langstring language="en"></langstring>
+      <langstring language="fr">Autres acteurs de la santé</langstring>
+      <langstring language="nl"></langstring>
+    </caption>
   </term>
 </vdex>
