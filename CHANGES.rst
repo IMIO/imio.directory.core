@@ -5,7 +5,8 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Add DE translations in contact_category taxonomy
+  [laulaz]
 
 
 1.1.2 (2023-02-20)
