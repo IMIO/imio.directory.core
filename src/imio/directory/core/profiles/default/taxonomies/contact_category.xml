@@ -2583,9 +2583,7 @@
       <termIdentifier>f032co7ls6</termIdentifier>
       <caption>
         <langstring language="de">Schießsport</langstring>
-        <langstring language="en"></langstring>
         <langstring language="fr">Sports de tir</langstring>
-        <langstring language="nl"></langstring>
       </caption>
       <term>
         <termIdentifier>9tei8u2m2o</termIdentifier>
@@ -2598,9 +2596,7 @@
         <termIdentifier>4xennfs00s</termIdentifier>
         <caption>
           <langstring language="de">Zielschießen</langstring>
-          <langstring language="en"></langstring>
           <langstring language="fr">Tir à la cible</langstring>
-          <langstring language="nl"></langstring>
         </caption>
       </term>
     </term>
@@ -2609,9 +2605,7 @@
     <termIdentifier>902qcm27bp</termIdentifier>
     <caption>
       <langstring language="de">Andere Akteure des Gesundheitswesens</langstring>
-      <langstring language="en"></langstring>
       <langstring language="fr">Autres acteurs de la santé</langstring>
-      <langstring language="nl"></langstring>
     </caption>
   </term>
 </vdex>
