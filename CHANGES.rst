@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.3 (unreleased)
+1.1.3 (2023-02-28)
 ------------------
 
 - Avoid auto-appending new lines to Datagrid fields when clicked
