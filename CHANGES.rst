@@ -5,6 +5,9 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
+- Avoid auto-appending new lines to Datagrid fields when clicked
+  [laulaz]
+
 - Fix reindex after cut / copy / paste in some cases
   [laulaz]
 
