@@ -16,7 +16,7 @@ def set_default_entity_uid(contact):
     uid = get_entity_uid_for_contact(contact)
     if uid not in contact.selected_entities:
         contact.selected_entities = contact.selected_entities + [uid]
-        contact.reindexObject()
+    contact.reindexObject(idxs=["selected_entities"])
 
 
 def added_entity(obj, event):

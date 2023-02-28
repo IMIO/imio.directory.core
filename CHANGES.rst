@@ -5,6 +5,9 @@ Changelog
 1.1.3 (unreleased)
 ------------------
 
+- Fix reindex after cut / copy / paste in some cases
+  [laulaz]
+
 - Add DE translations in contact_category taxonomy
   [laulaz]
 
