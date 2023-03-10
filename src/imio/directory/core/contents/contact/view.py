@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from imio.smartweb.common.utils import show_warning_for_scales
 from plone import api
 from plone.app.contenttypes.browser.folder import FolderView
 from plone.dexterity.browser.view import DefaultView
@@ -14,6 +15,7 @@ class ContactView(DefaultView, FolderView):
     """
 
     def __call__(self):
+        show_warning_for_scales(self.context, self.request)
         images = self.context.listFolderContents(contentFilter={"portal_type": "Image"})
         if len(images) > 0:
             add_bundle_on_request(self.request, "spotlightjs")
