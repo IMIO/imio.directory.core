@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.4 (unreleased)
+1.1.4 (2023-03-13)
 ------------------
 
 - Add warning message if images are too small to be cropped
