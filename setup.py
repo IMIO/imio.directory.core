@@ -63,6 +63,7 @@ setup(
         "collective.instancebehavior",
         "collective.z3cform.datagridfield>=2.0",
         "collective.geolocationbehavior",
+        "collective.monkeypatcher",
         "collective.schedulefield",
         "vobject",
     ],

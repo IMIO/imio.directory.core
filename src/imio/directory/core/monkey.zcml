@@ -1,0 +1,12 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:monkey="http://namespaces.plone.org/monkey">
+
+  <monkey:patch
+      description="This works around issue with required fields in datagrid fields"
+      class="collective.z3cform.datagridfield.datagridfield.DataGridFieldObjectWidget"
+      original="extractRaw"
+      replacement=".monkey.extractRawWithoutEmptyErrors"
+      />
+
+</configure>

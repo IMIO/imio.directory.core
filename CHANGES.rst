@@ -5,7 +5,8 @@ Changelog
 1.1.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix "required field" errors in empty Datagridfield rows
+  [laulaz]
 
 
 1.1.4 (2023-03-13)
