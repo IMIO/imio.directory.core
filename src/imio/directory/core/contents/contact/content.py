@@ -21,6 +21,8 @@ from z3c.form.converter import FormatterValidationError
 from zope.container.interfaces import INameChooser
 from zope.interface import Interface
 from zope.interface import implementer
+from zope.schema.interfaces import RequiredMissing
+from zope.schema.interfaces import StopValidation
 
 import re
 
@@ -43,8 +45,30 @@ def phone_constraint(value):
     return True
 
 
+class NonEmptyField:
+    def validate(self, value):
+        if value:
+            return super(NonEmptyField, self).validate(value)
+        try:
+            raise RequiredMissing
+        except StopValidation:
+            pass
+
+
+class NonEmptyTextField(NonEmptyField, schema.TextLine):
+    """Required Text field for Datagridfield - without buggy required"""
+
+
+class NonEmptyEmailField(NonEmptyField, schema.Email):
+    """Required Email field for Datagridfield - without buggy required"""
+
+
+class NonEmptyURIField(NonEmptyField, schema.URI):
+    """Required URI field for Datagridfield - without buggy required"""
+
+
 class IPhoneRowSchema(Interface):
-    label = schema.TextLine(
+    label = NonEmptyTextField(
         title=_("Label (direction, Main number,...)"),
         description=_(""),
         required=False,
@@ -54,18 +78,18 @@ class IPhoneRowSchema(Interface):
         title=_("Type"),
         source="imio.directory.vocabulary.PhoneTypes",
         description=_(""),
-        required=True,
+        required=False,
     )
 
-    number = schema.TextLine(
+    number = NonEmptyTextField(
         title=_("Number (format: +32475010203)"),
-        required=True,
+        required=False,
         constraint=phone_constraint,
     )
 
 
 class IMailRowSchema(Interface):
-    label = schema.TextLine(
+    label = NonEmptyTextField(
         title=_("Label (Secretariat, Manager office, Sales,...)"),
         description=_(""),
         required=False,
@@ -75,10 +99,10 @@ class IMailRowSchema(Interface):
         title=_("Type"),
         source="imio.directory.vocabulary.MailTypes",
         description=_(""),
-        required=True,
+        required=False,
     )
 
-    mail_address = schema.Email(title=_("E-mail"), required=True)
+    mail_address = NonEmptyEmailField(title=_("E-mail"), required=False)
 
 
 class IUrlRowSchema(Interface):
@@ -86,10 +110,10 @@ class IUrlRowSchema(Interface):
         title=_("Type"),
         source="imio.directory.vocabulary.SiteTypes",
         description=_(""),
-        required=True,
+        required=False,
     )
 
-    url = schema.URI(title=_("Url"), required=True)
+    url = NonEmptyURIField(title=_("Url"), required=False)
 
 
 # # Move geolocation field to our Address fieldset

@@ -2,6 +2,7 @@
     xmlns="http://namespaces.zope.org/zope">
 
   <include package="collective.geolocationbehavior" />
+  <include package="collective.monkeypatcher" />
   <include package="collective.schedulefield" />
   <include package="collective.taxonomy" />
   <include package="collective.z3cform.datagridfield" />
@@ -20,6 +21,7 @@
   <include package=".upgrades" />
 
   <include file="indexers.zcml" />
+  <include file="monkey.zcml" />
   <include file="permissions.zcml" />
   <include file="profiles.zcml" />
   <include file="subscribers.zcml" />
