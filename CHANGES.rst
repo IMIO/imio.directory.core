@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.6 (unreleased)
+1.1.6 (2023-03-16)
 ------------------
 
 - Define non empty fields for choices in contact Datagridfield rows & fix labels
