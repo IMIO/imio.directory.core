@@ -55,6 +55,10 @@ class NonEmptyField:
             pass
 
 
+class NonEmptyChoiceField(NonEmptyField, schema.Choice):
+    """Required Choice field for Datagridfield - without buggy required"""
+
+
 class NonEmptyTextField(NonEmptyField, schema.TextLine):
     """Required Text field for Datagridfield - without buggy required"""
 
@@ -68,13 +72,13 @@ class NonEmptyURIField(NonEmptyField, schema.URI):
 
 
 class IPhoneRowSchema(Interface):
-    label = NonEmptyTextField(
+    label = schema.TextLine(
         title=_("Label (direction, Main number,...)"),
         description=_(""),
         required=False,
     )
 
-    type = schema.Choice(
+    type = NonEmptyChoiceField(
         title=_("Type"),
         source="imio.directory.vocabulary.PhoneTypes",
         description=_(""),
@@ -89,13 +93,13 @@ class IPhoneRowSchema(Interface):
 
 
 class IMailRowSchema(Interface):
-    label = NonEmptyTextField(
+    label = schema.TextLine(
         title=_("Label (Secretariat, Manager office, Sales,...)"),
         description=_(""),
         required=False,
     )
 
-    type = schema.Choice(
+    type = NonEmptyChoiceField(
         title=_("Type"),
         source="imio.directory.vocabulary.MailTypes",
         description=_(""),
@@ -106,7 +110,7 @@ class IMailRowSchema(Interface):
 
 
 class IUrlRowSchema(Interface):
-    type = schema.Choice(
+    type = NonEmptyChoiceField(
         title=_("Type"),
         source="imio.directory.vocabulary.SiteTypes",
         description=_(""),

@@ -5,7 +5,8 @@ Changelog
 1.1.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Define non empty fields for choices in contact Datagridfield rows & fix labels
+  [laulaz]
 
 
 1.1.5 (2023-03-15)
