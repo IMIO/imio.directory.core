@@ -9,4 +9,11 @@
       replacement=".monkey.extractRawWithoutEmptyErrors"
       />
 
+  <monkey:patch
+      description="Uggly monkeypatch to avoid error with missing fields in rows"
+      class="collective.z3cform.datagridfield.row.DictRowConverter"
+      original="toFieldValue"
+      replacement=".monkey.toFieldValueWithDefaultValue"
+      />
+
 </configure>

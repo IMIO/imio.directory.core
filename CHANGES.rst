@@ -5,7 +5,8 @@ Changelog
 1.1.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix non empty fields check after Datagridfield update
+  [laulaz]
 
 
 1.1.6 (2023-03-16)
