@@ -115,4 +115,13 @@
       profile="imio.directory.core:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Fix datagrid fields values (bad types stored)"
+      description=""
+      source="1010"
+      destination="1011"
+      handler=".upgrades.fix_datagridfields_values"
+      profile="imio.directory.core:default"
+      />
+
 </configure>

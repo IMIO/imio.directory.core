@@ -5,7 +5,8 @@ Changelog
 1.1.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- WEB-3909 : Add upgrade step to fix wrongly stored datagrid fields values
+  [laulaz]
 
 
 1.1.7 (2023-03-17)

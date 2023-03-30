@@ -178,3 +178,29 @@ def remove_title_description_fr(context):
     catalog = api.portal.get_tool("portal_catalog")
     catalog.delColumn("title_fr")
     catalog.delColumn("description_fr")
+
+
+def fix_datagridfields_values(context):
+    brains = api.content.find(portal_type="imio.directory.Contact")
+    for brain in brains:
+        contact = brain.getObject()
+
+        def fix_type(contact, field_name):
+            if getattr(contact, field_name) is None:
+                return
+            fixed = False
+            lines = getattr(contact, field_name)
+            for line in lines:
+                if isinstance(line["type"], tuple) or isinstance(line["type"], list):
+                    line["type"] = line["type"][0]
+                    fixed = True
+            if fixed:
+                contact._p_changed = 1
+                logger.info(f"Fixed {field_name} types for {contact.absolute_url()}")
+
+        fix_type(contact, "phones")
+        fix_type(contact, "mails")
+        fix_type(contact, "urls")
+        fix_type(contact, "private_phones")
+        fix_type(contact, "private_mails")
+        fix_type(contact, "private_urls")
