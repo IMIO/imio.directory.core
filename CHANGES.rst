@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.8 (unreleased)
+1.1.8 (2023-03-31)
 ------------------
 
 - WEB-3909 : Add upgrade step to fix wrongly stored datagrid fields values
