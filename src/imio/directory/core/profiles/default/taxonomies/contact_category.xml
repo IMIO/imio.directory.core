@@ -675,9 +675,21 @@
         </caption>
       </term>
       <term>
+        <termIdentifier>ti22x1biwl</termIdentifier>
+        <caption>
+          <langstring language="fr">Peinture</langstring>
+        </caption>
+      </term>
+      <term>
         <termIdentifier>osqo095x3c</termIdentifier>
         <caption>
           <langstring language="fr">Revêtement de sol</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>gxirqs3ldi</termIdentifier>
+        <caption>
+          <langstring language="fr">Solaire et photovoltaïque</langstring>
         </caption>
       </term>
       <term>
@@ -1673,6 +1685,12 @@
       </caption>
     </term>
     <term>
+      <termIdentifier>myi2y7swrk</termIdentifier>
+      <caption>
+        <langstring language="fr">Administration provinciale</langstring>
+      </caption>
+    </term>
+    <term>
       <termIdentifier>qs5vbftgho</termIdentifier>
       <caption>
         <langstring language="fr">CPAS</langstring>
@@ -1758,6 +1776,12 @@
         <termIdentifier>fe722h2phb</termIdentifier>
         <caption>
           <langstring language="fr">Conseil de l'action sociale</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>6xo6fraolh</termIdentifier>
+        <caption>
+          <langstring language="fr">Collège provincial</langstring>
         </caption>
       </term>
       <term>
@@ -2585,6 +2609,12 @@
         <langstring language="de">Schießsport</langstring>
         <langstring language="fr">Sports de tir</langstring>
       </caption>
+      <term>
+        <termIdentifier>rvaoefu6v9</termIdentifier>
+        <caption>
+          <langstring language="fr">Airsoft</langstring>
+        </caption>
+      </term>
       <term>
         <termIdentifier>9tei8u2m2o</termIdentifier>
         <caption>

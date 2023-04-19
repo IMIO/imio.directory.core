@@ -5,7 +5,8 @@ Changelog
 1.1.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Update contact_category taxonomy data to reflect production site data
+  [laulaz]
 
 
 1.1.8 (2023-03-31)
