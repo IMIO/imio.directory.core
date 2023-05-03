@@ -5,6 +5,9 @@ Changelog
 1.1.9 (unreleased)
 ------------------
 
+- Migrate to Plone 6.0.4
+  [boulch]
+
 - Update contact_category taxonomy data to reflect production site data
   [laulaz]
 
