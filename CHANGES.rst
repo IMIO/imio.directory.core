@@ -5,6 +5,9 @@ Changelog
 1.1.9 (unreleased)
 ------------------
 
+- Fix condition when facing `Missing.Value` to avoid traceback in serializer
+  [laulaz]
+
 - WEB-3918 : Add missing DE translations for contact_category taxonomy
   [laulaz]
 

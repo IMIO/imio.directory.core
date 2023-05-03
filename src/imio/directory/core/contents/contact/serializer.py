@@ -64,7 +64,7 @@ class ContactJSONSummarySerializer(DefaultJSONSummarySerializer):
             except WorkflowException:
                 summary[orig_field] = None
                 continue
-            if orig_field == "description" and value is not None:
+            if orig_field == "description" and value:
                 value = value.replace("**", "")
             summary[orig_field] = json_compatible(value)
 
