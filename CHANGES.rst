@@ -5,6 +5,9 @@ Changelog
 1.1.9 (unreleased)
 ------------------
 
+- WEB-3918 : Add missing DE translations for contact_category taxonomy
+  [laulaz]
+
 - Migrate to Plone 6.0.4
   [boulch]
 
