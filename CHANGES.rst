@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.9 (unreleased)
+1.1.9 (2023-05-26)
 ------------------
 
 - Fix condition when facing `Missing.Value` to avoid traceback in serializer
