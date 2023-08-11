@@ -5,6 +5,9 @@ Changelog
 1.1.10 (unreleased)
 -------------------
 
+- WEB-3918 : Add missing DE translations for contact_category taxonomy
+  [laulaz]
+
 - Update contact_category taxonomy data to reflect production site data
   [laulaz]
 

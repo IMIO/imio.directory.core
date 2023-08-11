@@ -61,7 +61,7 @@
       <term>
         <termIdentifier>ocko87c8bp</termIdentifier>
         <caption>
-          <langstring language="de"></langstring>
+          <langstring language="de">Click &amp; Collect</langstring>
           <langstring language="fr">Click &amp; Collect</langstring>
         </caption>
       </term>
@@ -348,7 +348,7 @@
       <term>
         <termIdentifier>eigeb3k6la</termIdentifier>
         <caption>
-          <langstring language="de"></langstring>
+          <langstring language="de">Gerichtsvollzieher</langstring>
           <langstring language="fr">Huissier de justice</langstring>
         </caption>
       </term>
@@ -446,7 +446,7 @@
       <term>
         <termIdentifier>v8ujy899fn</termIdentifier>
         <caption>
-          <langstring language="de"></langstring>
+          <langstring language="de">Luftfahrt</langstring>
           <langstring language="fr">Aéronautique</langstring>
         </caption>
       </term>
@@ -544,7 +544,7 @@
       <term>
         <termIdentifier>oijsr6sjga</termIdentifier>
         <caption>
-          <langstring language="de"></langstring>
+          <langstring language="de">Landschaftsgärtner</langstring>
           <langstring language="fr">Paysagiste</langstring>
         </caption>
       </term>
@@ -1378,7 +1378,7 @@
     <term>
       <termIdentifier>2plwkjfdvf</termIdentifier>
       <caption>
-        <langstring language="de"></langstring>
+        <langstring language="de">Tierpark</langstring>
         <langstring language="fr">Parc animalier</langstring>
       </caption>
     </term>
@@ -1419,7 +1419,7 @@
       <term>
         <termIdentifier>d6lnyynmmg</termIdentifier>
         <caption>
-          <langstring language="de"></langstring>
+          <langstring language="de">Theater</langstring>
           <langstring language="fr">Théâtre</langstring>
         </caption>
       </term>
@@ -1531,7 +1531,7 @@
       <term>
         <termIdentifier>v94nlctf5d</termIdentifier>
         <caption>
-          <langstring language="de"></langstring>
+          <langstring language="de">Höhle und archäologische Stätte</langstring>
           <langstring language="fr">Grotte et site archéologique</langstring>
         </caption>
       </term>
@@ -1623,13 +1623,13 @@
     <term>
       <termIdentifier>wul2he9xif</termIdentifier>
       <caption>
-        <langstring language="de"></langstring>
+        <langstring language="de">Andere Akteure im Gesundheitswesen</langstring>
         <langstring language="fr">Autres acteurs de la santé</langstring>
       </caption>
       <term>
         <termIdentifier>lcb8fnghem</termIdentifier>
         <caption>
-          <langstring language="de"></langstring>
+          <langstring language="de">Sozial- und Gesundheitswissenschaften und Gesundheitsmanagement</langstring>
           <langstring language="fr">PSE et PMS</langstring>
         </caption>
       </term>
@@ -1643,7 +1643,7 @@
       <term>
         <termIdentifier>8vfpdpo74x</termIdentifier>
         <caption>
-          <langstring language="de"></langstring>
+          <langstring language="de">Zentrum für psychische Gesundheit und Dienstleistungen</langstring>
           <langstring language="fr">Centre et service de santé mentale</langstring>
         </caption>
       </term>
@@ -1685,19 +1685,21 @@
       <term>
         <termIdentifier>pwf4tpooh8</termIdentifier>
         <caption>
+          <langstring language="de">Hypnotherapeut</langstring>
           <langstring language="fr">Hypnothérapeute</langstring>
         </caption>
       </term>
       <term>
         <termIdentifier>1trfkrss7u</termIdentifier>
         <caption>
+          <langstring language="de">Sexualtherapeut</langstring>
           <langstring language="fr">Sexologue</langstring>
         </caption>
       </term>
       <term>
         <termIdentifier>ja01lta8b4</termIdentifier>
         <caption>
-          <langstring language="de"></langstring>
+          <langstring language="de">Naturheilpraktiker</langstring>
           <langstring language="fr">Naturopathe</langstring>
         </caption>
       </term>
@@ -1964,7 +1966,7 @@
     <term>
       <termIdentifier>5ub2er70y5</termIdentifier>
       <caption>
-        <langstring language="de"></langstring>
+        <langstring language="de">Kinderbetreuung</langstring>
         <langstring language="fr">Aide à l'enfance</langstring>
       </caption>
     </term>
@@ -2306,13 +2308,14 @@
       <term>
         <termIdentifier>f9nmclxtyr</termIdentifier>
         <caption>
+          <langstring language="de">Wandern</langstring>
           <langstring language="fr">Randonnée</langstring>
         </caption>
       </term>
       <term>
         <termIdentifier>xfk4haeta7</termIdentifier>
         <caption>
-          <langstring language="de"></langstring>
+          <langstring language="de">Trailrunning</langstring>
           <langstring language="fr">Trail</langstring>
         </caption>
       </term>
