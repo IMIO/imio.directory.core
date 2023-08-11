@@ -59,6 +59,13 @@
         </caption>
       </term>
       <term>
+        <termIdentifier>ocko87c8bp</termIdentifier>
+        <caption>
+          <langstring language="de"></langstring>
+          <langstring language="fr">Click &amp; Collect</langstring>
+        </caption>
+      </term>
+      <term>
         <termIdentifier>b6ccgi5g9r</termIdentifier>
         <caption>
           <langstring language="de">Süßwaren und Pralinen</langstring>
@@ -339,6 +346,13 @@
         <langstring language="fr">Finance et droit</langstring>
       </caption>
       <term>
+        <termIdentifier>eigeb3k6la</termIdentifier>
+        <caption>
+          <langstring language="de"></langstring>
+          <langstring language="fr">Huissier de justice</langstring>
+        </caption>
+      </term>
+      <term>
         <termIdentifier>msoqo9k9cf</termIdentifier>
         <caption>
           <langstring language="de">Versicherung</langstring>
@@ -430,6 +444,13 @@
         <langstring language="fr">Industrie</langstring>
       </caption>
       <term>
+        <termIdentifier>v8ujy899fn</termIdentifier>
+        <caption>
+          <langstring language="de"></langstring>
+          <langstring language="fr">Aéronautique</langstring>
+        </caption>
+      </term>
+      <term>
         <termIdentifier>68xa8u7r5w</termIdentifier>
         <caption>
           <langstring language="de">Chemie und Petrochemie</langstring>
@@ -520,6 +541,13 @@
         <langstring language="de">Haus und Gebäude</langstring>
         <langstring language="fr">Maison et bâtiment</langstring>
       </caption>
+      <term>
+        <termIdentifier>oijsr6sjga</termIdentifier>
+        <caption>
+          <langstring language="de"></langstring>
+          <langstring language="fr">Paysagiste</langstring>
+        </caption>
+      </term>
       <term>
         <termIdentifier>6wtk4u8qv8</termIdentifier>
         <caption>
@@ -1288,7 +1316,7 @@
       <termIdentifier>1ijm0ohylp</termIdentifier>
       <caption>
         <langstring language="de">Soziale Förderung und Weiterbildung</langstring>
-        <langstring language="fr">Promotion social et formation continue</langstring>
+        <langstring language="fr">Promotion sociale et formation continue</langstring>
       </caption>
     </term>
   </term>
@@ -1348,6 +1376,13 @@
       <langstring language="fr">Loisirs</langstring>
     </caption>
     <term>
+      <termIdentifier>2plwkjfdvf</termIdentifier>
+      <caption>
+        <langstring language="de"></langstring>
+        <langstring language="fr">Parc animalier</langstring>
+      </caption>
+    </term>
+    <term>
       <termIdentifier>x9buey4lk5</termIdentifier>
       <caption>
         <langstring language="de">Kultur</langstring>
@@ -1379,6 +1414,13 @@
         <caption>
           <langstring language="de">Kulturerbe</langstring>
           <langstring language="fr">Patrimoine</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>d6lnyynmmg</termIdentifier>
+        <caption>
+          <langstring language="de"></langstring>
+          <langstring language="fr">Théâtre</langstring>
         </caption>
       </term>
     </term>
@@ -1487,6 +1529,13 @@
         <langstring language="fr">Tourisme</langstring>
       </caption>
       <term>
+        <termIdentifier>v94nlctf5d</termIdentifier>
+        <caption>
+          <langstring language="de"></langstring>
+          <langstring language="fr">Grotte et site archéologique</langstring>
+        </caption>
+      </term>
+      <term>
         <termIdentifier>ndr67s431u</termIdentifier>
         <caption>
           <langstring language="de">Reisebüro</langstring>
@@ -1572,11 +1621,32 @@
       <langstring language="fr">Santé</langstring>
     </caption>
     <term>
+      <termIdentifier>wul2he9xif</termIdentifier>
+      <caption>
+        <langstring language="de"></langstring>
+        <langstring language="fr">Autres acteurs de la santé</langstring>
+      </caption>
+      <term>
+        <termIdentifier>lcb8fnghem</termIdentifier>
+        <caption>
+          <langstring language="de"></langstring>
+          <langstring language="fr">PSE et PMS</langstring>
+        </caption>
+      </term>
+    </term>
+    <term>
       <termIdentifier>6skgtqev2b</termIdentifier>
       <caption>
         <langstring language="de">Infrastruktur</langstring>
         <langstring language="fr">Infrastructures</langstring>
       </caption>
+      <term>
+        <termIdentifier>8vfpdpo74x</termIdentifier>
+        <caption>
+          <langstring language="de"></langstring>
+          <langstring language="fr">Centre et service de santé mentale</langstring>
+        </caption>
+      </term>
       <term>
         <termIdentifier>06yiy9d6fx</termIdentifier>
         <caption>
@@ -1612,6 +1682,25 @@
         <langstring language="de">Gesundheitsfachkräfte</langstring>
         <langstring language="fr">Métiers de la santé</langstring>
       </caption>
+      <term>
+        <termIdentifier>pwf4tpooh8</termIdentifier>
+        <caption>
+          <langstring language="fr">Hypnothérapeute</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>1trfkrss7u</termIdentifier>
+        <caption>
+          <langstring language="fr">Sexologue</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>ja01lta8b4</termIdentifier>
+        <caption>
+          <langstring language="de"></langstring>
+          <langstring language="fr">Naturopathe</langstring>
+        </caption>
+      </term>
       <term>
         <termIdentifier>m0ucl4ld99</termIdentifier>
         <caption>
@@ -1870,6 +1959,13 @@
       <caption>
         <langstring language="de">Trauerbegleitung</langstring>
         <langstring language="fr">Accompagnement du deuil</langstring>
+      </caption>
+    </term>
+    <term>
+      <termIdentifier>5ub2er70y5</termIdentifier>
+      <caption>
+        <langstring language="de"></langstring>
+        <langstring language="fr">Aide à l'enfance</langstring>
       </caption>
     </term>
     <term>
@@ -2207,6 +2303,19 @@
         <langstring language="de">Outdoor und Natur</langstring>
         <langstring language="fr">Plein air et nature</langstring>
       </caption>
+      <term>
+        <termIdentifier>f9nmclxtyr</termIdentifier>
+        <caption>
+          <langstring language="fr">Randonnée</langstring>
+        </caption>
+      </term>
+      <term>
+        <termIdentifier>xfk4haeta7</termIdentifier>
+        <caption>
+          <langstring language="de"></langstring>
+          <langstring language="fr">Trail</langstring>
+        </caption>
+      </term>
       <term>
         <termIdentifier>ci2fvdcbv8</termIdentifier>
         <caption>
