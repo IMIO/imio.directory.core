@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.10 (unreleased)
+1.1.10 (2023-10-09)
 -------------------
 
 - WEB-3918 : Add missing DE translations for contact_category taxonomy
