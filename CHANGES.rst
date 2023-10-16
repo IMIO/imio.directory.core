@@ -5,7 +5,8 @@ Changelog
 1.1.11 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- MWEBITTA-21 : Add entities subscribing to share all contacts
+  [boulch, laulaz]
 
 
 1.1.10 (2023-10-09)

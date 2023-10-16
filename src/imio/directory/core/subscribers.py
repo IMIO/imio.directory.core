@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 
+from imio.directory.core.utils import get_entity_for_contact
 from imio.directory.core.utils import get_entity_uid_for_contact
 from imio.smartweb.common.faceted.utils import configure_faceted
 from imio.smartweb.common.interfaces import IAddress
 from imio.smartweb.common.utils import geocode_object
+from plone import api
 from zope.component import getMultiAdapter
 from zope.globalrequest import getRequest
+from zope.lifecycleevent import ObjectRemovedEvent
 from zope.lifecycleevent.interfaces import IAttributes
 
 import os
@@ -34,7 +37,8 @@ def added_entity(obj, event):
 
 
 def added_contact(obj, event):
-    set_default_entity_uid(obj)
+    container_entity = get_entity_for_contact(obj)
+    set_uid_of_referrer_entities(obj, container_entity)
     if not obj.is_geolocated:
         # geocode only if the user has not already changed geolocation
         geocode_object(obj)
@@ -53,3 +57,80 @@ def modified_contact(obj, event):
             # an address field has been changed
             geocode_object(obj)
             return
+
+
+def modified_entity(obj, event):
+    mark_current_entity_in_contacts_from_other_entities(obj, event)
+
+
+def moved_contact(obj, event):
+    if event.oldParent == event.newParent and event.oldName != event.newName:
+        # item was simply renamed
+        return
+    if type(event) is ObjectRemovedEvent:
+        # We don't have anything to do if event is being removed
+        return
+    container_entity = get_entity_for_contact(obj)
+    set_uid_of_referrer_entities(obj, container_entity)
+
+
+def removed_entity(obj, event):
+    try:
+        brains = api.content.find(selected_entities=obj.UID())
+    except api.exc.CannotGetPortalError:
+        # This happen when we try to remove plone object
+        return
+    for brain in brains:
+        contact = brain.getObject()
+        contact.selected_entities = [
+            uid for uid in contact.selected_entities if uid != obj.UID()
+        ]
+        contact.reindexObject(idxs=["selected_entities"])
+
+
+def mark_current_entity_in_contacts_from_other_entities(obj, event):
+    changed = False
+    entities_to_treat = []
+    for d in event.descriptions:
+        if not IAttributes.providedBy(d):
+            # we do not have fields change description, but maybe a request
+            continue
+        if "populating_entities" in d.attributes:
+            changed = True
+            uids_in_current_entity = [
+                rf.to_object.UID() for rf in obj.populating_entities
+            ]
+            old_uids = getattr(obj, "old_populating_entities", [])
+            entities_to_treat = set(old_uids) ^ set(uids_in_current_entity)
+            break
+    if not changed:
+        return
+    for uid_entity in entities_to_treat:
+        entity = api.content.get(UID=uid_entity)
+        contact_brains = api.content.find(
+            context=entity, portal_type="imio.directory.Contact"
+        )
+        for brain in contact_brains:
+            contact = brain.getObject()
+            if uid_entity in uids_in_current_entity:
+                contact.selected_entities.append(obj.UID())
+                contact._p_changed = 1
+            else:
+                contact.selected_entities = [
+                    item for item in contact.selected_entities if item != obj.UID()
+                ]
+            contact.reindexObject(idxs=["selected_entities"])
+    # Keep a copy of populating_entities
+    obj.old_populating_entities = uids_in_current_entity
+
+
+def set_uid_of_referrer_entities(obj, container_entity):
+    obj.selected_entities = [container_entity.UID()]
+    rels = api.relation.get(target=container_entity, relationship="populating_entities")
+    if not rels:
+        obj.reindexObject(idxs=["selected_entities"])
+        return
+    for rel in rels:
+        obj.selected_entities.append(rel.from_object.UID())
+        obj._p_changed = 1
+    obj.reindexObject(idxs=["selected_entities"])

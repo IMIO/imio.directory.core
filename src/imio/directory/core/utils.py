@@ -8,12 +8,16 @@ import base64
 import vobject
 
 
-def get_entity_uid_for_contact(contact):
+def get_entity_for_contact(contact):
     obj = contact
     while not IEntity.providedBy(obj):
         obj = parent(obj)
     entity = obj
-    return entity.UID()
+    return entity
+
+
+def get_entity_uid_for_contact(contact):
+    return get_entity_for_contact(contact).UID()
 
 
 def get_vcard(contact):
