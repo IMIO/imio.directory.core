@@ -21,13 +21,19 @@ from plone.namedfile.file import NamedBlobFile
 from plone.restapi.testing import RelativeSession
 from plone.testing.zope import Browser
 from unittest import mock
+from z3c.relationfield import RelationValue
+from z3c.relationfield.interfaces import IRelationList
 from zope.annotation.interfaces import IAnnotations
 from zope.component import createObject
 from zope.component import getMultiAdapter
+from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.component import queryUtility
 from zope.interface import alsoProvides
 from zope.interface.exceptions import Invalid
+from zope.intid.interfaces import IIntIds
+from zope.lifecycleevent import Attributes
+from zope.lifecycleevent import modified
 
 import geopy
 import transaction
@@ -417,3 +423,51 @@ class TestContact(unittest.TestCase):
         bundles = getattr(self.request, "enabled_bundles", [])
         self.assertEqual(len(bundles), 2)
         self.assertListEqual(bundles, ["spotlightjs", "flexbin"])
+
+    def test_subscriber_to_select_current_entity(self):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="My contact",
+        )
+        self.assertEqual(contact.selected_entities, [self.entity.UID()])
+
+    def test_referrer_entities(self):
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        intids = getUtility(IIntIds)
+        entity2 = api.content.create(
+            container=self.portal,
+            type="imio.directory.Entity",
+            id="entity2",
+        )
+        contact2 = api.content.create(
+            container=entity2,
+            type="imio.directory.Contact",
+            id="contact2",
+        )
+        setattr(
+            self.entity, "populating_entities", [RelationValue(intids.getId(entity2))]
+        )
+        modified(self.entity, Attributes(IRelationList, "populating_entities"))
+        self.assertIn(self.entity.UID(), contact2.selected_entities)
+
+        # if we create a contact in an entity that is referred in another entity
+        # then, referrer entity UID is in contact.selected_entities list.
+        contact2b = api.content.create(
+            container=entity2,
+            type="imio.directory.Contact",
+            id="contact2b",
+        )
+        self.assertIn(entity2.UID(), contact2b.selected_entities)
+
+    def test_automaticaly_readd_container_entity_uid(self):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            id="contact",
+        )
+        self.assertIn(self.entity.UID(), contact.selected_entities)
+        contact.selected_entities = []
+        contact.reindexObject()
+        modified(contact)
+        self.assertIn(self.entity.UID(), contact.selected_entities)
