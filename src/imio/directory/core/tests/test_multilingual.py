@@ -149,6 +149,58 @@ class TestMultilingual(unittest.TestCase):
         contact.subtitle_de = "Meine Funktion"
         contact.taxonomy_contact_category = ["cho96vl9ox"]
 
+        contact.schedule = {
+            "friday": {
+                "afternoonend": "17:30",
+                "afternoonstart": "13:00",
+                "comment": "uniquement sur rdv",
+                "morningend": "12:30",
+                "morningstart": "09:00",
+            },
+            "monday": {
+                "afternoonend": "15:15",
+                "afternoonstart": "13:00",
+                "comment": "uniquement sur rdv",
+                "morningend": "12:30",
+                "morningstart": "09:00",
+            },
+            "saturday": {
+                "afternoonend": "",
+                "afternoonstart": "",
+                "comment": "",
+                "morningend": "",
+                "morningstart": "",
+            },
+            "sunday": {
+                "afternoonend": "",
+                "afternoonstart": "",
+                "comment": "",
+                "morningend": "",
+                "morningstart": "",
+            },
+            "thursday": {
+                "afternoonend": "18:30",
+                "afternoonstart": "13:00",
+                "comment": "uniquement sur rdv",
+                "morningend": "12:30",
+                "morningstart": "09:00",
+            },
+            "tuesday": {
+                "afternoonend": "15:15",
+                "afternoonstart": "13:00",
+                "comment": "uniquement sur rdv",
+                "morningend": "12:30",
+                "morningstart": "09:00",
+            },
+            "wednesday": {
+                "afternoonend": "18:30",
+                "afternoonstart": "13:00",
+                "comment": "uniquement sur rdv",
+                "morningend": "12:30",
+                "morningstart": "09:00",
+            },
+        }
+
         serializer = getMultiAdapter((contact, self.request), ISerializeToJson)
         json = serializer()
         self.assertEqual(json["title"], "Mon contact")

@@ -5,7 +5,9 @@ Changelog
 1.2.3 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- WEB-4007 : Update contact serializer and use ContactProperties to get well formated schedule
+  and help displaying schedule in REACT directory view
+  [boulch]
 
 
 1.2.2 (2023-11-20)

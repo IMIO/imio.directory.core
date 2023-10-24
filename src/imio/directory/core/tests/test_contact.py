@@ -223,6 +223,59 @@ class TestContact(unittest.TestCase):
             type="imio.directory.Contact",
             title="contact",
         )
+
+        contact.schedule = {
+            "friday": {
+                "afternoonend": "17:30",
+                "afternoonstart": "13:00",
+                "comment": "uniquement sur rdv",
+                "morningend": "12:30",
+                "morningstart": "09:00",
+            },
+            "monday": {
+                "afternoonend": "15:15",
+                "afternoonstart": "13:00",
+                "comment": "uniquement sur rdv",
+                "morningend": "12:30",
+                "morningstart": "09:00",
+            },
+            "saturday": {
+                "afternoonend": "",
+                "afternoonstart": "",
+                "comment": "",
+                "morningend": "",
+                "morningstart": "",
+            },
+            "sunday": {
+                "afternoonend": "",
+                "afternoonstart": "",
+                "comment": "",
+                "morningend": "",
+                "morningstart": "",
+            },
+            "thursday": {
+                "afternoonend": "18:30",
+                "afternoonstart": "13:00",
+                "comment": "uniquement sur rdv",
+                "morningend": "12:30",
+                "morningstart": "09:00",
+            },
+            "tuesday": {
+                "afternoonend": "15:15",
+                "afternoonstart": "13:00",
+                "comment": "uniquement sur rdv",
+                "morningend": "12:30",
+                "morningstart": "09:00",
+            },
+            "wednesday": {
+                "afternoonend": "18:30",
+                "afternoonstart": "13:00",
+                "comment": "uniquement sur rdv",
+                "morningend": "12:30",
+                "morningstart": "09:00",
+            },
+        }
+
         transaction.commit()
         response = self.api_session.get(contact.absolute_url())
         self.assertEqual(response.status_code, 200)

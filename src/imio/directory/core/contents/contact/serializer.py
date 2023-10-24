@@ -2,6 +2,7 @@
 
 from imio.directory.core.contents import IContact
 from imio.directory.core.interfaces import IImioDirectoryCoreLayer
+from imio.smartweb.common.contact_utils import ContactProperties
 from imio.smartweb.common.rest.utils import get_restapi_query_lang
 from plone.app.contentlisting.interfaces import IContentListingObject
 from plone.restapi.interfaces import ISerializeToJson
@@ -27,6 +28,33 @@ class SerializeContactToJson(SerializeFolderToJson):
 
         query = self.request.form
         lang = get_restapi_query_lang(query)
+        contact_prop = ContactProperties(result)
+        opening_informations = contact_prop.get_opening_informations()
+        result["opening_informations"] = opening_informations
+        result["schedule_for_today"] = contact_prop.get_schedule_for_today(
+            opening_informations
+        )
+        result["table_date"] = []
+        week_days = contact_prop.get_week_days()
+        table_date = []
+        day_mapping = {
+            "weekday_mon_short": "Monday",
+            "weekday_tue_short": "Tuesday",
+            "weekday_wed_short": "Wednesday",
+            "weekday_thu_short": "Thursday",
+            "weekday_fri_short": "Friday",
+            "weekday_sat_short": "Saturday",
+            "weekday_sun_short": "Sunday",
+        }
+        for a_date in week_days:
+            formatted_schedule = contact_prop.formatted_schedule(
+                list(a_date.values())[0]
+            )
+            day = day_mapping.get([k for k, v in a_date.items()][0])
+            dict = {day: formatted_schedule}
+            table_date.append(dict)
+        result["table_date"] = table_date
+
         if lang and lang != "fr":
             result["title"] = getattr(obj, f"title_{lang}")
             result["subtitle"] = getattr(obj, f"subtitle_{lang}")
