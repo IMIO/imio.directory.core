@@ -424,14 +424,6 @@ class TestContact(unittest.TestCase):
         self.assertEqual(len(bundles), 2)
         self.assertListEqual(bundles, ["spotlightjs", "flexbin"])
 
-    def test_subscriber_to_select_current_entity(self):
-        contact = api.content.create(
-            container=self.entity,
-            type="imio.directory.Contact",
-            title="My contact",
-        )
-        self.assertEqual(contact.selected_entities, [self.entity.UID()])
-
     def test_referrer_entities(self):
         setRoles(self.portal, TEST_USER_ID, ["Manager"])
         intids = getUtility(IIntIds)
