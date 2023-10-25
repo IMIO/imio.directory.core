@@ -5,6 +5,7 @@ from imio.directory.core.utils import get_entity_uid_for_contact
 from imio.smartweb.common.faceted.utils import configure_faceted
 from imio.smartweb.common.interfaces import IAddress
 from imio.smartweb.common.utils import geocode_object
+from imio.smartweb.common.utils import remove_cropping
 from plone import api
 from zope.component import getMultiAdapter
 from zope.globalrequest import getRequest
@@ -56,7 +57,9 @@ def modified_contact(obj, event):
         if d.interface is IAddress and d.attributes:
             # an address field has been changed
             geocode_object(obj)
-            return
+        elif "ILeadImageBehavior.image" in d.attributes:
+            # we need to remove cropping information of previous image
+            remove_cropping(obj, "image", ["portrait_affiche", "paysage_affiche"])
 
 
 def modified_entity(obj, event):

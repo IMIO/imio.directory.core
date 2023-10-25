@@ -5,9 +5,13 @@ from imio.directory.core.contents import IContact
 from imio.directory.core.contents.contact.content import phone_constraint
 from imio.directory.core.interfaces import IImioDirectoryCoreLayer
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
+from imio.directory.core.tests.utils import make_named_image
 from imio.smartweb.common.utils import geocode_object
 from plone import api
 from plone.api.exc import InvalidParameterError
+from plone.app.contenttypes.behaviors.leadimage import ILeadImageBehavior
+from plone.app.dexterity.behaviors.metadata import IBasic
+from plone.app.imagecropping import PAI_STORAGE_KEY
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
@@ -18,6 +22,7 @@ from plone.dexterity.interfaces import IDexterityFTI
 from plone.formwidget.geolocation.geolocation import Geolocation
 from plone.i18n.utility import setLanguageBinding
 from plone.namedfile.file import NamedBlobFile
+from plone.namedfile.file import NamedBlobImage
 from plone.restapi.testing import RelativeSession
 from plone.testing.zope import Browser
 from unittest import mock
@@ -463,3 +468,23 @@ class TestContact(unittest.TestCase):
         contact.reindexObject()
         modified(contact)
         self.assertIn(self.entity.UID(), contact.selected_entities)
+
+    def test_removing_old_cropping(self):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            id="contact",
+        )
+        contact.image = NamedBlobImage(**make_named_image())
+        view = contact.restrictedTraverse("@@crop-image")
+        view._crop(fieldname="image", scale="portrait_affiche", box=(1, 1, 200, 200))
+        annotation = IAnnotations(contact).get(PAI_STORAGE_KEY)
+        self.assertEqual(annotation, {"image_portrait_affiche": (1, 1, 200, 200)})
+
+        modified(contact, Attributes(IBasic, "IBasic.title"))
+        annotation = IAnnotations(contact).get(PAI_STORAGE_KEY)
+        self.assertEqual(annotation, {"image_portrait_affiche": (1, 1, 200, 200)})
+
+        modified(contact, Attributes(ILeadImageBehavior, "ILeadImageBehavior.image"))
+        annotation = IAnnotations(contact).get(PAI_STORAGE_KEY)
+        self.assertEqual(annotation, {})
