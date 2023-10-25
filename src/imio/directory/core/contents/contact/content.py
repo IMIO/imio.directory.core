@@ -35,7 +35,10 @@ class ContactCroppingProvider(BaseCroppingProvider):
     def get_scales(self, fieldname, request=None):
         if fieldname == "image":
             # scale used for lead image field
-            return ["vignette"]
+            return [
+                "portrait_affiche",
+                "paysage_affiche",
+            ]
         return []
 
 
