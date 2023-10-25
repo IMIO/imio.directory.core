@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1.11 (unreleased)
+1.1.11 (2023-10-25)
 -------------------
 
 - MWEBITTA-21 : Add entities subscribing to share all contacts
