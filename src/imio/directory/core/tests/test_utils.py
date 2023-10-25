@@ -1,19 +1,14 @@
 # -*- coding: utf-8 -*-
 
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
+from imio.directory.core.tests.utils import make_named_image
 from plone import api
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.namedfile.file import NamedBlobImage
 from zope.component import getMultiAdapter
 
-import os
 import unittest
-
-
-def image(filename):
-    file_path = os.path.join(os.path.dirname(__file__), filename)
-    return NamedBlobImage(data=open(file_path, "rb").read(), filename=file_path)
 
 
 class TestUtils(unittest.TestCase):
@@ -59,7 +54,7 @@ class TestUtils(unittest.TestCase):
             str(view.export_contact_to_vcard()),
             "BEGIN:VCARD\r\nVERSION:3.0\r\nADR:1;;My street;;;5000;Belgium\r\nEMAIL;TYPE=home:test@imio.be\r\nFN:contact\r\nTEL;TYPE=cell:+32496111111\r\nURL;TYPE=website:https://www.imio.be\r\nEND:VCARD\r\n",
         )
-        contact.logo = image("resources/logo.png")
+        contact.logo = NamedBlobImage(**make_named_image())
         self.assertIn(
             "PHOTO;ENCODING=B;TYPE=IMAGE/JPEG:", view.export_contact_to_vcard()
         )
