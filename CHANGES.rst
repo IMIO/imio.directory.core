@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.1 (unreleased)
+1.2.1 (2023-10-26)
 ------------------
 
 - Remove logo field from cropping editor
