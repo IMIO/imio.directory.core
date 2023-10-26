@@ -1,6 +1,8 @@
 <configure
     xmlns="http://namespaces.zope.org/zope">
 
+  <include package="z3c.unconfigure" file="meta.zcml" />
+
   <include package="collective.geolocationbehavior" />
   <include package="collective.monkeypatcher" />
   <include package="collective.schedulefield" />

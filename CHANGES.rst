@@ -5,7 +5,8 @@ Changelog
 1.2.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Remove logo field from cropping editor
+  [laulaz]
 
 
 1.2 (2023-10-25)

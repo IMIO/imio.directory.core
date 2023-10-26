@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
+from imio.directory.core.tests.utils import make_named_image
 from imio.smartweb.common.interfaces import ICropping
 from plone import api
+from plone.app.imagecropping.interfaces import IImageCroppingUtils
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import setRoles
+from plone.namedfile.file import NamedBlobImage
 from zope.component import getMultiAdapter
 
 import unittest
@@ -38,9 +41,21 @@ class TestCropping(unittest.TestCase):
         )
         self.assertEqual(adapter.get_scales("logo", self.request), [])
 
+    def test_uncroppable_fields(self):
+        self.contact.logo = NamedBlobImage(**make_named_image())
+        self.contact.image = NamedBlobImage(**make_named_image())
+        adapter = IImageCroppingUtils(self.contact, alternate=None)
+        self.assertIsNotNone(adapter)
+        self.assertEqual(len(list(adapter._image_field_values())), 1)
+        self.assertEqual(adapter.image_field_names(), ["image"])
+
     def test_cropping_view(self):
+        self.contact.logo = NamedBlobImage(**make_named_image())
+        self.contact.image = NamedBlobImage(**make_named_image())
         cropping_view = getMultiAdapter(
             (self.contact, self.request), name="croppingeditor"
         )
-        self.assertEqual(len(list(cropping_view._scales("image"))), 2)
         self.assertEqual(len(list(cropping_view._scales("logo"))), 0)
+        self.assertEqual(len(list(cropping_view._scales("image"))), 2)
+        self.assertNotIn("Logo", cropping_view())
+        self.assertIn("Lead Image", cropping_view())

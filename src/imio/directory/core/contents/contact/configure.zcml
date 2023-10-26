@@ -5,6 +5,17 @@
   <adapter factory=".serializer.SerializeContactToJson" />
   <adapter factory=".serializer.ContactJSONSummarySerializer" />
 
+  <unconfigure>
+    <adapter factory="plone.app.imagecropping.dx.CroppingUtilsDexterity" />
+    <adapter
+        for="plone.dexterity.interfaces.IDexterityContent"
+        provides="imio.smartweb.common.interfaces.ICropping"
+        factory="imio.smartweb.common.adapters.BaseCroppingProvider"
+        />
+  </unconfigure>
+
+  <adapter factory=".content.DirectoryCroppingUtilsDexterity" />
+
   <adapter
       for=".content.Contact"
       provides="imio.smartweb.common.interfaces.ICropping"

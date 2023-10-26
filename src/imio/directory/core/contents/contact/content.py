@@ -8,6 +8,8 @@ from imio.smartweb.common.interfaces import IAddress
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import schema
 from plone.app.content.namechooser import NormalizingNameChooser
+from plone.app.imagecropping.dx import CroppingUtilsDexterity
+from plone.app.imagecropping.interfaces import IImageCroppingUtils
 from plone.app.z3cform.widget import SelectFieldWidget
 from plone.autoform import directives
 from plone.autoform.directives import read_permission
@@ -15,9 +17,12 @@ from plone.autoform.directives import widget
 from plone.autoform.directives import write_permission
 from plone.dexterity.content import Container
 from plone.namedfile.field import NamedBlobImage
+from plone.namedfile.interfaces import IImage
+from plone.namedfile.interfaces import IImageScaleTraversable
 from plone.supermodel import model
 from z3c.form.browser.radio import RadioFieldWidget
 from z3c.form.converter import FormatterValidationError
+from zope.component import adapter
 from zope.container.interfaces import INameChooser
 from zope.interface import Interface
 from zope.interface import implementer
@@ -26,9 +31,22 @@ from zope.schema.interfaces import StopValidation
 
 import re
 
-# from collective.geolocationbehavior.geolocation import IGeolocatable
-# from plone.supermodel.interfaces import FIELDSETS_KEY
-# from plone.supermodel.model import Fieldset
+UNCROPPABLE_FIELDS = ["logo"]
+
+
+@implementer(IImageCroppingUtils)
+@adapter(IImageScaleTraversable)
+class DirectoryCroppingUtilsDexterity(CroppingUtilsDexterity):
+    def _image_field_values(self):
+        """Remove logo field from cropping editor"""
+        for fieldname, field in self._all_fields():
+            value = getattr(self.context, fieldname, None)
+            if (
+                value
+                and IImage.providedBy(value)
+                and fieldname not in UNCROPPABLE_FIELDS
+            ):
+                yield (fieldname, value)
 
 
 class ContactCroppingProvider(BaseCroppingProvider):
