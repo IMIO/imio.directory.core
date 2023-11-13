@@ -337,6 +337,7 @@ class IContact(
             "Important! These categories make it possible to highlight and geolocate certain basic services"
         ),
         value_type=schema.Choice(vocabulary="imio.directory.vocabulary.Facilities"),
+        default=[],
         required=False,
     )
     directives.widget(facilities=SelectFieldWidget)

@@ -124,4 +124,13 @@
       profile="imio.directory.core:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Fix missing values for facilities lists"
+      description=""
+      source="1011"
+      destination="1012"
+      handler=".upgrades.fix_missing_values_for_facilities_lists"
+      profile="imio.directory.core:default"
+      />
+
 </configure>

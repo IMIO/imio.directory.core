@@ -5,7 +5,9 @@ Changelog
 1.2.2 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix missing values for topics / iam lists (causing `None` in REST views filters)
+  See https://github.com/collective/collective.solr/issues/366
+  [laulaz]
 
 
 1.2.1 (2023-10-26)

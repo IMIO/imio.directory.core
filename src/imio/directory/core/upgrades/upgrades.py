@@ -204,3 +204,21 @@ def fix_datagridfields_values(context):
         fix_type(contact, "private_phones")
         fix_type(contact, "private_mails")
         fix_type(contact, "private_urls")
+
+
+def fix_missing_values_for_facilities_lists(context):
+    catalog = api.portal.get_tool("portal_catalog")
+    with api.env.adopt_user(username="admin"):
+        brains = api.content.find(portal_type=["imio.directory.Contact"])
+        for brain in brains:
+            must_reindex = False
+            if brain.facilities is None:
+                must_reindex = True
+            obj = brain.getObject()
+            if hasattr(obj, "facilities") and obj.facilities is None:
+                obj.facilities = []
+                must_reindex = True
+                logger.info(f"Fixed None list for Facilities on {obj.absolute_url()}")
+            if must_reindex:
+                catalog.catalog_object(obj, idxs=["facilities"])
+                logger.info(f"Reindexed Facilities on {obj.absolute_url()}")
