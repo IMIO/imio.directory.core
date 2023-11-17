@@ -86,6 +86,9 @@ class FacilitiesVocabularyFactory:
             ("useful_numbers", _("Useful numbers")),
             ("public_toilets", _("Public toilets")),
             ("free_wifi", _("Free WIFI")),
+            ("bottle_bubbles", _("Bottle bubbles")),
+            ("clothing_bubbles", _("Clothing bubbles")),
+            ("container_parks", _("Container parks")),
         ]
         terms = [SimpleTerm(value=t[0], token=t[0], title=t[1]) for t in values]
         return SimpleVocabulary(terms)

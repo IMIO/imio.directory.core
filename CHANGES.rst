@@ -5,6 +5,9 @@ Changelog
 1.2.2 (unreleased)
 ------------------
 
+- WEB-4018 : Add three new terms in facitilites vocabulary
+  [boulch]
+
 - Fix missing values for topics / iam lists (causing `None` in REST views filters)
   See https://github.com/collective/collective.solr/issues/366
   [laulaz]
