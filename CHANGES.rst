@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.2 (unreleased)
+1.2.2 (2023-11-20)
 ------------------
 
 - WEB-4018 : Add three new terms in facitilites vocabulary
