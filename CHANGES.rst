@@ -5,6 +5,9 @@ Changelog
 1.2.3 (unreleased)
 ------------------
 
+- WEB-4041 : Handle new "carre" scale
+  [boulch]
+
 - WEB-4007 : Update contact serializer and use ContactProperties to get well formated schedule
   and help displaying schedule in REACT directory view
   [boulch]

@@ -37,7 +37,7 @@ class TestCropping(unittest.TestCase):
         self.assertIsNotNone(adapter)
         self.assertEqual(
             adapter.get_scales("image", self.request),
-            ["portrait_affiche", "paysage_affiche"],
+            ["portrait_affiche", "paysage_affiche", "carre_affiche"],
         )
         self.assertEqual(adapter.get_scales("logo", self.request), [])
 
@@ -56,6 +56,6 @@ class TestCropping(unittest.TestCase):
             (self.contact, self.request), name="croppingeditor"
         )
         self.assertEqual(len(list(cropping_view._scales("logo"))), 0)
-        self.assertEqual(len(list(cropping_view._scales("image"))), 2)
+        self.assertEqual(len(list(cropping_view._scales("image"))), 3)
         self.assertNotIn("Logo", cropping_view())
         self.assertIn("Lead Image", cropping_view())
