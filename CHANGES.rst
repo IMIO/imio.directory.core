@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.3 (unreleased)
+1.2.3 (2024-01-09)
 ------------------
 
 - WEB-4041 : Handle new "carre" scale
