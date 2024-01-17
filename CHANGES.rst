@@ -5,7 +5,8 @@ Changelog
 1.2.4 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- WEB-4052 : If all values in schedule are "" then we set "table_date" to None
+  [boulch]
 
 
 1.2.3 (2024-01-09)
