@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.4 (unreleased)
+1.2.4 (2024-01-17)
 ------------------
 
 - WEB-4052 : If all values in schedule are "" then we set "table_date" to None
