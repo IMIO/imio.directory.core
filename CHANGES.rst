@@ -5,7 +5,8 @@ Changelog
 1.2.5 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- WEB-4006 : Add mail and phone labels in SearchableText
+  [remdub]
 
 
 1.2.4 (2024-01-17)
