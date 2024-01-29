@@ -100,15 +100,15 @@ def get_searchable_text(obj, lang):
     mails = safe_unicode(getattr(obj, "mails", "")) or ""
     if mails:
         for mail in mails:
-            if mail['label'] is not None:
-                mails_labels.append(mail['label'])
+            if mail["label"] is not None:
+                mails_labels.append(mail["label"])
 
     phones_labels = []
     phones = safe_unicode(getattr(obj, "phones", "")) or ""
     if phones:
         for phone in phones:
-            if phone['label'] is not None:
-                phones_labels.append(phone['label'])
+            if phone["label"] is not None:
+                phones_labels.append(phone["label"])
 
     result = " ".join(
         (

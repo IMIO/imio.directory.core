@@ -376,38 +376,14 @@ class TestContact(unittest.TestCase):
         contact.topics = ["agriculture"]
 
         contact.mails = [
-            {
-                "label": "kamouloxmail",
-                "mail_address": "ka@moulox.be",
-                "type": "home"
-            },
-            {
-                "label": None,
-                "mail_address": "ka@moulox2.be",
-                "type": "work"
-            },
-            {
-                "label": "kamouloxmail2",
-                "mail_address": "ka@moulox2.be",
-                "type": "work"
-            },
+            {"label": "kamouloxmail", "mail_address": "ka@moulox.be", "type": "home"},
+            {"label": None, "mail_address": "ka@moulox2.be", "type": "work"},
+            {"label": "kamouloxmail2", "mail_address": "ka@moulox2.be", "type": "work"},
         ]
         contact.phones = [
-            {
-                "label": "kamouloxphone",
-                "phone_number": "+3223456789",
-                "type": "home"
-            },
-            {
-                "label": "kamouloxphone2",
-                "phone_number": "+3212345678",
-                "type": "work"
-            },
-            {
-                "label": None,
-                "phone_number": "+3291234567",
-                "type": "work"
-            },
+            {"label": "kamouloxphone", "phone_number": "+3223456789", "type": "home"},
+            {"label": "kamouloxphone2", "phone_number": "+3212345678", "type": "work"},
+            {"label": None, "phone_number": "+3291234567", "type": "work"},
         ]
         contact.reindexObject()
 
