@@ -39,9 +39,9 @@ class ContactCustomEditForm(CustomEditForm):
             desc = translate(desc, target_language=language)
             prepend_desc = _("Example : Photo of a person or organization building")
             prepend_desc = translate(prepend_desc, target_language=language)
-            self.widgets[
-                "ILeadImageBehavior.image"
-            ].description = f"{prepend_desc}. {desc}"
+            self.widgets["ILeadImageBehavior.image"].description = (
+                f"{prepend_desc}. {desc}"
+            )
 
 
 ContactCustomEditView = layout.wrap_form(ContactCustomEditForm)
