@@ -133,13 +133,18 @@
       profile="imio.directory.core:default"
       />
 
-    <genericsetup:upgradeStep
-      title="Add mail and phone labels to searchableText"
-      description=""
+    <genericsetup:upgradeSteps
       source="1012"
       destination="1013"
-      handler=".upgrades.reindex_searchable_text"
-      profile="imio.directory.core:default"
-      />
+      profile="imio.directory.core:default">
+        <genericsetup:upgradeStep
+            title="Add mail and phone labels to searchableText"
+            handler=".upgrades.reindex_searchable_text"
+            />
+        <genericsetup:upgradeStep
+            title="Reindex SolR"
+            handler=".upgrades.reindex_solr"
+            />
+    </genericsetup:upgradeSteps>
 
 </configure>

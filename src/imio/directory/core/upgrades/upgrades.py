@@ -222,3 +222,10 @@ def fix_missing_values_for_facilities_lists(context):
             if must_reindex:
                 catalog.catalog_object(obj, idxs=["facilities"])
                 logger.info(f"Reindexed Facilities on {obj.absolute_url()}")
+
+
+def reindex_solr(context):
+    portal = api.portal.get()
+    maintenance = portal.unrestrictedTraverse("@@solr-maintenance")
+    maintenance.clear()
+    maintenance.reindex()
