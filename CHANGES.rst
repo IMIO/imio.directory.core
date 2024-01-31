@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.5 (unreleased)
+1.2.5 (2024-01-31)
 ------------------
 
 - WEB-4006 : Add mail and phone labels in SearchableText
