@@ -5,7 +5,8 @@ Changelog
 1.2.6 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- WEB-4006 : Also reindex solr on SearchableText upgrade step
+  [remdub]
 
 
 1.2.5 (2024-01-31)
