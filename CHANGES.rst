@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.6 (unreleased)
+1.2.6 (2024-01-31)
 ------------------
 
 - WEB-4006 : Also reindex solr on SearchableText upgrade step
