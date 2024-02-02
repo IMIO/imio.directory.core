@@ -29,19 +29,21 @@ class SerializeContactToJson(SerializeFolderToJson):
         query = self.request.form
         lang = get_restapi_query_lang(query)
         contact_prop = ContactProperties(result)
-        opening_informations = contact_prop.get_opening_informations()
-        result["opening_informations"] = opening_informations
-        result["schedule_for_today"] = contact_prop.get_schedule_for_today(
-            opening_informations
-        )
-
+        if contact_prop.is_empty_schedule() is False:
+            opening_informations = contact_prop.get_opening_informations()
+            result["opening_informations"] = opening_informations
+            result["schedule_for_today"] = contact_prop.get_schedule_for_today(
+                opening_informations
+            )
         schedule = result["schedule"]
-        all_values_empty = all(
-            value == ""
-            for day_values in schedule.values()
-            for value in day_values.values()
-        )
-
+        if schedule is None:
+            all_values_empty = True
+        else:
+            all_values_empty = all(
+                value == ""
+                for day_values in schedule.values()
+                for value in day_values.values()
+            )
         if all_values_empty is False:
             result["table_date"] = None
             table_date = []

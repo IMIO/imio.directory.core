@@ -5,7 +5,8 @@ Changelog
 1.2.7 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- SUP-34841 : Fix contact serializer when contact hasn't schedule
+  [boulch]
 
 
 1.2.6 (2024-01-31)
