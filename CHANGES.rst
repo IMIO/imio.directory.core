@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.7 (unreleased)
+1.2.7 (2024-02-02)
 ------------------
 
 - SUP-34841 : Fix contact serializer when contact hasn't schedule
