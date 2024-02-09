@@ -9,4 +9,12 @@
       layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
       /-->
 
+  <browser:page
+      name="export"
+      for="imio.directory.core.contents.IEntity"
+      class=".export.ExportView"
+      permission="cmf.ModifyPortalContent"
+      layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
+      />
+
 </configure>

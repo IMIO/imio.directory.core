@@ -57,6 +57,7 @@ setup(
         "plone.restapi",
         "plone.app.dexterity",
         "plone.app.imagecropping",
+        "pandas",
         "collective.taxonomy",
         "embeddify",
         "imio.smartweb.common",
