@@ -5,7 +5,8 @@ Changelog
 1.2.8 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- MWEBRCHA-14 : Add view to export contacts to csv file
+  [boulch]
 
 
 1.2.7 (2024-02-02)
