@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.8 (unreleased)
+1.2.8 (2024-02-12)
 ------------------
 
 - MWEBRCHA-14 : Add view to export contacts to csv file
