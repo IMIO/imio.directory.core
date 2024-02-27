@@ -2,26 +2,10 @@
 <registry
     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
     i18n:domain="imio.smartweb">
-
-  <record name="geolocation.default_latitude"
-          interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings">
-    <value>50.4989185</value>
-  </record>
-
-  <record name="geolocation.default_longitude"
-          interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings">
-    <value>4.7184485</value>
-  </record>
-
-  <record name="geolocation.use_default_geolocation_as_value"
-          interface="plone.formwidget.geolocation.interfaces.IGeolocationSettings">
-    <value>False</value>
-  </record>
-
-  <record name="plone.types_not_searched"
+    <record name="plone.types_not_searched"
             interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema"
             field="types_not_searched">
-      <value purge="false">
+      <value purge="true">
         <element>News Item</element>
         <element>Collection</element>
         <element>Discussion Item</element>
@@ -35,5 +19,4 @@
         <element>Event</element>
       </value>
     </record>
-
 </registry>

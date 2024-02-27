@@ -5,7 +5,8 @@ Changelog
 1.2.9 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- WEB-4006 : Exclude some content types from search results
+  [remdub]
 
 
 1.2.8 (2024-02-12)
