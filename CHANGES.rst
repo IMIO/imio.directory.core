@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.10 (unreleased)
+1.2.10 (2024-04-10)
 -------------------
 
 - WEB-4095 : Use "|" separator instead of "," when exporting contacts to csv file
