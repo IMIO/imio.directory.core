@@ -107,7 +107,7 @@ class ExportView(BrowserView):
         df = df[columns]
 
         csv_buffer = io.BytesIO()
-        df.to_csv(csv_buffer, index=False, encoding="utf-8")
+        df.to_csv(csv_buffer, index=False, encoding="utf-8", sep="|")
 
         self.request.response.setHeader(
             "Content-Disposition", 'attachment; filename="export.csv"'

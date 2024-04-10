@@ -5,7 +5,8 @@ Changelog
 1.2.10 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEB-4095 : Use "|" separator instead of "," when exporting contacts to csv file
+  [boulch]
 
 
 1.2.9 (2024-02-27)
