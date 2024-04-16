@@ -109,7 +109,7 @@ class TestExport(unittest.TestCase):
         assert isinstance(written_content, bytes)
         csv_buffer = io.BytesIO(written_content)
         # Read the CSV data into a pandas DataFrame
-        df = pandas.read_csv(csv_buffer)
+        df = pandas.read_csv(csv_buffer, delimiter="|")
 
         # Check that the columns are present
         for column in ordered_signifiant_columns:
