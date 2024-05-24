@@ -76,9 +76,8 @@ def container_uid(obj):
 def get_searchable_text(obj, lang):
     topics = []
     for topic in getattr(obj.aq_base, "topics", []) or []:
-        topics.append(
-            translate_vocabulary_term("imio.smartweb.vocabulary.Topics", topic)
-        )
+        term = translate_vocabulary_term("imio.smartweb.vocabulary.Topics", topic, lang)
+        topics.append(term)
 
     sm = getSiteManager()
     utility = sm.queryUtility(ITaxonomy, name="collective.taxonomy.contact_category")

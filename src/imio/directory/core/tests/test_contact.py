@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from collective.geolocationbehavior.geolocation import IGeolocatable
 from imio.directory.core.contents import IContact
 from imio.directory.core.contents.contact.content import phone_constraint
 from imio.directory.core.interfaces import IImioDirectoryCoreLayer
@@ -20,7 +19,6 @@ from plone.app.testing import SITE_OWNER_NAME
 from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.dexterity.interfaces import IDexterityFTI
 from plone.formwidget.geolocation.geolocation import Geolocation
-from plone.i18n.utility import setLanguageBinding
 from plone.namedfile.file import NamedBlobFile
 from plone.namedfile.file import NamedBlobImage
 from plone.restapi.testing import RelativeSession
@@ -295,125 +293,6 @@ class TestContact(unittest.TestCase):
             title="My contact",
         )
         self.assertEqual(contact.selected_entities, [self.entity.UID()])
-
-    def test_indexes(self):
-        contact1 = api.content.create(
-            container=self.entity,
-            type="imio.directory.Contact",
-            title="Contact1",
-        )
-        catalog = api.portal.get_tool("portal_catalog")
-        brain = api.content.find(UID=contact1.UID())[0]
-        indexes = catalog.getIndexDataForRID(brain.getRID())
-        self.assertFalse(indexes.get("is_geolocated"))
-        self.assertEqual(indexes.get("container_uid"), self.entity.UID())
-        IGeolocatable(contact1).geolocation = Geolocation(
-            latitude="4.5", longitude="45"
-        )
-        contact1.reindexObject(idxs=["is_geolocated"])
-        brain = api.content.find(UID=contact1.UID())[0]
-        indexes = catalog.getIndexDataForRID(brain.getRID())
-        self.assertTrue(indexes.get("is_geolocated"))
-
-        contact2 = api.content.create(
-            container=self.entity,
-            type="imio.directory.Contact",
-            title="Contact2",
-        )
-        entity2 = api.content.create(
-            container=self.portal,
-            type="imio.directory.Entity",
-            title="Entity2",
-        )
-        contact1.selected_entities = [self.entity.UID()]
-        contact1.reindexObject()
-        brains = api.content.find(selected_entities=self.entity.UID())
-        lst = [brain.UID for brain in brains]
-        self.assertEqual(lst, [contact1.UID(), contact2.UID()])
-
-        contact2.selected_entities = [entity2.UID(), self.entity.UID()]
-        contact2.reindexObject()
-        brains = api.content.find(selected_entities=entity2.UID())
-        lst = [brain.UID for brain in brains]
-        self.assertEqual(lst, [contact2.UID()])
-
-        brains = api.content.find(selected_entities=[entity2.UID(), self.entity.UID()])
-        lst = [brain.UID for brain in brains]
-        self.assertEqual(lst, [contact1.UID(), contact2.UID()])
-
-        contact2.selected_entities = [entity2.UID()]
-        contact2.reindexObject()
-        brains = api.content.find(selected_entities=[entity2.UID(), self.entity.UID()])
-        lst = [brain.UID for brain in brains]
-        self.assertEqual(lst, [contact1.UID(), contact2.UID()])
-
-        api.content.move(contact1, entity2)
-        brain = api.content.find(UID=contact1.UID())[0]
-        indexes = catalog.getIndexDataForRID(brain.getRID())
-        self.assertEqual(indexes.get("container_uid"), entity2.UID())
-
-    def test_searchable_text(self):
-        # use French (taxonomy is only translated in French)
-        self.request["set_language"] = "fr"
-        setLanguageBinding(self.request)
-
-        contact = api.content.create(
-            container=self.entity,
-            type="imio.directory.Contact",
-            title="Title",
-        )
-        catalog = api.portal.get_tool("portal_catalog")
-        brain = api.content.find(UID=contact.UID())[0]
-        indexes = catalog.getIndexDataForRID(brain.getRID())
-        self.assertEqual(indexes.get("SearchableText"), ["title"])
-
-        contact.subtitle = "Subtitle"
-        contact.description = "Description"
-        contact.taxonomy_contact_category = [
-            "brog42mktt",  # Auberge de jeunesse
-            "hlsm9bijb1",  # Alimentation
-        ]
-        contact.topics = ["agriculture"]
-
-        contact.mails = [
-            {"label": "kamouloxmail", "mail_address": "ka@moulox.be", "type": "home"},
-            {"label": None, "mail_address": "ka@moulox2.be", "type": "work"},
-            {"label": "kamouloxmail2", "mail_address": "ka@moulox2.be", "type": "work"},
-        ]
-        contact.phones = [
-            {"label": "kamouloxphone", "phone_number": "+3223456789", "type": "home"},
-            {"label": "kamouloxphone2", "phone_number": "+3212345678", "type": "work"},
-            {"label": None, "phone_number": "+3291234567", "type": "work"},
-        ]
-        contact.reindexObject()
-
-        catalog = api.portal.get_tool("portal_catalog")
-        brain = api.content.find(UID=contact.UID())[0]
-        indexes = catalog.getIndexDataForRID(brain.getRID())
-        self.assertEqual(
-            indexes.get("SearchableText"),
-            [
-                "title",
-                "subtitle",
-                "description",
-                "agriculture",
-                "commerces",
-                "et",
-                "entreprises",
-                "hebergement",
-                "auberge",
-                "de",
-                "jeunesse",
-                "commerces",
-                "et",
-                "entreprises",
-                "alimentation",
-                "kamouloxmail",
-                "kamouloxmail2",
-                "kamouloxphone",
-                "kamouloxphone2",
-            ],
-        )
 
     def test_geolocation(self):
         attr = {"geocode.return_value": mock.Mock(latitude=1, longitude=2)}

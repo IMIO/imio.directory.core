@@ -5,7 +5,8 @@ Changelog
 1.2.11 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix Topics in SearchableText translated indexes
+  [laulaz]
 
 
 1.2.10 (2024-04-10)
