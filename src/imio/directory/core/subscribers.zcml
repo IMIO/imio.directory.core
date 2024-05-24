@@ -25,4 +25,12 @@
                    zope.lifecycleevent.interfaces.IObjectRemovedEvent"
               handler=".subscribers.removed_entity" />
 
+  <subscriber for="imio.directory.core.contents.IContact
+                   zope.lifecycleevent.interfaces.IObjectRemovedEvent"
+              handler=".subscribers.removed_contact" />
+
+  <subscriber for="imio.directory.core.contents.IContact
+                   Products.DCWorkflow.interfaces.IAfterTransitionEvent"
+              handler=".subscribers.published_contact_transition" />
+
 </configure>

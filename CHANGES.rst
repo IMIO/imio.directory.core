@@ -5,6 +5,10 @@ Changelog
 1.2.11 (unreleased)
 -------------------
 
+- WEB-4088 : Add some odwb endpoints (for contacts , for entities)
+  Cover use case for sending data in odwb for a staging environment
+  [boulch]
+
 - Fix Topics in SearchableText translated indexes
   [laulaz]
 

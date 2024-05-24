@@ -1,0 +1,25 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:plone="http://namespaces.plone.org/plone">
+
+  <plone:service
+      name="@odwb"
+      method="GET"
+      accept="application/json"
+      for="zope.interface.Interface"
+      factory=".odwb_endpoint.OdwbEndpointGet"
+      permission="zope2.View"
+      layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
+      />
+
+  <plone:service
+      name="@odwb_entities"
+      method="GET"
+      accept="application/json"
+      for="zope.interface.Interface"
+      factory=".odwb_endpoint.OdwbEntitiesEndpointGet"
+      permission="zope2.View"
+      layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
+      />
+
+</configure>

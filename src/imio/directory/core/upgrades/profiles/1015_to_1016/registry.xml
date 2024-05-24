@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<registry
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="imio.smartweb">
+
+  <record name="imio.directory.core.odwb_entites-des-contacts-en-wallonie_pushkey">
+    <field type="plone.registry.field.TextLine">
+      <title>ODWB : Entit&#233;s des contacts en Wallonie - pushkey</title>
+    </field>
+  </record>
+
+  <record name="imio.directory.core.odwb_contacts-en-wallonie_pushkey">
+    <field type="plone.registry.field.TextLine">
+      <title>ODWB : Contacts en Wallonie - pushkey</title>
+    </field>
+  </record>
+
+  <record name="imio.directory.core.odwb_staging-entites-des-contacts-en-wallonie_pushkey">
+    <field type="plone.registry.field.TextLine">
+      <title>ODWB : Entit&#233;s des contacts en Wallonie (STAGING) - pushkey</title>
+    </field>
+  </record>
+
+  <record name="imio.directory.core.odwb_staging-contacts-en-wallonie_pushkey">
+    <field type="plone.registry.field.TextLine">
+      <title>ODWB : Contacts en Wallonie (STAGING) - pushkey</title>
+    </field>
+  </record>
+
+</registry>

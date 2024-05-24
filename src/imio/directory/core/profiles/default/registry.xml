@@ -21,19 +21,43 @@
   <record name="plone.types_not_searched"
             interface="Products.CMFPlone.interfaces.controlpanel.ISearchSchema"
             field="types_not_searched">
-      <value purge="false">
-        <element>News Item</element>
-        <element>Collection</element>
-        <element>Discussion Item</element>
-        <element>Folder</element>
-        <element>File</element>
-        <element>Image</element>
-        <element>Link</element>
-        <element>Document</element>
-        <element>Plone Site</element>
-        <element>TempFolder</element>
-        <element>Event</element>
-      </value>
-    </record>
+    <value purge="false">
+      <element>News Item</element>
+      <element>Collection</element>
+      <element>Discussion Item</element>
+      <element>Folder</element>
+      <element>File</element>
+      <element>Image</element>
+      <element>Link</element>
+      <element>Document</element>
+      <element>Plone Site</element>
+      <element>TempFolder</element>
+      <element>Event</element>
+    </value>
+  </record>
+
+  <record name="imio.directory.core.odwb_entites-des-contacts-en-wallonie_pushkey">
+    <field type="plone.registry.field.TextLine">
+      <title>ODWB : Entit&#233;s des contacts en Wallonie - pushkey</title>
+    </field>
+  </record>
+
+  <record name="imio.directory.core.odwb_contacts-en-wallonie_pushkey">
+    <field type="plone.registry.field.TextLine">
+      <title>ODWB : Contacts en Wallonie - pushkey</title>
+    </field>
+  </record>
+
+  <record name="imio.directory.core.odwb_staging-entites-des-contacts-en-wallonie_pushkey">
+    <field type="plone.registry.field.TextLine">
+      <title>ODWB : Entit&#233;s des contacts en Wallonie (STAGING) - pushkey</title>
+    </field>
+  </record>
+
+  <record name="imio.directory.core.odwb_staging-contacts-en-wallonie_pushkey">
+    <field type="plone.registry.field.TextLine">
+      <title>ODWB : Contacts en Wallonie (STAGING) - pushkey</title>
+    </field>
+  </record>
 
 </registry>

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from imio.directory.core.rest.odwb_endpoint import OdwbEndpointGet
 from imio.directory.core.utils import get_entity_for_contact
 from imio.directory.core.utils import get_entity_uid_for_contact
 from imio.smartweb.common.faceted.utils import configure_faceted
@@ -7,6 +8,8 @@ from imio.smartweb.common.interfaces import IAddress
 from imio.smartweb.common.utils import geocode_object
 from imio.smartweb.common.utils import remove_cropping
 from plone import api
+from plone.api.content import get_state
+from Products.DCWorkflow.interfaces import IAfterTransitionEvent
 from zope.component import getMultiAdapter
 from zope.globalrequest import getRequest
 from zope.lifecycleevent import ObjectRemovedEvent
@@ -62,6 +65,10 @@ def modified_contact(obj, event):
             remove_cropping(
                 obj, "image", ["portrait_affiche", "paysage_affiche", "carre_affiche"]
             )
+    if get_state(obj) == "published":
+        request = getRequest()
+        endpoint = OdwbEndpointGet(obj, request)
+        endpoint.reply()
 
 
 def modified_entity(obj, event):
@@ -77,6 +84,10 @@ def moved_contact(obj, event):
         return
     container_entity = get_entity_for_contact(obj)
     set_uid_of_referrer_entities(obj, container_entity)
+    if event.oldParent is not None and get_state(obj) == "published":
+        request = getRequest()
+        endpoint = OdwbEndpointGet(obj, request)
+        endpoint.reply()
 
 
 def removed_entity(obj, event):
@@ -91,6 +102,25 @@ def removed_entity(obj, event):
             uid for uid in contact.selected_entities if uid != obj.UID()
         ]
         contact.reindexObject(idxs=["selected_entities"])
+
+
+def removed_contact(obj, event):
+    request = getRequest()
+    endpoint = OdwbEndpointGet(obj, request)
+    endpoint.remove()
+
+
+def published_contact_transition(obj, event):
+    if not IAfterTransitionEvent.providedBy(event):
+        return
+    if event.new_state.id == "published":
+        request = getRequest()
+        endpoint = OdwbEndpointGet(obj, request)
+        endpoint.reply()
+    if event.new_state.id == "private" and event.old_state.id != event.new_state.id:
+        request = getRequest()
+        endpoint = OdwbEndpointGet(obj, request)
+        endpoint.remove()
 
 
 def mark_current_entity_in_contacts_from_other_entities(obj, event):
