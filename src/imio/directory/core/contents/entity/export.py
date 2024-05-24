@@ -141,7 +141,7 @@ class ExportView(BrowserView):
                     else:
                         continue
                 else:
-                    if not attribute in items:
+                    if attribute not in items:
                         items[attribute] = getattr(obj, attribute, None)
                 if isinstance(getattr(obj, attribute, None), dict):
                     dict_obj = getattr(obj, attribute, None)
