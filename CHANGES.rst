@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.12 (unreleased)
+1.2.12 (2024-05-27)
 -------------------
 
 - Fix upgrade step
