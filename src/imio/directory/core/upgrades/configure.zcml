@@ -35,6 +35,14 @@
       provides="Products.GenericSetup.interfaces.EXTENSION"
       />
 
+    <genericsetup:registerProfile
+      name="upgrade_1015_to_1016"
+      title="Upgrade core from 1015 to 1016"
+      directory="profiles/1015_to_1016"
+      description="Add new registry keys to store push keys for ODWB"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
   <genericsetup:upgradeStep
       title="Add selected_entities to existing contacts"
       description="Every contact should have its current entity in selected_entities"
@@ -180,6 +188,16 @@
       <genericsetup:upgradeDepends
         title="Add solr.fields behavior to some content types"
         import_profile="imio.directory.core.upgrades:upgrade_1014_to_1015"
+        />
+    </genericsetup:upgradeSteps>
+
+    <genericsetup:upgradeSteps
+      source="1015"
+      destination="1016"
+      profile="imio.directory.core:default">
+      <genericsetup:upgradeDepends
+        title="Add new registry keys to store push keys for ODWB"
+        import_profile="imio.directory.core.upgrades:upgrade_1015_to_1016"
         />
     </genericsetup:upgradeSteps>
 

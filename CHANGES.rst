@@ -5,7 +5,8 @@ Changelog
 1.2.12 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Fix upgrade step
+  [boulch]
 
 
 1.2.11 (2024-05-27)
