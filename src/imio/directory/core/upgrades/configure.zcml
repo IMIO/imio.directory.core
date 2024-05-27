@@ -19,29 +19,29 @@
     provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
-    <genericsetup:registerProfile
-      name="upgrade_1013_to_1014"
-      title="Upgrade core from 1013 to 1014"
-      directory="profiles/1013_to_1014"
-      description="Exclude some content_types from search results"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+  <genericsetup:registerProfile
+    name="upgrade_1013_to_1014"
+    title="Upgrade core from 1013 to 1014"
+    directory="profiles/1013_to_1014"
+    description="Exclude some content_types from search results"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
 
-    <genericsetup:registerProfile
-      name="upgrade_1014_to_1015"
-      title="Upgrade core from 1014 to 1015"
-      directory="profiles/1014_to_1015"
-      description="Add solr.fields behavior to some content types"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+  <genericsetup:registerProfile
+    name="upgrade_1014_to_1015"
+    title="Upgrade core from 1014 to 1015"
+    directory="profiles/1014_to_1015"
+    description="Add solr.fields behavior to some content types"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
 
-    <genericsetup:registerProfile
-      name="upgrade_1015_to_1016"
-      title="Upgrade core from 1015 to 1016"
-      directory="profiles/1015_to_1016"
-      description="Add new registry keys to store push keys for ODWB"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+  <genericsetup:registerProfile
+    name="upgrade_1015_to_1016"
+    title="Upgrade core from 1015 to 1016"
+    directory="profiles/1015_to_1016"
+    description="Add new registry keys to store push keys for ODWB"
+    provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
 
   <genericsetup:upgradeStep
       title="Add selected_entities to existing contacts"
