@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.13 (unreleased)
+1.2.13 (2024-06-06)
 -------------------
 
 - Geocode contact only if longitude and latitude are empty on csv import
