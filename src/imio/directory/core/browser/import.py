@@ -292,13 +292,14 @@ class ContactsImporter(object):
             IGeolocatable(contact).geolocation = Geolocation(
                 latitude=contact_row.latitude, longitude=contact_row.longitude
             )
+        else:
+            geocode_object(contact)
         contact.phones = contact_row.phones
         contact.mails = contact_row.mails
         contact.urls = contact_row.urls
         contact.topics = contact_row.topics
         contact.facilities = contact_row.facilities
         contact.iam = contact_row.iam
-        geocode_object(contact)
         contact.reindexObject()
 
     def create_contacts(self, container):

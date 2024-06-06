@@ -5,7 +5,8 @@ Changelog
 1.2.13 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Geocode contact only if longitude and latitude are empty on csv import
+  [laulaz, remdub]
 
 
 1.2.12 (2024-05-27)
