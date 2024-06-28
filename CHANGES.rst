@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.14 (unreleased)
+1.2.14 (2024-06-28)
 -------------------
 
 - WEB-4088 : Rename some fields to match with odwb dataset
