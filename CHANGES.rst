@@ -5,6 +5,9 @@ Changelog
 1.2.14 (unreleased)
 -------------------
 
+- WEB-4088 : Rename some fields to match with odwb dataset
+  [boulch]
+
 - GHA tests on Python 3.8 3.9 and 3.10
   [remdub]
 

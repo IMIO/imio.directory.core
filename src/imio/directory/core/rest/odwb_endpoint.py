@@ -83,66 +83,61 @@ class Contact:
         # 2126b6ef314a4b3d9712732d5f036afc,
         self.id = context.id
         self.type = context.type  # get an id...
-        self.title_fr = context.title
-        self.title_de = context.title_de
-        self.title_en = context.title_en
-        self.title_nl = context.title_nl
-        self.subtitle_fr = context.subtitle
-        self.subtitle_de = context.subtitle_de
-        self.subtitle_en = context.subtitle_en
-        self.subtitle_nl = context.subtitle_nl
-        self.description_fr = context.description
-        self.description_de = context.description_de
-        self.description_en = context.description_en
-        self.description_nl = context.description_nl
-        self.geolocation = context.geolocation
-        self.latitude = context.geolocation.latitude if context.geolocation else None
-        self.longitude = context.geolocation.longitude if context.geolocation else None
-        self.street = context.street
-        self.street_number = context.number
-        self.street_number_complement = context.complement
-        self.zipcode = context.zipcode
-        self.city = context.city
-        self.country = context.country
-        self.vat_number = context.vat_number
-
+        self.title = context.title
+        self.subtitle = context.subtitle
         # [{'label': None, 'type': 'fax', 'number': '+323874325'}]
-        self.phones = context.phones
+        self.contact_phones = context.phones
         # [{'label': None, 'type': 'perso', 'mail': 'kamoulox@perdu.com'}]
-        self.mails = context.mails
+        self.contact_emails = context.mails
+        self.vat_number = context.vat_number
+        self.description = context.description
+        self.taxonomy_contact_category = context.taxonomy_contact_category
+        self.topics = context.topics
+        self.facilities = context.facilities
+        self.image = f"{context.absolute_url()}/@@images/image/preview"
+        self.coordinates = context.geolocation
+        self.address_street_name = context.street
+        self.address_street_number = context.number
+        self.address_postal_code = context.zipcode
+        self.address_city = context.city
+        self.address_country = context.country
         self.urls = context.urls
+        self.schedule = context.schedule
+        self.multi_schedule = context.multi_schedule
+        entity = get_entity_for_contact(context)
+        self.owner_id = entity.UID()
+        self.owner_name = entity.Title()
+        # DateTime(2024/02/14 13:59:7.829612 GMT+1),
+        self.creation_datetime = context.creation_date
+        # DateTime(2024/02/14 15:51:52.128648 GMT+1),
+        self.modification_datetime = context.modification_date
 
+        # self.street_number_complement = context.complement
+        # self.title_de = context.title_de
+        # self.title_en = context.title_en
+        # self.title_nl = context.title_nl
+        # self.subtitle_de = context.subtitle_de
+        # self.subtitle_en = context.subtitle_en
+        # self.subtitle_nl = context.subtitle_nl
+        # self.description_de = context.description_de
+        # self.description_en = context.description_en
+        # self.description_nl = context.description_nl
+        # self.latitude = context.geolocation.latitude if context.geolocation else None
+        # self.longitude = context.geolocation.longitude if context.geolocation else None
         # send to odwb?
         # self.private_phones = context.private_phones
         # self.private_mails = context.private_mails
         # self.private_urls = context.private_urls
         # self.private_note = context.private_note
-
         # ['e578c03fb70e448492ece56495686eae']
-        self.selected_entities = context.selected_entities
-        self.facilities = context.facilities
-        self.taxonomy_contact_category = context.taxonomy_contact_category
-        self.topics = context.topics
+        # self.selected_entities = context.selected_entities
         # self.iam = context.iam
-        self.subjects = context.subjects
-        self.language = context.language
-
+        # self.subjects = context.subjects
+        # self.language = context.language
         # solr
         # self.searchwords = context.searchwords
-
-        self.schedule = context.schedule
-        self.multi_schedule = context.multi_schedule
-
-        # DateTime(2024/02/14 13:59:7.829612 GMT+1),
-        self.creation_date = context.creation_date
         # DateTime(2024/02/14 13:59:00 GMT+1),
-        self.effective_date = context.effective_date
-        # DateTime(2024/02/14 15:51:52.128648 GMT+1),
-        self.modification_date = context.modification_date
-
-        entity = get_entity_for_contact(context)
-        self.entity_uid = entity.UID()
-        self.entity_title = entity.Title()
+        # self.effective_date = context.effective_date
 
     def to_json(self):
         return json.dumps(self.__dict__, cls=ContactEncoder)
