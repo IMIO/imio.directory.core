@@ -5,7 +5,9 @@ Changelog
 1.2.15 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEB-4088 : Add after commit hook to reduce bad image upload to odwb because of the transaction speed
+  New contact hasn't time to go from private to published state ?!
+  [boulch]
 
 
 1.2.14 (2024-06-28)

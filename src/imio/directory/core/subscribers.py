@@ -16,6 +16,7 @@ from zope.lifecycleevent import ObjectRemovedEvent
 from zope.lifecycleevent.interfaces import IAttributes
 
 import os
+import transaction
 
 
 def set_default_entity_uid(contact):
@@ -114,13 +115,18 @@ def published_contact_transition(obj, event):
     if not IAfterTransitionEvent.providedBy(event):
         return
     if event.new_state.id == "published":
-        request = getRequest()
-        endpoint = OdwbEndpointGet(obj, request)
-        endpoint.reply()
+        kwargs = dict(obj=obj)
+        transaction.get().addAfterCommitHook(send_to_odwb, kws=kwargs)
     if event.new_state.id == "private" and event.old_state.id != event.new_state.id:
         request = getRequest()
         endpoint = OdwbEndpointGet(obj, request)
         endpoint.remove()
+
+
+def send_to_odwb(trans, obj=None):
+    request = getRequest()
+    endpoint = OdwbEndpointGet(obj, request)
+    endpoint.reply()
 
 
 def mark_current_entity_in_contacts_from_other_entities(obj, event):
