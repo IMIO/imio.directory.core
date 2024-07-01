@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.15 (unreleased)
+1.2.15 (2024-07-01)
 -------------------
 
 - WEB-4088 : Add after commit hook to reduce bad image upload to odwb because of the transaction speed
