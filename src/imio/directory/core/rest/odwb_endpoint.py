@@ -11,7 +11,6 @@ from imio.directory.core.contents import IContact
 from imio.directory.core.utils import get_entity_for_contact
 from plone import api
 from plone.formwidget.geolocation.geolocation import Geolocation
-from plone.restapi.services import Service
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
 import json

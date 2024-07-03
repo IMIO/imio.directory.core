@@ -5,7 +5,8 @@ Changelog
 1.2.16 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEB-4088 : Fix missing include package .rest. we couldn't directly call @odwb endpoints.
+  [boulch]
 
 
 1.2.15 (2024-07-01)
