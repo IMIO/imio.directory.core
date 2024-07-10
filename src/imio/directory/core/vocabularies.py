@@ -65,6 +65,7 @@ class SiteTypeVocabularyFactory:
         values = [
             ("facebook", _("Facebook")),
             ("instagram", _("Instagram")),
+            ("linkedin", _("Linkedin")),
             ("pinterest", _("Pinterest")),
             ("twitter", _("Twitter")),
             ("website", _("Website")),
