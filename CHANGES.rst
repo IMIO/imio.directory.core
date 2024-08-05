@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.16 (unreleased)
+1.2.16 (2024-08-05)
 -------------------
 
 - WEB-4027 : Add "Linkedin" as a new type of site term
