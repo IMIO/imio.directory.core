@@ -1,0 +1,25 @@
+<configure
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:cache="http://namespaces.zope.org/cache"
+  xmlns:plone="http://namespaces.plone.org/plone"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="imio.smartweb">
+
+  <plone:service
+    name="@search"
+    method="GET"
+    accept="application/json"
+    for="*"
+    factory=".endpoint.SearchGet"
+    permission="zope2.View"
+    layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
+    />
+
+  <cache:ruleset
+    for=".endpoint.SearchGet"
+    ruleset="imio.directory.core.rest"
+    zcml:condition="have plone-app-caching-3"
+    />
+
+</configure>
