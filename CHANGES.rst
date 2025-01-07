@@ -5,7 +5,8 @@ Changelog
 1.2.17 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEB-4153 : Add a new cacheRuleset to use with our custom rest endpoints
+  [remdub]
 
 
 1.2.16 (2024-08-05)
