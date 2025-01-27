@@ -31,7 +31,7 @@ class TestExport(unittest.TestCase):
         )
         view = queryMultiAdapter((entity, self.request), name="export")
         view()
-        self.assertEquals(view.request.response.status, 204)
+        self.assertEqual(view.request.response.status, 204)
 
     def test_view_to_export_contacts(self):
         entity = api.content.create(
@@ -103,7 +103,7 @@ class TestExport(unittest.TestCase):
         view = queryMultiAdapter((entity, self.request), name="export")
         view.request.response = response_mock
         view()
-        assert response_mock.setHeader.called_with("Content-Type", "text/csv")
+        response_mock.setHeader.assert_called_with("Content-Type", "text/csv")
         # Capture the written content
         written_content = response_mock.write.call_args[0][0]
         assert isinstance(written_content, bytes)
@@ -120,17 +120,17 @@ class TestExport(unittest.TestCase):
                 self.assertIn(f"{contact.id} : {auto_attr}", df[auto_attr].to_list())
 
         type_contact1 = df.loc[df["title"] == "Contact 1", "type"].values[0]
-        self.assertEquals(
+        self.assertEqual(
             type_contact1,
             "['Organization (administrative service, business, professional, sports club, association, etc.)']",
         )
         iam_contact1 = df.loc[df["title"] == "Contact 1", "iam"].values[0]
-        self.assertEquals(iam_contact1, "['Disabled person', 'Newcomer']")
+        self.assertEqual(iam_contact1, "['Disabled person', 'Newcomer']")
 
         private_mails_contact1 = df.loc[
             df["title"] == "Contact 1", "private_mails"
         ].values[0]
-        self.assertEquals(
+        self.assertEqual(
             private_mails_contact1,
             "[{'label': 'Private kamoulox mail', 'type': 'home', 'mail_address': 'test@imio.be'}]",
         )
@@ -138,7 +138,7 @@ class TestExport(unittest.TestCase):
         private_phones_contact1 = df.loc[
             df["title"] == "Contact 1", "private_phones"
         ].values[0]
-        self.assertEquals(
+        self.assertEqual(
             private_phones_contact1,
             "[{'label': 'Private kamoulox phone', 'type': 'cell', 'number': '+32496111111'}]",
         )
@@ -146,12 +146,12 @@ class TestExport(unittest.TestCase):
         latitude_contact2 = df.loc[
             df["title"] == "Contact 2", "geolocation.latitude"
         ].values[0]
-        self.assertEquals(latitude_contact2, 50.2)
+        self.assertEqual(latitude_contact2, 50.2)
 
         schedule_monday_comment_contact3 = df.loc[
             df["title"] == "Contact 3", "schedule.monday.comment"
         ].values[0]
-        self.assertEquals(schedule_monday_comment_contact3, "Kamoulox")
+        self.assertEqual(schedule_monday_comment_contact3, "Kamoulox")
 
 
 def schedule():
