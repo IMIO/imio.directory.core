@@ -5,6 +5,9 @@ Changelog
 1.2.18 (unreleased)
 -------------------
 
+- Update Python classifiers to be compatible with Python 3.12
+  [remdub]
+
 - Migrate to Plone 6.0.14
   [boulch]
 
