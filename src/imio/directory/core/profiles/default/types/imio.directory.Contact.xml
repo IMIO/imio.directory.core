@@ -34,7 +34,7 @@
     <element value="plone.leadimage"/>
     <element value="plone.imagecropping"/>
     <element value="geolocatable"/>
-    <element value="collective.schedulefield.behavior.IMultiScheduledContent"/>
+    <element value="imio.directory.core.multischedule"/>
     <element value="collective.schedulefield.behavior.IExceptionalClosureContent"/>
     <element value="collective.taxonomy.generated.contact_category"/>
     <element value="imio.smartweb.topics"/>

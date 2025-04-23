@@ -20,6 +20,7 @@
 
   <include package=".contents" />
   <include package=".browser" />
+  <include package=".overrides" />
   <include package=".rest" />
   <include package=".upgrades" />
 
