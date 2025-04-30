@@ -60,6 +60,7 @@ setup(
         "plone.gallery",
         "plone.restapi",
         "plone.app.dexterity",
+        "plone.app.discussion",
         "plone.app.imagecropping",
         "pandas",
         "collective.taxonomy",
