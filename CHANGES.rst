@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.19 (unreleased)
+1.2.19 (2025-05-06)
 -------------------
 
 - WEB-4057 : Override IMultiScheduledContent from collective.schedulefield to adjust some translations
