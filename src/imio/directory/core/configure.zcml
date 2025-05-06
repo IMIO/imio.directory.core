@@ -1,13 +1,16 @@
-<configure
-    xmlns="http://namespaces.zope.org/zope">
+<configure xmlns="http://namespaces.zope.org/zope">
 
-  <include package="z3c.unconfigure" file="meta.zcml" />
+  <include
+      package="z3c.unconfigure"
+      file="meta.zcml"
+      />
 
   <include package="collective.geolocationbehavior" />
   <include package="collective.monkeypatcher" />
   <include package="collective.schedulefield" />
   <include package="collective.taxonomy" />
   <include package="collective.z3cform.datagridfield" />
+  <include package="plone.app.discussion" />
   <include package="plone.app.imagecropping" />
 
   <!-- Temporary fix for plone.gallery 1.0.1 -->
