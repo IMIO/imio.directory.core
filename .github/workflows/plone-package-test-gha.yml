@@ -24,8 +24,10 @@ jobs:
   test:
     runs-on: gha-runners-smartweb
     strategy:
+      fail-fast: false
       matrix:
-        python-version: ['3.10', '3.12']
+        plone-version: ['6.0', '6.1']
+        python-version: ['3.10', '3.11', '3.12', '3.13']
     steps:
     - name: Checkout codebase
       uses: actions/checkout@v4
@@ -34,6 +36,8 @@ jobs:
       with:
         CACHE_KEY: eggs-test-${{ hashFiles('base.cfg') }}-python-${{ matrix.python-version }}
         TEST_COMMAND: TZ=UTC bin/test
+        BUILDOUT_CONFIG_FILE: 'test_plone-${{ matrix.plone-version }}.cfg'
+        REQUIREMENTS_FILE: 'requirements-${{ matrix.plone-version }}.txt'
         MATTERMOST_WEBHOOK_URL: ${{ secrets.SMARTWEB_MATTERMOST_WEBHOOK_URL }}
         PYTHON_VERSION: ${{ matrix.python-version }}
 

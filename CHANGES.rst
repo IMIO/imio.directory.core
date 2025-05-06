@@ -5,7 +5,11 @@ Changelog
 1.2.19 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Upgrade dev environment to Plone 6.1-latest
+  [remdub]
+
+- Add tests for Plone 6.1-latest and add Python 3.13
+  [remdub]
 
 
 1.2.18 (2025-01-29)
