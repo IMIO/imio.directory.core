@@ -5,6 +5,9 @@ Changelog
 1.2.20 (unreleased)
 -------------------
 
+- WEB-4278 : Create translated (de) factilities vocabulary for e-guichet (citizen project)
+  [boulch]
+
 - WEB-4278 : Create translated (de) contact types vocabulary for e-guichet (citizen project)
   [boulch]
 
