@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
+from collective.taxonomy.interfaces import ITaxonomy
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import api
+from zope.component import getSiteManager
 from zope.i18n import translate
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
@@ -146,3 +148,19 @@ class EntitiesUIDsVocabularyFactory:
 
 
 EntitiesUIDsVocabulary = EntitiesUIDsVocabularyFactory()
+
+
+class ContactCategoriesDeVocabularyFactory:
+    def __call__(self, context=None):
+        sm = getSiteManager()
+        contact_categories_taxo = sm.queryUtility(
+            ITaxonomy, name="collective.taxonomy.contact_category"
+        )
+        categories_voca = contact_categories_taxo.makeVocabulary("de").inv_data
+        terms = [
+            SimpleTerm(value=k, token=k, title=v) for k, v in categories_voca.items()
+        ]
+        return SimpleVocabulary(terms)
+
+
+ContactCategoriesDeVocabulary = ContactCategoriesDeVocabularyFactory()
