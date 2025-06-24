@@ -2,6 +2,7 @@
 
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import api
+from zope.i18n import translate
 from zope.schema.vocabulary import SimpleTerm
 from zope.schema.vocabulary import SimpleVocabulary
 
@@ -28,6 +29,23 @@ class ContactTypeVocabularyFactory:
 
 
 ContactTypeVocabulary = ContactTypeVocabularyFactory()
+
+
+class ContactTypeDeVocabularyFactory:
+    def __call__(self, context=None):
+        vocabulary = ContactTypeVocabularyFactory()(context)
+        translated_terms = [
+            SimpleTerm(
+                value=term.value,
+                token=term.token,
+                title=translate(term.title, target_language="de"),
+            )
+            for term in vocabulary
+        ]
+        return SimpleVocabulary(translated_terms)
+
+
+ContactTypeDeVocabulary = ContactTypeDeVocabularyFactory()
 
 
 class PhoneTypeVocabularyFactory:
