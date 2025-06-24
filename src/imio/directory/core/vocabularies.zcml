@@ -49,4 +49,10 @@
       provides="zope.schema.interfaces.IVocabularyFactory"
       />
 
+  <utility
+      name="imio.directory.vocabulary.ContactCategoriesDe"
+      component=".vocabularies.ContactCategoriesDeVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      />
+
 </configure>
