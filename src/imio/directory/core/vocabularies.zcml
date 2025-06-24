@@ -8,6 +8,12 @@
       />
 
   <utility
+      name="imio.directory.vocabulary.ContactTypesDe"
+      component=".vocabularies.ContactTypeDeVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      />      
+
+  <utility
       name="imio.directory.vocabulary.PhoneTypes"
       component=".vocabularies.PhoneTypeVocabulary"
       provides="zope.schema.interfaces.IVocabularyFactory"
