@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.20 (unreleased)
+1.2.20 (2025-06-25)
 -------------------
 
 - WEB-4278 : Create translated (de) contact categories vocabulary for e-guichet (citizen project)
