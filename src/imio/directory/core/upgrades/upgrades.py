@@ -50,11 +50,12 @@ def refresh_entities_faceted(context):
 def geocode_all_contacts(context):
     default_latitude = api.portal.get_registry_record("geolocation.default_latitude")
     default_longitude = api.portal.get_registry_record("geolocation.default_longitude")
+    api_key = api.portal.get_registry_record("geolocation.opencage_api_key", default="801c91558c1f4338a62a43561fc961ab")
 
     # we use OpenCage with a temporary API key for this migration because
     # Nominatim is too limited for bulk use
     geolocator = geopy.geocoders.OpenCage(
-        api_key="801c91558c1f4338a62a43561fc961ab", timeout=3
+        api_key=api_key, timeout=3
     )
 
     brains = api.content.find(portal_type="imio.directory.Contact")
