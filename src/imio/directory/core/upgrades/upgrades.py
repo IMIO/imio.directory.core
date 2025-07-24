@@ -47,10 +47,16 @@ def refresh_entities_faceted(context):
         logger.info("Faceted refreshed on {}".format(obj.Title()))
 
 
-def geocode_all_contacts(context):
+def geocode_all_contacts(context, geocode_default=True, geocode_empty=True, clear_no_address=True, verbose=True):
     default_latitude = api.portal.get_registry_record("geolocation.default_latitude")
     default_longitude = api.portal.get_registry_record("geolocation.default_longitude")
-    api_key = api.portal.get_registry_record("geolocation.opencage_api_key", default="801c91558c1f4338a62a43561fc961ab")
+
+    # allow to change the API key in the registry (this has to be done ttw)
+    api_key = api.portal.get_registry_record("geolocation.imio.opencage_api_key", default="801c91558c1f4338a62a43561fc961ab")
+
+    no_location = 0
+    default_location = 0
+    no_address = 0
 
     # we use OpenCage with a temporary API key for this migration because
     # Nominatim is too limited for bulk use
@@ -78,43 +84,91 @@ def geocode_all_contacts(context):
         )
         address = " ".join(filter(None, [street, entity, country]))
         if not address:
-            # if we have no address, clear geolocation
-            if obj.geolocation is not None:
-                obj.geolocation = Geolocation("", "")
-                obj.reindexObject(idxs=["longitude", "latitude"])
-                logger.info(
-                    f"Contact has no address : {obj.absolute_url()} --> cleared geolocation"
-                )
-            continue
+            no_address += 1
+            if clear_no_address:
+                # if we have no address, clear geolocation
+                if obj.geolocation is not None:
+                    obj.geolocation = Geolocation("", "")
+                    obj.reindexObject(idxs=["longitude", "latitude"])
+                    logger.info(
+                        f"Contact has no address : {obj.absolute_url()} --> cleared geolocation"
+                    )
+                continue
 
         location = None
         if coordinates is None or not all(
-            [coordinates.latitude, coordinates.longitude]
-        ):
+            [coordinates.latitude, coordinates.longitude]):
             # contact has no geolocation, see if we can find one
-            location = geolocator.geocode(address)
-            logger.info(
-                f"Contact had no location : {obj.absolute_url()} --> {location.latitude} / {location.longitude}"
-            )
+            if geocode_empty:
+                logger.info("Geocoding address (empty coordinates): {}".format(address))
+                try:
+                    location = geolocator.geocode(address)
+                except Exception as e:
+                    logger.error(
+                        f"Error geocoding address {address} for contact {obj.absolute_url()}: {e}"
+                    )
+                    no_location += 1
+                    continue
+                no_location += 1
+                if location is None:
+                    # geolocator could not find a location
+                    logger.info(
+                        f"Contact had no location : {obj.absolute_url()} --> no geolocation found for {address}"
+                    )
+                    continue
+                logger.info(
+                    f"Contact had no location : {obj.absolute_url()} --> {location.latitude} / {location.longitude}"
+                )
         elif (
             coordinates.latitude == default_latitude
             and coordinates.longitude == default_longitude  # NOQA
         ):
-            # contact was automatically geolocated on IMIO (by default)
-            location = geolocator.geocode(address)
-            logger.info(
-                f"Contact was located on IMIO : {obj.absolute_url()} --> {location.latitude} / {location.longitude}"
-            )
+            # contact was automatically geolocated on default coordinates
+            if geocode_default:
+                logger.info("Geocoding address (default coordinates): {}".format(address))
+                location = geolocator.geocode(address)
+                default_location += 1
+                if location is None:
+                    # geolocator could not find a location
+                    logger.info(
+                        f"Contact was located on default coordinates : {obj.absolute_url()} --> no geolocation found for {address}"
+                    )
+                    continue
+                logger.info(
+                    f"Contact was located on default coordinates : {obj.absolute_url()} --> {location.latitude} / {location.longitude}"
+                )
         else:
             # contact already has a geolocation, do nothing
-            logger.info(f"Contact already has its location : {obj.absolute_url()}")
+            if verbose:
+                logger.info(f"Contact already has its location : {obj.absolute_url()}")
             continue
-
         if location:
             obj.geolocation = Geolocation(
                 latitude=location.latitude, longitude=location.longitude
             )
             obj.reindexObject(idxs=["longitude", "latitude"])
+    logger.info(
+        f"Geocoding finished for {len(brains)} contacts: "
+        f"{no_location} had no location, {default_location} were located on default coordinates, {no_address} had they had no address."
+    )
+    if geocode_empty:
+        logger.info(
+            f"Geocoded {no_location} contacts with empty coordinates."
+        )
+    if geocode_default:
+        logger.info(
+            f"Geocoded {default_location} contacts that were geolocated on default coordinates."
+        )
+    if clear_no_address:
+        logger.info(
+            f"Cleared geolocation for {no_address} contacts that had no address."
+        )
+
+def geocode_default_contacts(context):
+    """
+    Geocode contacts that are geolocated on default coordinates.
+    """
+    geocode_all_contacts(context, geocode_empty=False, clear_no_address=False, verbose=False)
 
 
 def reindex_searchable_text(context):
