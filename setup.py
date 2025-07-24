@@ -16,7 +16,7 @@ long_description = "\n\n".join(
 
 setup(
     name="imio.directory.core",
-    version="1.2.22.dev0",
+    version="1.2.22",
     description="Core product for iMio contacts Directory websites",
     long_description=long_description,
     # Get more from https://pypi.org/classifiers/
