@@ -47,12 +47,20 @@ def refresh_entities_faceted(context):
         logger.info("Faceted refreshed on {}".format(obj.Title()))
 
 
-def geocode_all_contacts(context, geocode_default=True, geocode_empty=True, clear_no_address=True, verbose=True):
+def geocode_all_contacts(
+    context,
+    geocode_default=True,
+    geocode_empty=True,
+    clear_no_address=True,
+    verbose=True,
+):
     default_latitude = api.portal.get_registry_record("geolocation.default_latitude")
     default_longitude = api.portal.get_registry_record("geolocation.default_longitude")
 
     # allow to change the API key in the registry (this has to be done ttw)
-    api_key = api.portal.get_registry_record("geolocation.imio.opencage_api_key", default="801c91558c1f4338a62a43561fc961ab")
+    api_key = api.portal.get_registry_record(
+        "geolocation.imio.opencage_api_key", default="801c91558c1f4338a62a43561fc961ab"
+    )
 
     no_location = 0
     default_location = 0
@@ -60,9 +68,7 @@ def geocode_all_contacts(context, geocode_default=True, geocode_empty=True, clea
 
     # we use OpenCage with a temporary API key for this migration because
     # Nominatim is too limited for bulk use
-    geolocator = geopy.geocoders.OpenCage(
-        api_key=api_key, timeout=3
-    )
+    geolocator = geopy.geocoders.OpenCage(api_key=api_key, timeout=3)
 
     brains = api.content.find(portal_type="imio.directory.Contact")
     for brain in brains:
@@ -97,7 +103,8 @@ def geocode_all_contacts(context, geocode_default=True, geocode_empty=True, clea
 
         location = None
         if coordinates is None or not all(
-            [coordinates.latitude, coordinates.longitude]):
+            [coordinates.latitude, coordinates.longitude]
+        ):
             # contact has no geolocation, see if we can find one
             if geocode_empty:
                 logger.info("Geocoding address (empty coordinates): {}".format(address))
@@ -125,7 +132,9 @@ def geocode_all_contacts(context, geocode_default=True, geocode_empty=True, clea
         ):
             # contact was automatically geolocated on default coordinates
             if geocode_default:
-                logger.info("Geocoding address (default coordinates): {}".format(address))
+                logger.info(
+                    "Geocoding address (default coordinates): {}".format(address)
+                )
                 location = geolocator.geocode(address)
                 default_location += 1
                 if location is None:
@@ -152,9 +161,7 @@ def geocode_all_contacts(context, geocode_default=True, geocode_empty=True, clea
         f"{no_location} had no location, {default_location} were located on default coordinates, {no_address} had they had no address."
     )
     if geocode_empty:
-        logger.info(
-            f"Geocoded {no_location} contacts with empty coordinates."
-        )
+        logger.info(f"Geocoded {no_location} contacts with empty coordinates.")
     if geocode_default:
         logger.info(
             f"Geocoded {default_location} contacts that were geolocated on default coordinates."
@@ -164,11 +171,14 @@ def geocode_all_contacts(context, geocode_default=True, geocode_empty=True, clea
             f"Cleared geolocation for {no_address} contacts that had no address."
         )
 
+
 def geocode_default_contacts(context):
     """
     Geocode contacts that are geolocated on default coordinates.
     """
-    geocode_all_contacts(context, geocode_empty=False, clear_no_address=False, verbose=False)
+    geocode_all_contacts(
+        context, geocode_empty=False, clear_no_address=False, verbose=False
+    )
 
 
 def reindex_searchable_text(context):
