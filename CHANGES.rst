@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.21 (unreleased)
+1.2.21 (2025-07-24)
 -------------------
 
 - WEB-4286 : Fix geolocation for contacts with default coordinates
