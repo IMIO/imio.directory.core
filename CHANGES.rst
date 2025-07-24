@@ -5,7 +5,8 @@ Changelog
 1.2.21 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEB-4286 : Fix geolocation for contacts with default coordinates
+  [remdub]
 
 
 1.2.20 (2025-06-25)
