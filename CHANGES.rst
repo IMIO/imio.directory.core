@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.22 (unreleased)
+1.2.22 (2025-07-24)
 -------------------
 
 - WEB-4286 : Missing catch when trying to geocode contact with default coordinates
