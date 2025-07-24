@@ -1,29 +1,60 @@
-#!/usr/bin/make
-.PHONY: buildout run cleanall test test-coverage
-all: buildout
+VENV_FOLDER=.venv
 
-bin/buildout: bin/pip buildout.cfg
-	bin/pip install -I -r requirements.txt
+ifeq (, $(shell which uv ))
+  $(error "[ERROR] The 'uv' command is missing from your PATH. Install it from: https://docs.astral.sh/uv/getting-started/installation/")
+endif
 
-buildout: bin/instance
+.PHONY: help
+help: ## Display this help message
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-bin/instance: bin/buildout
-	bin/buildout
+.PHONY: install
+install: $(VENV_FOLDER)/bin/buildout .git/hooks/pre-commit ## Install development environment
+	$(VENV_FOLDER)/bin/buildout
 
-bin/pip:
-	python3.12 -m venv .
-
-run: bin/instance
+.PHONY: start
+start: bin/instance .git/hooks/pre-commit ## Start the instance
 	bin/instance fg
 
-test: bin/instance
+.PHONY: cleanall
+cleanall: ## Clean development environment
+	rm -fr .git/hooks/pre-commit .installed.cfg .mr.developer.cfg .venv bin buildout.cfg devel develop-eggs downloads eggs htmlcov include lib lib64 local parts pyvenv.cfg
+
+.PHONY: upgrade-steps
+upgrade-steps: ## Run upgrade steps
+	bin/instance -O Plone run scripts/run_portal_upgrades.py
+
+.PHONY: lint
+lint: ## Run pre-commit hooks
+	uvx pre-commit run --all
+
+.PHONY: fullrelease
+fullrelease: ## Release package with zest.releaser fullrelease
+	uvx --from zest.releaser fullrelease
+
+.PHONY: test
+test: bin/instance ## Test package
 	bin/test
 
-test-coverage: bin/instance
+.PHONY: test-coverage
+test-coverage: test ## Test package with coverage
 	bin/test-coverage
 
-cleanall:
-	rm -fr develop-eggs downloads eggs parts .installed.cfg lib lib64 include bin .mr.developer.cfg local/
+.venv:
+	@echo "Creating virtual environment with uv"
+	uv venv
 
-upgrade-steps:
-	bin/instance -O plone run scripts/run_portal_upgrades.py
+buildout.cfg:
+	ln -fs dev.cfg buildout.cfg
+
+$(VENV_FOLDER)/bin/buildout: .venv buildout.cfg
+	@echo "Installing requirements with uv pip interface"
+	uv pip install -r requirements.txt
+
+bin/instance: $(VENV_FOLDER)/bin/buildout
+	@echo "Bootstrapping environment with buildout"
+	$(VENV_FOLDER)/bin/buildout
+
+.git/hooks/pre-commit: .venv
+	@echo "Installing pre-commit hooks"
+	uvx pre-commit install
