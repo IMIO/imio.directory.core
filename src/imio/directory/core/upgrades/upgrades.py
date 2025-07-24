@@ -47,13 +47,13 @@ def refresh_entities_faceted(context):
         logger.info("Faceted refreshed on {}".format(obj.Title()))
 
 
-def geocode_all_contacts(
+def geocode_all_contacts( # NOQA
     context,
     geocode_default=True,
     geocode_empty=True,
     clear_no_address=True,
     verbose=True,
-): # NOQA
+):
     default_latitude = api.portal.get_registry_record("geolocation.default_latitude")
     default_longitude = api.portal.get_registry_record("geolocation.default_longitude")
 

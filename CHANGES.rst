@@ -5,7 +5,8 @@ Changelog
 1.2.22 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEB-4286 : Missing catch when trying to geocode contact with default coordinates
+  [remdub]
 
 
 1.2.21 (2025-07-24)
