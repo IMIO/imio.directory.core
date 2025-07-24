@@ -53,7 +53,7 @@ def geocode_all_contacts(
     geocode_empty=True,
     clear_no_address=True,
     verbose=True,
-):
+): # NOQA
     default_latitude = api.portal.get_registry_record("geolocation.default_latitude")
     default_longitude = api.portal.get_registry_record("geolocation.default_longitude")
 
@@ -135,7 +135,14 @@ def geocode_all_contacts(
                 logger.info(
                     "Geocoding address (default coordinates): {}".format(address)
                 )
-                location = geolocator.geocode(address)
+                try:
+                    location = geolocator.geocode(address)
+                except Exception as e:
+                    logger.error(
+                        f"Error geocoding address {address} for contact {obj.absolute_url()}: {e}"
+                    )
+                    no_location += 1
+                    continue
                 default_location += 1
                 if location is None:
                     # geolocator could not find a location
