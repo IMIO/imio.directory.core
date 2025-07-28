@@ -5,7 +5,8 @@ Changelog
 1.2.23 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEB-4265 : Add new terms in facilities vocabulary
+  [remdub]
 
 
 1.2.22 (2025-07-24)

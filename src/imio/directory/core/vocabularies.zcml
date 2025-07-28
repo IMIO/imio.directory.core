@@ -11,7 +11,7 @@
       name="imio.directory.vocabulary.ContactTypesDe"
       component=".vocabularies.ContactTypeDeVocabulary"
       provides="zope.schema.interfaces.IVocabularyFactory"
-      />      
+      />
 
   <utility
       name="imio.directory.vocabulary.PhoneTypes"
@@ -41,7 +41,7 @@
       name="imio.directory.vocabulary.FacilitiesDe"
       component=".vocabularies.FacilitiesDeVocabulary"
       provides="zope.schema.interfaces.IVocabularyFactory"
-      />      
+      />
 
   <utility
       name="imio.directory.vocabulary.EntitiesUIDs"

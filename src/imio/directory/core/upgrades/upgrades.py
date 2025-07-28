@@ -47,7 +47,7 @@ def refresh_entities_faceted(context):
         logger.info("Faceted refreshed on {}".format(obj.Title()))
 
 
-def geocode_all_contacts( # NOQA
+def geocode_all_contacts(  # NOQA
     context,
     geocode_default=True,
     geocode_empty=True,
