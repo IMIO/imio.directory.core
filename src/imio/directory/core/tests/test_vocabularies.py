@@ -42,7 +42,7 @@ class TestVocabularies(unittest.TestCase):
     def test_facilities(self):
         factory = getUtility(IVocabularyFactory, "imio.directory.vocabulary.Facilities")
         vocabulary = factory()
-        self.assertEqual(len(vocabulary), 9)
+        self.assertEqual(len(vocabulary), 13)
 
     def test_entities_UIDs(self):
         entity1 = api.content.create(
