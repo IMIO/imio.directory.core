@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.23 (unreleased)
+1.2.23 (2025-07-29)
 -------------------
 
 - WEB-4265 : Add new terms in facilities vocabulary
