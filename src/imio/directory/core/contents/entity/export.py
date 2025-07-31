@@ -85,6 +85,8 @@ ordered_signifiant_columns = [
     "topics",
     "subject",
     "modified",
+    "review_state",
+    "url",
 ]
 
 
@@ -182,6 +184,10 @@ class ExportView(BrowserView):
                     items["type"] = self.get_vocabulary_label(
                         "imio.directory.vocabulary.ContactTypes", items["type"]
                     )
+                if attribute == "review_state":
+                    items["review_state"] = getattr(brain, "review_state", None)
+                if attribute == "url":
+                    items["url"] = getattr(brain, "getURL", lambda: "")()
             datas.append(items)
         return {"items": datas, "items_total": len(datas)}
 

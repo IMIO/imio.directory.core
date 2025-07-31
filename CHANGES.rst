@@ -5,7 +5,8 @@ Changelog
 1.2.25 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- SUP-45951 : add review_state and url to csv export view
+  [remdub]
 
 
 1.2.24 (2025-08-25)

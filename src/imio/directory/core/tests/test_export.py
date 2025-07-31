@@ -71,6 +71,8 @@ class TestExport(unittest.TestCase):
         contact2.geolocation = Geolocation(50.2, 5.2)
         # "Commerces et entreprises"
         contact2.taxonomy_contact_category = ["cho96vl9ox"]
+        # publish contact2
+        api.content.transition(obj=contact2, transition="publish")
         contact3 = api.content.create(
             container=entity,
             type="imio.directory.Contact",
@@ -152,6 +154,24 @@ class TestExport(unittest.TestCase):
             df["title"] == "Contact 3", "schedule.monday.comment"
         ].values[0]
         self.assertEqual(schedule_monday_comment_contact3, "Kamoulox")
+
+        # check review_state
+        review_state_contact1 = df.loc[
+            df["title"] == "Contact 1", "review_state"
+        ].values[0]
+        self.assertEqual(review_state_contact1, "private")
+        review_state_contact2 = df.loc[
+            df["title"] == "Contact 2", "review_state"
+        ].values[0]
+        self.assertEqual(review_state_contact2, "published")
+        review_state_contact3 = df.loc[
+            df["title"] == "Contact 3", "review_state"
+        ].values[0]
+        self.assertEqual(review_state_contact3, "private")
+
+        # check url
+        url_contact1 = df.loc[df["title"] == "Contact 1", "url"].values[0]
+        self.assertEqual(url_contact1, contact1.absolute_url())
 
 
 def schedule():
