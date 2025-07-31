@@ -5,7 +5,8 @@ Changelog
 1.2.24 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEB-4057 : Enhance ergonomics of the schedule field
+  [boulch]
 
 
 1.2.23 (2025-07-29)
