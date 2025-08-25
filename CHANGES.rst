@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.24 (unreleased)
+1.2.24 (2025-08-25)
 -------------------
 
 - WEB-4057 : Enhance ergonomics of the schedule field
