@@ -5,7 +5,7 @@ Changelog
 1.2.26 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Migrate to Plone 6.1.3
 
 
 1.2.25 (2025-09-04)

@@ -1,2 +1,2 @@
--r requirements-6.0.txt
+-r requirements-6.1.txt
 coveralls==3.2.0
