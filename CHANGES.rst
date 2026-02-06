@@ -5,7 +5,11 @@ Changelog
 1.2.26 (unreleased)
 -------------------
 
+- WEB-4366 : Add RAM caching to @search endpoint. Try to reduce latency
+  [boulch]
+
 - Migrate to Plone 6.1.3
+  [boulch]
 
 
 1.2.25 (2025-09-04)

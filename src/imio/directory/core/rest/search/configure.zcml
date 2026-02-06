@@ -10,7 +10,7 @@
     name="@search"
     method="GET"
     accept="application/json"
-    for="*"
+    for="zope.interface.Interface"
     factory=".endpoint.SearchGet"
     permission="zope2.View"
     layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
