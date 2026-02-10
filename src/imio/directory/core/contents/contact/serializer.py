@@ -5,7 +5,6 @@ from imio.directory.core.interfaces import IImioDirectoryCoreLayer
 from imio.smartweb.common.contact_utils import ContactProperties
 from imio.smartweb.common.rest.utils import get_restapi_query_lang
 from plone.app.contentlisting.interfaces import IContentListingObject
-from plone.restapi.interfaces import IPloneRestapiLayer
 from plone.restapi.interfaces import ISerializeToJson
 from plone.restapi.interfaces import ISerializeToJsonSummary
 from plone.restapi.serializer.converters import json_compatible
@@ -18,9 +17,8 @@ from zope.interface import Interface
 
 
 @implementer(ISerializeToJson)
-@adapter(IContact, IPloneRestapiLayer)
+@adapter(IContact, IImioDirectoryCoreLayer)
 class SerializeContactToJson(SerializeFolderToJson):
-
     def __call__(self, version=None, include_items=True):
         result = super(SerializeContactToJson, self).__call__(
             version, include_items=True
@@ -87,7 +85,6 @@ class SerializeContactToJson(SerializeFolderToJson):
 @implementer(ISerializeToJsonSummary)
 @adapter(Interface, IImioDirectoryCoreLayer)
 class ContactJSONSummarySerializer(DefaultJSONSummarySerializer):
-
     def __call__(self):
         summary = super(ContactJSONSummarySerializer, self).__call__()
 

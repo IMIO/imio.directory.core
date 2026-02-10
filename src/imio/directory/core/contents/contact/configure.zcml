@@ -2,9 +2,7 @@
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser">
 
-  <adapter factory=".serializer.SerializeContactToJson"
-           for=".content.IContact plone.restapi.interfaces.IPloneRestapiLayer" />
-
+  <adapter factory=".serializer.SerializeContactToJson" />
   <adapter factory=".serializer.ContactJSONSummarySerializer" />
 
   <unconfigure>
