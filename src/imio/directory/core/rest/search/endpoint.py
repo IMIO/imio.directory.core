@@ -16,13 +16,20 @@ logger = logging.getLogger("imio.news.core")
 logger.setLevel(logging.INFO)
 
 
+def _first(value):
+    if isinstance(value, (list, tuple)):
+        return value[0] if value else None
+    return value
+
+
 def _cachekey(method, self):
     req = self.request
     lang = req.get("LANGUAGE", "")
     IGNORED = {"cache_key", "_", "authenticator"}
     items = tuple(sorted((k, v) for k, v in req.form.items() if k not in IGNORED))
     site = getSite()
-    uid = req.form.get("UID", None) or req.form.get("selected_news_folders", None)
+    # this uid only serves us to deduce parent entity
+    uid = _first(req.form.get("UID", None))
     if not uid:
         # global cache
         return (site.getId(), "__global__", lang, items)
