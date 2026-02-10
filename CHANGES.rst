@@ -5,6 +5,10 @@ Changelog
 1.2.26 (unreleased)
 -------------------
 
+- CITIBDC-507 : Do not use `SerializeContactToJson` serializer when exporting content
+  with collective.exportimport
+  [boulch, remdub]
+
 - WEB-4366 : Add RAM caching to @search endpoint. Try to reduce latency
   [boulch]
 
