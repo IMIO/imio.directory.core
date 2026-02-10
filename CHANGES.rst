@@ -5,6 +5,10 @@ Changelog
 1.2.26 (unreleased)
 -------------------
 
+- Restrict serializer to REST requests only
+  Avoid  custom contact serializer in the context of export/import
+  [boulch]
+
 - WEB-4366 : Add RAM caching to @search endpoint. Try to reduce latency
   [boulch]
 
