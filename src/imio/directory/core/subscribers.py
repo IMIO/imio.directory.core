@@ -119,6 +119,8 @@ def removed_contact(obj, event):
     request = getRequest()
     endpoint = OdwbEndpointGet(obj, request)
     endpoint.remove()
+    # @search endpoint invaldation
+    invalidate_endpoint_search_cache(obj)
 
 
 def published_contact_transition(obj, event):
@@ -188,11 +190,11 @@ def set_uid_of_referrer_entities(obj, container_entity):
 
 
 def invalidate_endpoint_search_cache(obj):
-    site = api.portal.get()
-    ann = IAnnotations(site)
     entity = get_parent_providing(obj, IEntity)
     # if we're curently removing an entity
     # there is no more this entity here
     if entity:
+        site = api.portal.get()
+        ann = IAnnotations(site)
         ann_full_key = f"{ENDPOINT_CACHE_KEY}{entity.UID()}"
         ann[ann_full_key] = int(ann.get(ann_full_key, 0)) + 1
