@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.26 (unreleased)
+1.2.26 (2026-03-12)
 -------------------
 
 - OIA-109 : OMNIA : Add ia "CategorizeContent" on imio.directory.Contact
