@@ -5,6 +5,9 @@ Changelog
 1.2.26 (unreleased)
 -------------------
 
+- OIA-109 : OMNIA : Add ia "CategorizeContent" on imio.directory.Contact
+  [boulch]
+
 - Migrate to Plone 6.1.4
   [boulch]
 

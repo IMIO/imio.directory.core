@@ -1,0 +1,31 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:plone="http://namespaces.plone.org/plone"
+    xmlns:z3c="http://namespaces.zope.org/z3c"
+    >
+
+  <browser:page
+      name="ProcessCategorizeContent"
+      for="imio.directory.core.contents.IContact"
+      class=".views.ProcessCategorizeContentView"
+      permission="cmf.ModifyPortalContent"
+      />
+
+  <adapter
+      for="Products.CMFCore.interfaces.IFolderish
+           imio.smartweb.common.interfaces.IImioSmartwebCommonLayer
+           plone.dexterity.interfaces.IDexterityFTI"
+      provides="zope.publisher.interfaces.browser.IBrowserPage"
+      factory=".categorization_button_add.IACategorizeAddView"
+      name="imio.directory.IContact"
+      />
+
+  <class class=".categorization_button_add.IACategorizeAddView">
+      <require
+          permission="cmf.AddPortalContent"
+          interface="zope.publisher.interfaces.browser.IBrowserPage"
+          />
+  </class>
+
+</configure>

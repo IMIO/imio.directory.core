@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from imio.smartweb.common.browser.forms import CustomAddForm
-from imio.smartweb.common.browser.forms import CustomEditForm
+from imio.directory.core.ia.browser.categorization_button_add import (
+    IACategorizeAddForm,
+)
+from imio.directory.core.ia.browser.categorization_button_edit import (
+    IACategorizeEditForm,
+)
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import api
 from plone.dexterity.browser.add import DefaultAddView
@@ -9,7 +13,7 @@ from plone.z3cform import layout
 from zope.i18n import translate
 
 
-class ContactCustomAddForm(CustomAddForm):
+class ContactCustomAddForm(IACategorizeAddForm):
     portal_type = "imio.directory.Contact"
 
     def updateWidgets(self):
@@ -25,7 +29,7 @@ class ContactCustomAddView(DefaultAddView):
     form = ContactCustomAddForm
 
 
-class ContactCustomEditForm(CustomEditForm):
+class ContactCustomEditForm(IACategorizeEditForm):
     def updateWidgets(self):
         super(ContactCustomEditForm, self).updateWidgets()
         if "IGeolocatable.geolocation" in self.widgets:

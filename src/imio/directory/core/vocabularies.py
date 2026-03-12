@@ -168,3 +168,19 @@ class ContactCategoriesDeVocabularyFactory:
 
 
 ContactCategoriesDeVocabulary = ContactCategoriesDeVocabularyFactory()
+
+
+class ContactCategoriesVocabularyFactory:
+    def __call__(self, context=None):
+        sm = getSiteManager()
+        contact_categories_taxo = sm.queryUtility(
+            ITaxonomy, name="collective.taxonomy.contact_category"
+        )
+        categories_voca = contact_categories_taxo.makeVocabulary("fr").inv_data
+        terms = [
+            SimpleTerm(value=k, token=k, title=v) for k, v in categories_voca.items()
+        ]
+        return SimpleVocabulary(terms)
+
+
+ContactCategoriesVocabulary = ContactCategoriesDeVocabularyFactory()
