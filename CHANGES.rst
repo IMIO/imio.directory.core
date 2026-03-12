@@ -5,6 +5,9 @@ Changelog
 1.2.26 (unreleased)
 -------------------
 
+- Migrate to Plone 6.1.4
+  [boulch]
+
 - WEB-4366 : Undo RAM caching to @search endpoint. (trying firstly on news)
 
 - Restrict serializer to REST requests only
