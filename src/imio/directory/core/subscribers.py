@@ -1,19 +1,22 @@
 # -*- coding: utf-8 -*-
 
-from imio.directory.core.contents import IEntity
+# from imio.directory.core.contents import IEntity
 from imio.directory.core.rest.odwb_endpoint import OdwbEndpointGet
-from imio.directory.core.utils import ENDPOINT_CACHE_KEY
+
+# from imio.directory.core.utils import ENDPOINT_CACHE_KEY
 from imio.directory.core.utils import get_entity_for_contact
 from imio.directory.core.utils import get_entity_uid_for_contact
 from imio.smartweb.common.faceted.utils import configure_faceted
 from imio.smartweb.common.interfaces import IAddress
 from imio.smartweb.common.utils import geocode_object
-from imio.smartweb.common.utils import get_parent_providing
+
+# from imio.smartweb.common.utils import get_parent_providing
 from imio.smartweb.common.utils import remove_cropping
 from plone import api
 from plone.api.content import get_state
 from Products.DCWorkflow.interfaces import IAfterTransitionEvent
-from zope.annotation.interfaces import IAnnotations
+
+# from zope.annotation.interfaces import IAnnotations
 from zope.component import getMultiAdapter
 from zope.globalrequest import getRequest
 from zope.lifecycleevent import ObjectRemovedEvent
@@ -52,7 +55,7 @@ def added_contact(obj, event):
         # geocode only if the user has not already changed geolocation
         geocode_object(obj)
     # @search endpoint invaldation
-    invalidate_endpoint_search_cache(obj)
+    # invalidate_endpoint_search_cache(obj)
 
 
 def modified_contact(obj, event):
@@ -77,7 +80,7 @@ def modified_contact(obj, event):
         endpoint = OdwbEndpointGet(obj, request)
         endpoint.reply()
     # @search endpoint invaldation
-    invalidate_endpoint_search_cache(obj)
+    # invalidate_endpoint_search_cache(obj)
 
 
 def modified_entity(obj, event):
@@ -98,7 +101,7 @@ def moved_contact(obj, event):
         endpoint = OdwbEndpointGet(obj, request)
         endpoint.reply()
     # @search endpoint invaldation
-    invalidate_endpoint_search_cache(obj)
+    # invalidate_endpoint_search_cache(obj)
 
 
 def removed_entity(obj, event):
@@ -120,7 +123,7 @@ def removed_contact(obj, event):
     endpoint = OdwbEndpointGet(obj, request)
     endpoint.remove()
     # @search endpoint invaldation
-    invalidate_endpoint_search_cache(obj)
+    # invalidate_endpoint_search_cache(obj)
 
 
 def published_contact_transition(obj, event):
@@ -189,12 +192,13 @@ def set_uid_of_referrer_entities(obj, container_entity):
     obj.reindexObject(idxs=["selected_entities"])
 
 
-def invalidate_endpoint_search_cache(obj):
-    entity = get_parent_providing(obj, IEntity)
-    # if we're curently removing an entity
-    # there is no more this entity here
-    if entity:
-        site = api.portal.get()
-        ann = IAnnotations(site)
-        ann_full_key = f"{ENDPOINT_CACHE_KEY}{entity.UID()}"
-        ann[ann_full_key] = int(ann.get(ann_full_key, 0)) + 1
+# to test on news before directory.
+# def invalidate_endpoint_search_cache(obj):
+#     entity = get_parent_providing(obj, IEntity)
+#     # if we're curently removing an entity
+#     # there is no more this entity here
+#     if entity:
+#         site = api.portal.get()
+#         ann = IAnnotations(site)
+#         ann_full_key = f"{ENDPOINT_CACHE_KEY}{entity.UID()}"
+#         ann[ann_full_key] = int(ann.get(ann_full_key, 0)) + 1

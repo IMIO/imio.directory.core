@@ -5,6 +5,8 @@ Changelog
 1.2.26 (unreleased)
 -------------------
 
+- WEB-4366 : Undo RAM caching to @search endpoint. (trying firstly on news)
+
 - Restrict serializer to REST requests only
   Avoid  custom contact serializer in the context of export/import
   [boulch]

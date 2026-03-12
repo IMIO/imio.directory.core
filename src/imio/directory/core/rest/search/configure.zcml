@@ -16,7 +16,7 @@
     layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
     />
 
-<plone:service
+<!--plone:service
     name="@search_entity"
     method="GET"
     accept="application/json"
@@ -24,9 +24,9 @@
     factory=".endpoint.SearchEntity"
     permission="zope2.View"
     layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
-    />
+    /-->
 
-  <plone:service
+  <!--plone:service
     name="@search_contact"
     method="GET"
     accept="application/json"
@@ -34,7 +34,7 @@
     factory=".endpoint.SearchContact"
     permission="zope2.View"
     layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
-    />
+    /-->
 
   <cache:ruleset
     for=".endpoint.SearchGet"
