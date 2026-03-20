@@ -73,18 +73,23 @@ def container_uid(obj):
     return uid
 
 
-def get_searchable_text(obj, lang):
+def _get_taxonomy_utility():
+    sm = getSiteManager()
+    return sm.queryUtility(ITaxonomy, name="collective.taxonomy.contact_category")
+
+
+def get_searchable_text(obj, lang, _utility=None):
     topics = []
     for topic in getattr(obj.aq_base, "topics", []) or []:
         term = translate_vocabulary_term("imio.smartweb.vocabulary.Topics", topic, lang)
         topics.append(term)
 
-    sm = getSiteManager()
-    utility = sm.queryUtility(ITaxonomy, name="collective.taxonomy.contact_category")
+    if _utility is None:
+        _utility = _get_taxonomy_utility()
     categories = []
     for category in getattr(obj.aq_base, "taxonomy_contact_category", []) or []:
         categories.append(
-            utility.translate(category, context=obj, target_language=lang)
+            _utility.translate(category, context=obj, target_language=lang)
         )
     subjects = obj.Subject()
     title_field_name = "title"
@@ -126,19 +131,23 @@ def get_searchable_text(obj, lang):
 
 @indexer(IContact)
 def SearchableText_fr_contact(obj):
-    return get_searchable_text(obj, "fr")
+    utility = _get_taxonomy_utility()
+    return get_searchable_text(obj, "fr", _utility=utility)
 
 
 @indexer(IContact)
 def SearchableText_nl_contact(obj):
-    return get_searchable_text(obj, "nl")
+    utility = _get_taxonomy_utility()
+    return get_searchable_text(obj, "nl", _utility=utility)
 
 
 @indexer(IContact)
 def SearchableText_de_contact(obj):
-    return get_searchable_text(obj, "de")
+    utility = _get_taxonomy_utility()
+    return get_searchable_text(obj, "de", _utility=utility)
 
 
 @indexer(IContact)
 def SearchableText_en_contact(obj):
-    return get_searchable_text(obj, "en")
+    utility = _get_taxonomy_utility()
+    return get_searchable_text(obj, "en", _utility=utility)
