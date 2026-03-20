@@ -47,13 +47,13 @@ class OdwbEndpointGet(OdwbBaseEndpointGet):
     def get_contacts(self):
         lst_contacts = []
         if IPloneSiteRoot.providedBy(self.context) or IEntity.providedBy(self.context):
-            brains = api.content.find(
+            query = dict(
                 object_provides=IContact.__identifier__, review_state="published"
             )
+            if IEntity.providedBy(self.context):
+                query["selected_entities"] = self.context.UID()
+            brains = api.content.find(**query)
             for brain in brains:
-                if IEntity.providedBy(self.context):
-                    if self.context.UID() not in brain.selected_entities:
-                        continue
                 contact_obj = brain.getObject()
                 contact = Contact(contact_obj)
                 lst_contacts.append(json.loads(contact.to_json()))
