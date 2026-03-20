@@ -3,7 +3,6 @@ from imio.smartweb.common.ia.browser.categorization_button_edit import (
     IACategorizeEditForm as BaseIACategorizeEditForm,
 )
 from plone.z3cform import layout
-from z3c.form.interfaces import HIDDEN_MODE
 
 
 class IACategorizeEditForm(BaseIACategorizeEditForm):
