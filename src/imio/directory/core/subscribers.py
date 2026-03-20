@@ -76,9 +76,8 @@ def modified_contact(obj, event):
                 obj, "image", ["portrait_affiche", "paysage_affiche", "carre_affiche"]
             )
     if get_state(obj) == "published":
-        request = getRequest()
-        endpoint = OdwbEndpointGet(obj, request)
-        endpoint.reply()
+        kwargs = dict(obj=obj)
+        transaction.get().addAfterCommitHook(send_to_odwb, kws=kwargs)
     # @search endpoint invaldation
     # invalidate_endpoint_search_cache(obj)
 
@@ -97,9 +96,8 @@ def moved_contact(obj, event):
     container_entity = get_entity_for_contact(obj)
     set_uid_of_referrer_entities(obj, container_entity)
     if event.oldParent is not None and get_state(obj) == "published":
-        request = getRequest()
-        endpoint = OdwbEndpointGet(obj, request)
-        endpoint.reply()
+        kwargs = dict(obj=obj)
+        transaction.get().addAfterCommitHook(send_to_odwb, kws=kwargs)
     # @search endpoint invaldation
     # invalidate_endpoint_search_cache(obj)
 
