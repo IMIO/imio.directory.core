@@ -16,8 +16,7 @@ class ContactView(DefaultView, FolderView):
 
     def __call__(self):
         show_warning_for_scales(self.context, self.request)
-        images = self.context.listFolderContents(contentFilter={"portal_type": "Image"})
-        if len(images) > 0:
+        if len(self.images()) > 0:
             add_bundle_on_request(self.request, "spotlightjs")
             add_bundle_on_request(self.request, "flexbin")
         self.update()
