@@ -183,4 +183,4 @@ class ContactCategoriesVocabularyFactory:
         return SimpleVocabulary(terms)
 
 
-ContactCategoriesVocabulary = ContactCategoriesDeVocabularyFactory()
+ContactCategoriesVocabulary = ContactCategoriesVocabularyFactory()

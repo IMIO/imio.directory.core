@@ -5,7 +5,11 @@ Changelog
 1.2.27 (unreleased)
 -------------------
 
+- Fix CSRF error : Wrong factory! Should be ContactCategoriesVocabularyFactory() instead of ContactCategoriesDe...
+  [boulch]
+
 - WEB-4366 : Some refactoring. Attempt to improve the recording speed of a contact
+  [boulch]
 
 
 1.2.26 (2026-03-12)
