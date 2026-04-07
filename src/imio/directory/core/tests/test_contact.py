@@ -287,7 +287,15 @@ class TestContact(unittest.TestCase):
         )
 
     def _make_schedule(self, comment=""):
-        days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+        days = [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday",
+        ]
         return {
             day: {
                 "morningstart": "09:00" if day not in ("saturday", "sunday") else "",
