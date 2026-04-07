@@ -6,6 +6,7 @@
            for=".content.IContact plone.restapi.interfaces.IPloneRestapiLayer" />
 
   <adapter factory=".serializer.ContactJSONSummarySerializer" />
+  <adapter factory=".deserializer.ScheduleFieldDeserializer" />
 
   <unconfigure>
     <adapter factory="plone.app.imagecropping.dx.CroppingUtilsDexterity" />

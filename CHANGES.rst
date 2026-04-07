@@ -5,6 +5,9 @@ Changelog
 1.2.27 (unreleased)
 -------------------
 
+- CITIBDC-568 : Allow non-ASCII characters in schedule comments by overriding DictFieldDeserializer for ISchedule fields.
+  [remdub]
+
 - Fix CSRF error : Wrong factory! Should be ContactCategoriesVocabularyFactory() instead of ContactCategoriesDe...
   [boulch]
 
