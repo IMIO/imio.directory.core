@@ -21,6 +21,9 @@ class ScheduleFieldDeserializer(DefaultFieldDeserializer):
         if not value:
             return value
         if isinstance(value, str):
-            value = json.loads(value)
+            try:
+                value = json.loads(value)
+            except json.JSONDecodeError as e:
+                raise ValueError(f"Invalid JSON for schedule field: {e}") from e
         self.field.validate(value)
         return value
