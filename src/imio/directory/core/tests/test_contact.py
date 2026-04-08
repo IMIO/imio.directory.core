@@ -371,6 +371,21 @@ class TestContact(unittest.TestCase):
         result = self.api_session.get(contact.absolute_url()).json()
         self.assertEqual(result["schedule"]["monday"]["comment"], comment)
 
+    def test_schedule_patch_with_non_ascii_time_field(self):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        transaction.commit()
+        schedule = self._make_schedule()
+        schedule["monday"]["afternoonend"] = "17:é0"
+        response = self.api_session.patch(
+            contact.absolute_url(),
+            json={"schedule": schedule},
+        )
+        self.assertEqual(response.status_code, 400)
+
     def test_subscriber_to_select_current_entity(self):
         contact = api.content.create(
             container=self.entity,
