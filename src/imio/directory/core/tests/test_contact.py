@@ -286,6 +286,106 @@ class TestContact(unittest.TestCase):
             "items_total property should match actual item count.",
         )
 
+    def _make_schedule(self, comment=""):
+        days = [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday",
+        ]
+        return {
+            day: {
+                "morningstart": "09:00" if day not in ("saturday", "sunday") else "",
+                "morningend": "12:00" if day not in ("saturday", "sunday") else "",
+                "afternoonstart": "13:00" if day not in ("saturday", "sunday") else "",
+                "afternoonend": "17:00" if day not in ("saturday", "sunday") else "",
+                "comment": comment if day == "monday" else "",
+            }
+            for day in days
+        }
+
+    def test_schedule_patch_with_non_ascii_comment(self):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        transaction.commit()
+        comment = "uniquement sur rendez-vous à partir de 14h (été)"
+        response = self.api_session.patch(
+            contact.absolute_url(),
+            json={"schedule": self._make_schedule(comment)},
+        )
+        self.assertEqual(response.status_code, 204)
+        result = self.api_session.get(contact.absolute_url()).json()
+        self.assertEqual(result["schedule"]["monday"]["comment"], comment)
+
+    def test_schedule_patch_with_ascii_comment(self):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        transaction.commit()
+        comment = "by appointment only"
+        response = self.api_session.patch(
+            contact.absolute_url(),
+            json={"schedule": self._make_schedule(comment)},
+        )
+        self.assertEqual(response.status_code, 204)
+        result = self.api_session.get(contact.absolute_url()).json()
+        self.assertEqual(result["schedule"]["monday"]["comment"], comment)
+
+    def test_schedule_patch_with_empty_value(self):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        transaction.commit()
+        response = self.api_session.patch(
+            contact.absolute_url(),
+            json={"schedule": {}},
+        )
+        self.assertEqual(response.status_code, 204)
+
+    def test_schedule_patch_as_json_string(self):
+        import json
+
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        transaction.commit()
+        comment = "réunion hebdomadaire"
+        schedule = self._make_schedule(comment)
+        response = self.api_session.patch(
+            contact.absolute_url(),
+            json={"schedule": json.dumps(schedule)},
+        )
+        self.assertEqual(response.status_code, 204)
+        result = self.api_session.get(contact.absolute_url()).json()
+        self.assertEqual(result["schedule"]["monday"]["comment"], comment)
+
+    def test_schedule_patch_with_non_ascii_time_field(self):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="contact",
+        )
+        transaction.commit()
+        schedule = self._make_schedule()
+        schedule["monday"]["afternoonend"] = "17:é0"
+        response = self.api_session.patch(
+            contact.absolute_url(),
+            json={"schedule": schedule},
+        )
+        self.assertEqual(response.status_code, 400)
+
     def test_subscriber_to_select_current_entity(self):
         contact = api.content.create(
             container=self.entity,
