@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.27 (unreleased)
+1.2.27 (2026-06-17)
 -------------------
 
 - CITIBDC-568 : Allow non-ASCII characters in schedule comments by overriding DictFieldDeserializer for ISchedule fields.
