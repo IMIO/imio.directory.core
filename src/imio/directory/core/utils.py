@@ -7,7 +7,6 @@ from Products.CMFPlone.utils import parent
 import base64
 import vobject
 
-
 ENDPOINT_CACHE_KEY = "imio.directory.search_cache_generation"
 
 

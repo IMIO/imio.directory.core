@@ -7,55 +7,15 @@ on:
   workflow_dispatch:
 
 jobs:
-  black:
-    runs-on: gha-runners-smartweb
-    steps:
-    - name: Checkout codebase
-      uses: actions/checkout@v4
-    - name: Run check
-      uses: IMIO/gha/code-analysis-notify@v3.9.4
-      with:
-        BASE_DIR: 'src'
-        CHECK: 'black'
-        PATH: |
-          imio/directory/core
-        MATTERMOST_WEBHOOK_URL: ${{ secrets.SMARTWEB_MATTERMOST_WEBHOOK_URL }}
-
-  test:
-    runs-on: gha-runners-smartweb
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-        - plone-version: '6.1'
-          python-version: '3.13'
-    steps:
-    - name: Checkout codebase
-      uses: actions/checkout@v4
-    - name: Run check
-      uses: IMIO/gha/plone-package-test-notify@v3.9.4
-      with:
-        CACHE_KEY: eggs-test-${{ hashFiles('base.cfg') }}-python-${{ matrix.python-version }}
-        TEST_COMMAND: TZ=UTC bin/test
-        BUILDOUT_CONFIG_FILE: 'test_plone-${{ matrix.plone-version }}.cfg'
-        REQUIREMENTS_FILE: 'requirements-${{ matrix.plone-version }}.txt'
-        MATTERMOST_WEBHOOK_URL: ${{ secrets.SMARTWEB_MATTERMOST_WEBHOOK_URL }}
-        PYTHON_VERSION: ${{ matrix.python-version }}
-
-  coverage:
-    runs-on: gha-runners-smartweb
-    steps:
-    - name: Checkout codebase
-      uses: actions/checkout@v4
-    - name: Run check
-      uses: IMIO/gha/plone-package-test-notify@v3.9.4
-      with:
-        CACHE_KEY: eggs-test-${{ hashFiles('base.cfg') }}-python-${{ matrix.python-version }}
-        TEST_COMMAND: TZ=UTC coverage run bin/test
-        REQUIREMENTS_FILE: 'requirements-coverage.txt'
-        MATTERMOST_WEBHOOK_URL: ${{ secrets.SMARTWEB_MATTERMOST_WEBHOOK_URL }}
-    - name: Submit to Coveralls
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: coveralls --service=github
-
+  full-test:
+    uses: IMIO/gha-workflows/.github/workflows/package-full-test.yml@v1
+    secrets:
+      mattermost_webhook_url: ${{ secrets.SMARTWEB_MATTERMOST_WEBHOOK_URL }}
+    with:
+      check_path: |
+        imio/directory/core
+      buildout_config_file: test_plone6.cfg
+      python_versions: '["3.12", "3.13"]'
+      runner_label: gha-runners-smartweb
+      test_command: TZ=UTC bin/test
+      upload_to_coveralls: true
