@@ -38,7 +38,6 @@ from zope.intid.interfaces import IIntIds
 from zope.lifecycleevent import Attributes
 from zope.lifecycleevent import modified
 
-import geopy
 import transaction
 import unittest
 
@@ -395,8 +394,6 @@ class TestContact(unittest.TestCase):
         self.assertEqual(contact.selected_entities, [self.entity.UID()])
 
     def test_geolocation(self):
-        attr = {"geocode.return_value": mock.Mock(latitude=1, longitude=2)}
-        geopy.geocoders.Nominatim = mock.Mock(return_value=mock.Mock(**attr))
         contact = api.content.create(
             container=self.entity,
             type="imio.directory.Contact",
@@ -405,7 +402,11 @@ class TestContact(unittest.TestCase):
         self.assertFalse(contact.is_geolocated)
         contact.geolocation = Geolocation(0, 0)
         contact.street = "My beautiful street"
-        geocode_object(contact)
+        with mock.patch(
+            "imio.smartweb.common.utils._geocode",
+            return_value=mock.Mock(latitude=1, longitude=2),
+        ):
+            geocode_object(contact)
         self.assertTrue(contact.is_geolocated)
         self.assertEqual(contact.geolocation.latitude, 1)
         self.assertEqual(contact.geolocation.longitude, 2)
