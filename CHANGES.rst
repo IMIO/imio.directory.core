@@ -6,6 +6,7 @@ Changelog
 -------------------
 
 - WEB-4449 : Add local categories on entities and a local category on contacts.
+  Send local category (token / title) to ODWB.
   [boulch]
 
 

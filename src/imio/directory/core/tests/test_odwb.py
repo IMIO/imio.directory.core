@@ -111,6 +111,28 @@ class RestFunctionalTest(unittest.TestCase):
         self.assertEqual(len(endpoint.__datas__), 1)
 
     @patch("requests.post")
+    def test_local_category_sent_to_odwb(self, m):
+        self.entity.local_categories = [
+            {"fr": "Ma catégorie", "nl": "Mijn categorie", "de": None, "en": None},
+        ]
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            id="contact",
+            title="Contact",
+        )
+        endpoint = OdwbEndpointGet(contact, self.request)
+        endpoint.reply()
+        self.assertIsNone(endpoint.__datas__[0]["local_category_token"])
+        self.assertIsNone(endpoint.__datas__[0]["local_category_title"])
+
+        contact.local_category = "Ma catégorie"
+        endpoint = OdwbEndpointGet(contact, self.request)
+        endpoint.reply()
+        self.assertEqual(endpoint.__datas__[0]["local_category_token"], "Ma catégorie")
+        self.assertEqual(endpoint.__datas__[0]["local_category_title"], "Ma catégorie")
+
+    @patch("requests.post")
     def test_get_entities_to_send_to_odwb(self, m):
         entity2 = api.content.create(
             container=self.portal,
