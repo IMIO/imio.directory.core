@@ -8,6 +8,8 @@ from plone.app.contenttypes.indexers import _unicode_save_string_concat
 from plone.indexer import indexer
 from Products.CMFPlone.utils import safe_unicode
 from zope.component import getSiteManager
+from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
 
 
 @indexer(IContact)
@@ -71,6 +73,35 @@ def description_en(obj):
 def container_uid(obj):
     uid = get_entity_uid_for_contact(obj)
     return uid
+
+
+def get_local_category(obj, lang):
+    if not obj.local_category:
+        raise AttributeError
+    factory = getUtility(
+        IVocabularyFactory, "imio.directory.vocabulary.ContactLocalCategories"
+    )
+    vocabulary = factory(obj, lang=lang)
+    try:
+        term = vocabulary.getTerm(obj.local_category)
+        return term.title
+    except LookupError:
+        return obj.local_category
+
+
+@indexer(IContact)
+def local_category_nl(obj):
+    return get_local_category(obj, "nl")
+
+
+@indexer(IContact)
+def local_category_de(obj):
+    return get_local_category(obj, "de")
+
+
+@indexer(IContact)
+def local_category_en(obj):
+    return get_local_category(obj, "en")
 
 
 def _get_taxonomy_utility():

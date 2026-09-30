@@ -13,8 +13,10 @@ from plone.restapi.serializer.dxcontent import SerializeFolderToJson
 from plone.restapi.serializer.summary import DefaultJSONSummarySerializer
 from Products.CMFCore.WorkflowCore import WorkflowException
 from zope.component import adapter
+from zope.component import getUtility
 from zope.interface import implementer
 from zope.interface import Interface
+from zope.schema.interfaces import IVocabularyFactory
 
 
 @implementer(ISerializeToJson)
@@ -74,6 +76,17 @@ class SerializeContactToJson(SerializeFolderToJson):
             result["title"] = getattr(obj, f"title_{lang}")
             result["subtitle"] = getattr(obj, f"subtitle_{lang}")
             result["description"] = getattr(obj, f"description_{lang}")
+            if obj.local_category:
+                factory = getUtility(
+                    IVocabularyFactory,
+                    "imio.directory.vocabulary.ContactLocalCategories",
+                )
+                vocabulary = factory(obj, lang=lang)
+                term = vocabulary.getTerm(obj.local_category)
+                result["local_category"] = {
+                    "token": obj.local_category,
+                    "title": term.title,
+                }
 
         # maybe not necessary :
         result["title_fr"] = obj.title
@@ -98,7 +111,7 @@ class ContactJSONSummarySerializer(DefaultJSONSummarySerializer):
             return summary
 
         obj = IContentListingObject(self.context)
-        for orig_field in ["title", "description"]:
+        for orig_field in ["title", "description", "local_category"]:
             field = f"{orig_field}_{lang}"
             accessor = self.field_accessors.get(field, field)
             value = getattr(obj, accessor, None)

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<object name="portal_catalog">
+
+  <index name="local_category" meta_type="FieldIndex">
+    <indexed_attr value="local_category"/>
+  </index>
+
+  <column value="local_category"/>
+  <column value="local_category_nl"/>
+  <column value="local_category_de"/>
+  <column value="local_category_en"/>
+
+</object>

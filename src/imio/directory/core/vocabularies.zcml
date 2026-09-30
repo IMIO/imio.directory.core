@@ -61,4 +61,10 @@
       provides="zope.schema.interfaces.IVocabularyFactory"
       />
 
+  <utility
+      name="imio.directory.vocabulary.ContactLocalCategories"
+      component=".vocabularies.ContactLocalCategoriesVocabulary"
+      provides="zope.schema.interfaces.IVocabularyFactory"
+      />
+
 </configure>

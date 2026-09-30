@@ -320,7 +320,9 @@ class IContact(
         required=False,
     )
 
-    model.fieldset("categorization", fields=["selected_entities", "facilities"])
+    model.fieldset(
+        "categorization", fields=["selected_entities", "facilities", "local_category"]
+    )
     directives.widget(selected_entities=SelectFieldWidget)
     selected_entities = schema.List(
         title=_("Selected entities"),
@@ -342,6 +344,15 @@ class IContact(
         required=False,
     )
     directives.widget(facilities=SelectFieldWidget)
+
+    local_category = schema.Choice(
+        title=_("Specific category"),
+        description=_(
+            "Important! These categories allow you to use criteria that are specific to your organization"
+        ),
+        source="imio.directory.vocabulary.ContactLocalCategories",
+        required=False,
+    )
 
     read_permission(selected_entities="imio.directory.core.AddEntity")
     write_permission(selected_entities="imio.directory.core.AddEntity")

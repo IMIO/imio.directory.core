@@ -5,7 +5,8 @@ Changelog
 1.2.28 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEB-4449 : Add local categories on entities and a local category on contacts.
+  [boulch]
 
 
 1.2.27 (2026-06-17)
