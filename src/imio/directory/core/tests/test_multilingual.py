@@ -241,3 +241,43 @@ class TestMultilingual(unittest.TestCase):
         self.assertEqual(
             json["taxonomy_contact_category"][0]["title"], "Geschäfte und Unternehmen"
         )
+
+    def test_contact_serializer_local_category(self):
+        alsoProvides(self.request, IImioDirectoryCoreLayer)
+        self.entity.local_categories = [
+            {"fr": "Ma catégorie", "nl": "Mijn categorie", "de": None, "en": None},
+        ]
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="Mon contact",
+        )
+        serializer = getMultiAdapter((contact, self.request), ISerializeToJson)
+        json = serializer()
+        self.assertIsNone(json["local_category"])
+
+        self.request.form["translated_in_nl"] = True
+        json = serializer()
+        self.assertIsNone(json["local_category"])
+
+        contact.local_category = "Ma catégorie"
+        contact.reindexObject()
+        json = serializer()
+        self.assertEqual(
+            json["local_category"],
+            {"token": "Ma catégorie", "title": "Mijn categorie"},
+        )
+        catalog = api.portal.get_tool("portal_catalog")
+        brain = catalog(UID=contact.UID())[0]
+        summary = getMultiAdapter((brain, self.request), ISerializeToJsonSummary)()
+        self.assertEqual(summary["local_category"], "Mijn categorie")
+
+        # No translation: fallback on french value
+        del self.request.form["translated_in_nl"]
+        self.request.form["translated_in_de"] = True
+        json = serializer()
+        self.assertEqual(
+            json["local_category"],
+            {"token": "Ma catégorie", "title": "Ma catégorie"},
+        )
+        del self.request.form["translated_in_de"]

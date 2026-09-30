@@ -75,3 +75,89 @@ class TestVocabularies(unittest.TestCase):
         vocabulary = factory(self.portal)
         ordered_entities = [a.title for a in vocabulary]
         self.assertEqual(ordered_entities, [entity2.title, entity1.title])
+
+    def test_contact_types_de(self):
+        factory = getUtility(
+            IVocabularyFactory, "imio.directory.vocabulary.ContactTypesDe"
+        )
+        vocabulary = factory()
+        self.assertEqual(len(vocabulary), 3)
+        self.assertEqual(
+            vocabulary.getTerm("mission").title,
+            "Auftrag (Pässe, Empfang, Parken, etc.)",
+        )
+
+    def test_facilities_de(self):
+        factory = getUtility(
+            IVocabularyFactory, "imio.directory.vocabulary.FacilitiesDe"
+        )
+        vocabulary = factory()
+        self.assertEqual(len(vocabulary), 13)
+        self.assertEqual(
+            vocabulary.getTerm("drinking_water_point").title, "Trinkwasserstelle"
+        )
+
+    def test_contact_categories(self):
+        factory = getUtility(
+            IVocabularyFactory, "imio.directory.vocabulary.ContactCategories"
+        )
+        vocabulary = factory()
+        self.assertEqual(len(vocabulary), 396)
+        self.assertEqual(
+            vocabulary.getTerm("cho96vl9ox").title, "␟Commerces et entreprises"
+        )
+
+    def test_contact_categories_de(self):
+        factory = getUtility(
+            IVocabularyFactory, "imio.directory.vocabulary.ContactCategoriesDe"
+        )
+        vocabulary = factory()
+        self.assertEqual(len(vocabulary), 396)
+        self.assertEqual(
+            vocabulary.getTerm("902qcm27bp").title,
+            "␟Andere Akteure des Gesundheitswesens",
+        )
+
+    def test_contact_local_categories(self):
+        factory = getUtility(
+            IVocabularyFactory, "imio.directory.vocabulary.ContactLocalCategories"
+        )
+        # Site root (ex: @types or @vocabularies from RESTAPI)
+        self.assertEqual(len(factory(self.portal)), 0)
+
+        entity = api.content.create(
+            container=self.portal,
+            type="imio.directory.Entity",
+            title="Entity",
+        )
+        contact = api.content.create(
+            container=entity,
+            type="imio.directory.Contact",
+            title="Contact",
+        )
+        # Entity without local categories
+        self.assertEqual(len(factory(contact)), 0)
+
+        entity.local_categories = [
+            {"fr": "Catégorie 1", "nl": "Categorie 1", "de": None, "en": None},
+            {"fr": "Catégorie 2", "nl": None, "de": "Kategorie 2", "en": None},
+        ]
+        # Context can be the entity or a contact inside it
+        vocabulary = factory(entity)
+        self.assertEqual(len(vocabulary), 2)
+        vocabulary = factory(contact)
+        self.assertEqual(
+            [(t.value, t.title) for t in vocabulary],
+            [("Catégorie 1", "Catégorie 1"), ("Catégorie 2", "Catégorie 2")],
+        )
+        # Translated titles, with fallback on french value
+        vocabulary = factory(contact, lang="nl")
+        self.assertEqual(
+            [(t.value, t.title) for t in vocabulary],
+            [("Catégorie 1", "Categorie 1"), ("Catégorie 2", "Catégorie 2")],
+        )
+        vocabulary = factory(contact, lang="de")
+        self.assertEqual(
+            [(t.value, t.title) for t in vocabulary],
+            [("Catégorie 1", "Catégorie 1"), ("Catégorie 2", "Kategorie 2")],
+        )

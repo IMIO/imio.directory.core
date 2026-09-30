@@ -8,6 +8,7 @@ from plone.app.testing import TEST_USER_ID
 from plone.formwidget.geolocation.geolocation import Geolocation
 from plone.i18n.utility import setLanguageBinding
 
+import Missing
 import unittest
 
 
@@ -189,3 +190,45 @@ class TestIndexes(unittest.TestCase):
                 "unternehmen",
             ],
         )
+
+    def test_local_category_indexes(self):
+        self.entity.local_categories = [
+            {
+                "fr": "Ma catégorie",
+                "nl": "Mijn categorie",
+                "de": None,
+                "en": "My category",
+            },
+        ]
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="Contact",
+        )
+        catalog = api.portal.get_tool("portal_catalog")
+        brain = api.content.find(UID=contact.UID())[0]
+        indexes = catalog.getIndexDataForRID(brain.getRID())
+        self.assertFalse(indexes.get("local_category"))
+        metadatas = catalog.getMetadataForRID(brain.getRID())
+        self.assertIsNone(metadatas.get("local_category"))
+        self.assertEqual(metadatas.get("local_category_nl"), Missing.Value)
+
+        contact.local_category = "Ma catégorie"
+        contact.reindexObject()
+        brain = api.content.find(local_category="Ma catégorie")[0]
+        self.assertEqual(brain.UID, contact.UID())
+        indexes = catalog.getIndexDataForRID(brain.getRID())
+        self.assertEqual(indexes.get("local_category"), "Ma catégorie")
+        metadatas = catalog.getMetadataForRID(brain.getRID())
+        self.assertEqual(metadatas.get("local_category"), "Ma catégorie")
+        self.assertEqual(metadatas.get("local_category_nl"), "Mijn categorie")
+        self.assertEqual(metadatas.get("local_category_en"), "My category")
+        # No translation: fallback on french value
+        self.assertEqual(metadatas.get("local_category_de"), "Ma catégorie")
+
+        # Category removed from entity: fallback on stored value
+        self.entity.local_categories = []
+        contact.reindexObject()
+        brain = api.content.find(UID=contact.UID())[0]
+        metadatas = catalog.getMetadataForRID(brain.getRID())
+        self.assertEqual(metadatas.get("local_category_nl"), "Ma catégorie")
