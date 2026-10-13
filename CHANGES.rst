@@ -5,7 +5,9 @@ Changelog
 1.2.28 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEB-4449 : Add local categories on entities and a local category on contacts.
+  Send local category (token / title) to ODWB.
+  [boulch]
 
 
 1.2.27 (2026-06-17)

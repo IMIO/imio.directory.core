@@ -10,6 +10,9 @@
   <index name="container_uid" meta_type="FieldIndex">
     <indexed_attr value="container_uid"/>
   </index>
+  <index name="local_category" meta_type="FieldIndex">
+    <indexed_attr value="local_category"/>
+  </index>
   <index name="facilities" meta_type="KeywordIndex">
     <indexed_attr value="facilities"/>
   </index>
@@ -47,6 +50,10 @@
   <column value="contact_type"/>
   <column value="container_uid"/>
   <column value="facilities"/>
+  <column value="local_category"/>
+  <column value="local_category_nl"/>
+  <column value="local_category_de"/>
+  <column value="local_category_en"/>
   <column value="is_geolocated"/>
   <column value="selected_entities"/>
   <column value="title_nl"/>

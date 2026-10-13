@@ -91,6 +91,9 @@ class Contact:
         self.vat_number = context.vat_number
         self.description = context.description
         self.taxonomy_contact_category = context.taxonomy_contact_category
+        # local category token is its french title (see ContactLocalCategories)
+        self.local_category_token = context.local_category
+        self.local_category_title = context.local_category
         self.topics = context.topics
         self.facilities = context.facilities
         self.image = f"{context.absolute_url()}/@@images/image/preview"

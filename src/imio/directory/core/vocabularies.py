@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from collective.taxonomy.interfaces import ITaxonomy
+from imio.directory.core.contents import IEntity
 from imio.smartweb.locales import SmartwebMessageFactory as _
 from plone import api
+from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from Products.CMFPlone.utils import parent
 from zope.component import getSiteManager
 from zope.i18n import translate
 from zope.schema.vocabulary import SimpleTerm
@@ -184,3 +187,22 @@ class ContactCategoriesVocabularyFactory:
 
 
 ContactCategoriesVocabulary = ContactCategoriesVocabularyFactory()
+
+
+class ContactLocalCategoriesVocabularyFactory:
+    def __call__(self, context=None, lang="fr"):
+        if IPloneSiteRoot.providedBy(context):
+            # ex: call on @types or @vocabularies from RESTAPI
+            return SimpleVocabulary([])
+        obj = context
+        while not IEntity.providedBy(obj) and obj is not None:
+            obj = parent(obj)
+        if not obj.local_categories:
+            return SimpleVocabulary([])
+
+        values = {cat["fr"]: cat[lang] or cat["fr"] for cat in obj.local_categories}
+        terms = [SimpleTerm(value=k, token=k, title=v) for k, v in values.items()]
+        return SimpleVocabulary(terms)
+
+
+ContactLocalCategoriesVocabulary = ContactLocalCategoriesVocabularyFactory()

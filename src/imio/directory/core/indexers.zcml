@@ -52,6 +52,21 @@
       />
 
   <adapter
+      name="local_category_nl"
+      factory=".indexers.local_category_nl"
+      />
+
+  <adapter
+      name="local_category_de"
+      factory=".indexers.local_category_de"
+      />
+
+  <adapter
+      name="local_category_en"
+      factory=".indexers.local_category_en"
+      />
+
+  <adapter
       name="SearchableText"
       factory=".indexers.SearchableText_fr_contact"
       />
