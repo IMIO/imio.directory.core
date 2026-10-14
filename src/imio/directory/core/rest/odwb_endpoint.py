@@ -17,7 +17,7 @@ import json
 import logging
 import requests
 
-logger = logging.getLogger("imio.events.core")
+logger = logging.getLogger("imio.directory.core")
 
 
 class OdwbEndpointGet(OdwbBaseEndpointGet):
@@ -38,11 +38,22 @@ class OdwbEndpointGet(OdwbBaseEndpointGet):
         batched_lst = [
             self.__datas__[i : i + 1000] for i in range(0, len(self.__datas__), 1000)
         ]
+        batches = []
         for elem in batched_lst:
-            payload = json.dumps(elem)
-            response_text = self.odwb_query(url, payload)
-            logger.info(response_text)
-        return response_text
+            result = self.odwb_post(url, json.dumps(elem))
+            logger.info(result)
+            batches.append({"size": len(elem), **result})
+        sent = sum(
+            batch["size"]
+            for batch in batches
+            if batch["status_code"] in range(200, 300)
+        )
+        return {
+            "service": self.odwb_imio_service,
+            "total": len(self.__datas__),
+            "sent": sent,
+            "batches": batches,
+        }
 
     def get_contacts(self):
         lst_contacts = []

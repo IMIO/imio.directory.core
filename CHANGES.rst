@@ -5,6 +5,12 @@ Changelog
 1.2.28 (unreleased)
 -------------------
 
+- ``@odwb`` now returns a sending summary (service, total, sent, and per batch
+  size / ODWB status code / response) instead of the last ODWB response text.
+  Fix crash when there is no contact to send. Fix logger name.
+  Requires imio.smartweb.common with ``odwb_post``.
+  [boulch]
+
 - WEB-4449 : Add local categories on entities and a local category on contacts.
   Send local category (token / title) to ODWB.
   [boulch]

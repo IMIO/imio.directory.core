@@ -42,24 +42,59 @@ class RestFunctionalTest(unittest.TestCase):
             "ODWB : Connection error occurred"
         )
         endpoint = OdwbEndpointGet(contact, mock_request)
-        response = endpoint.reply()
+        response = endpoint.reply()["batches"][0]["response"]
         self.assertEqual(response, "ODWB : Connection error occurred")
         mock_post.side_effect = requests.exceptions.Timeout("ODWB : Request timed out")
         endpoint = OdwbEndpointGet(contact, mock_request)
-        response = endpoint.reply()
+        response = endpoint.reply()["batches"][0]["response"]
         self.assertEqual(response, "ODWB : Request timed out")
 
         mock_post.side_effect = requests.exceptions.HTTPError(
             "ODWB : HTTP error occurred"
         )
         endpoint = OdwbEndpointGet(contact, mock_request)
-        response = endpoint.reply()
+        response = endpoint.reply()["batches"][0]["response"]
         self.assertEqual(response, "ODWB : HTTP error occurred")
 
         mock_post.side_effect = Exception("ODWB : Unexpected error occurred")
         endpoint = OdwbEndpointGet(contact, mock_request)
-        response = endpoint.reply()
+        response = endpoint.reply()["batches"][0]["response"]
         self.assertEqual(response, "ODWB : Unexpected error occurred")
+
+    @patch("requests.post")
+    def test_reply_returns_sending_summary(self, mock_post):
+        mock_post.return_value = MagicMock(status_code=200, text="")
+        endpoint = OdwbEndpointGet(self.entity, self.request)
+        self.assertEqual(
+            endpoint.reply(),
+            {"service": "contacts-en-wallonie", "total": 0, "sent": 0, "batches": []},
+        )
+        mock_post.assert_not_called()
+
+        for i in range(2):
+            contact = api.content.create(
+                container=self.entity, type="imio.directory.Contact", title=f"C{i}"
+            )
+            api.content.transition(contact, "publish")
+        endpoint = OdwbEndpointGet(self.entity, self.request)
+        self.assertEqual(
+            endpoint.reply(),
+            {
+                "service": "contacts-en-wallonie",
+                "total": 2,
+                "sent": 2,
+                "batches": [{"size": 2, "status_code": 200, "response": ""}],
+            },
+        )
+
+        mock_post.return_value = MagicMock(status_code=400, text="bad pushkey")
+        endpoint = OdwbEndpointGet(self.entity, self.request)
+        summary = endpoint.reply()
+        self.assertEqual(summary["sent"], 0)
+        self.assertEqual(
+            summary["batches"],
+            [{"size": 2, "status_code": 400, "response": "bad pushkey"}],
+        )
 
     @patch("requests.post")
     def test_get_news_to_send_to_odwb(self, m):
