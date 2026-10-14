@@ -168,6 +168,31 @@ class RestFunctionalTest(unittest.TestCase):
         self.assertEqual(endpoint.__datas__[0]["local_category_title"], "Ma catégorie")
 
     @patch("requests.post")
+    def test_remove_returns_sending_summary(self, mock_post):
+        mock_post.return_value = MagicMock(status_code=200, text="")
+        contact = api.content.create(
+            container=self.entity, type="imio.directory.Contact", title="Contact"
+        )
+        endpoint = OdwbEndpointGet(contact, self.request)
+        self.assertEqual(
+            endpoint.remove(),
+            {
+                "service": "contacts-en-wallonie",
+                "total": 1,
+                "sent": 1,
+                "batches": [{"size": 1, "status_code": 200, "response": ""}],
+            },
+        )
+        self.assertIn("/temps_reel/delete/", mock_post.call_args.args[0])
+
+        mock_post.side_effect = requests.exceptions.Timeout("too slow")
+        endpoint = OdwbEndpointGet(contact, self.request)
+        self.assertEqual(
+            endpoint.remove()["batches"],
+            [{"size": 1, "status_code": None, "response": "ODWB : Request timed out"}],
+        )
+
+    @patch("requests.post")
     def test_entities_reply_returns_sending_summary(self, mock_post):
         mock_post.return_value = MagicMock(status_code=200, text="")
         api.content.transition(self.entity, "publish")

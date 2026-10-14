@@ -15,15 +15,15 @@ from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
 import json
 import logging
-import requests
 
 logger = logging.getLogger("imio.directory.core")
 
 
-def push_in_batches(endpoint, batch_size=1000):
-    """Push endpoint.__datas__ to ODWB by batches and return a sending summary."""
+def push_in_batches(endpoint, action="push", batch_size=1000):
+    """Send endpoint.__datas__ to ODWB by batches and return a sending summary.
+    action is "push" (add / update) or "delete"."""
     datas = endpoint.__datas__
-    url = f"{endpoint.odwb_api_push_url}/{endpoint.odwb_imio_service}/temps_reel/push/?pushkey={endpoint.odwb_pushkey}"
+    url = f"{endpoint.odwb_api_push_url}/{endpoint.odwb_imio_service}/temps_reel/{action}/?pushkey={endpoint.odwb_pushkey}"
     batches = []
     for i in range(0, len(datas), batch_size):
         elem = datas[i : i + batch_size]
@@ -82,11 +82,8 @@ class OdwbEndpointGet(OdwbBaseEndpointGet):
         if IContact.providedBy(self.context):
             contact = Contact(self.context)
             lst_contacts.append(json.loads(contact.to_json()))
-        url = f"{self.odwb_api_push_url}/{self.odwb_imio_service}/temps_reel/delete/?pushkey={self.odwb_pushkey}"
-        payload = json.dumps(lst_contacts)
-        headers = {"Content-Type": "application/json"}
-        response = requests.request("POST", url, headers=headers, data=payload)
-        return response.text
+        self.__datas__ = lst_contacts
+        return push_in_batches(self, action="delete")
 
 
 class Contact:

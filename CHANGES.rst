@@ -5,6 +5,10 @@ Changelog
 1.2.28 (unreleased)
 -------------------
 
+- ODWB contact delete now uses ``odwb_post`` (timeout, error handling) and
+  returns the same sending summary as ``@odwb``.
+  [boulch]
+
 - ``@odwb_entities`` now sends by batches and returns the same sending summary
   as ``@odwb``.
   [boulch]
