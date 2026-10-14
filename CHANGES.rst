@@ -5,6 +5,10 @@ Changelog
 1.2.28 (unreleased)
 -------------------
 
+- ``@odwb_entities`` now sends by batches and returns the same sending summary
+  as ``@odwb``.
+  [boulch]
+
 - ``@odwb`` now returns a sending summary (service, total, sent, and per batch
   size / ODWB status code / response) instead of the last ODWB response text.
   Fix crash when there is no contact to send. Fix logger name.

@@ -20,6 +20,27 @@ import requests
 logger = logging.getLogger("imio.directory.core")
 
 
+def push_in_batches(endpoint, batch_size=1000):
+    """Push endpoint.__datas__ to ODWB by batches and return a sending summary."""
+    datas = endpoint.__datas__
+    url = f"{endpoint.odwb_api_push_url}/{endpoint.odwb_imio_service}/temps_reel/push/?pushkey={endpoint.odwb_pushkey}"
+    batches = []
+    for i in range(0, len(datas), batch_size):
+        elem = datas[i : i + batch_size]
+        result = endpoint.odwb_post(url, json.dumps(elem))
+        logger.info(result)
+        batches.append({"size": len(elem), **result})
+    sent = sum(
+        batch["size"] for batch in batches if batch["status_code"] in range(200, 300)
+    )
+    return {
+        "service": endpoint.odwb_imio_service,
+        "total": len(datas),
+        "sent": sent,
+        "batches": batches,
+    }
+
+
 class OdwbEndpointGet(OdwbBaseEndpointGet):
     def __init__(self, context, request):
         imio_service = (
@@ -33,27 +54,8 @@ class OdwbEndpointGet(OdwbBaseEndpointGet):
     def reply(self):
         if not super(OdwbEndpointGet, self).available():
             return
-        url = f"{self.odwb_api_push_url}/{self.odwb_imio_service}/temps_reel/push/?pushkey={self.odwb_pushkey}"
         self.__datas__ = self.get_contacts()
-        batched_lst = [
-            self.__datas__[i : i + 1000] for i in range(0, len(self.__datas__), 1000)
-        ]
-        batches = []
-        for elem in batched_lst:
-            result = self.odwb_post(url, json.dumps(elem))
-            logger.info(result)
-            batches.append({"size": len(elem), **result})
-        sent = sum(
-            batch["size"]
-            for batch in batches
-            if batch["status_code"] in range(200, 300)
-        )
-        return {
-            "service": self.odwb_imio_service,
-            "total": len(self.__datas__),
-            "sent": sent,
-            "batches": batches,
-        }
+        return push_in_batches(self)
 
     def get_contacts(self):
         lst_contacts = []
@@ -212,8 +214,4 @@ class OdwbEntitiesEndpointGet(OdwbBaseEndpointGet):
             entity["entity_title"] = brain.Title
             lst_entities.append(entity)
         self.__datas__ = lst_entities
-        url = f"{self.odwb_api_push_url}/{self.odwb_imio_service}/temps_reel/push/?pushkey={self.odwb_pushkey}"
-        payload = json.dumps(self.__datas__)
-        headers = {"Content-Type": "application/json"}
-        response = requests.request("POST", url, headers=headers, data=payload)
-        return response.text
+        return push_in_batches(self)

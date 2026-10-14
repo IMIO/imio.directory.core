@@ -168,6 +168,30 @@ class RestFunctionalTest(unittest.TestCase):
         self.assertEqual(endpoint.__datas__[0]["local_category_title"], "Ma catégorie")
 
     @patch("requests.post")
+    def test_entities_reply_returns_sending_summary(self, mock_post):
+        mock_post.return_value = MagicMock(status_code=200, text="")
+        api.content.transition(self.entity, "publish")
+        endpoint = OdwbEntitiesEndpointGet(self.portal, self.request)
+        self.assertEqual(
+            endpoint.reply(),
+            {
+                "service": "entites-des-contacts-en-wallonie",
+                "total": 1,
+                "sent": 1,
+                "batches": [{"size": 1, "status_code": 200, "response": ""}],
+            },
+        )
+
+        mock_post.side_effect = requests.exceptions.Timeout("too slow")
+        endpoint = OdwbEntitiesEndpointGet(self.portal, self.request)
+        summary = endpoint.reply()
+        self.assertEqual(summary["sent"], 0)
+        self.assertEqual(
+            summary["batches"],
+            [{"size": 1, "status_code": None, "response": "ODWB : Request timed out"}],
+        )
+
+    @patch("requests.post")
     def test_get_entities_to_send_to_odwb(self, m):
         entity2 = api.content.create(
             container=self.portal,
