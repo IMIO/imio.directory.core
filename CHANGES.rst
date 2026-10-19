@@ -5,6 +5,9 @@ Changelog
 1.2.28 (unreleased)
 -------------------
 
+- ODWB : send contact keywords (``subjects``) as a list.
+  [boulch]
+
 - ODWB : use ``odwb_send`` from imio.smartweb.common to send by batches.
   [boulch]
 

@@ -81,6 +81,8 @@ class Contact:
         self.local_category_title = context.local_category
         self.topics = context.topics
         self.facilities = context.facilities
+        # keywords: ('test', 'kamoulox')
+        self.keywords = list(context.Subject())
         self.image = f"{context.absolute_url()}/@@images/image/preview"
         self.coordinates = context.geolocation
         self.address_street_name = context.street
@@ -119,7 +121,6 @@ class Contact:
         # ['e578c03fb70e448492ece56495686eae']
         # self.selected_entities = context.selected_entities
         # self.iam = context.iam
-        # self.subjects = context.subjects
         # self.language = context.language
         # solr
         # self.searchwords = context.searchwords

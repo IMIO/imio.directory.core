@@ -168,6 +168,23 @@ class RestFunctionalTest(unittest.TestCase):
         self.assertEqual(endpoint.__datas__[0]["local_category_title"], "Ma catégorie")
 
     @patch("requests.post")
+    def test_subjects_sent_to_odwb(self, m):
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            id="contact",
+            title="Contact",
+        )
+        endpoint = OdwbEndpointGet(contact, self.request)
+        endpoint.reply()
+        self.assertEqual(endpoint.__datas__[0]["keywords"], [])
+
+        contact.setSubject(["test", "kamoulox"])
+        endpoint = OdwbEndpointGet(contact, self.request)
+        endpoint.reply()
+        self.assertEqual(endpoint.__datas__[0]["keywords"], ["test", "kamoulox"])
+
+    @patch("requests.post")
     def test_remove_returns_sending_summary(self, mock_post):
         mock_post.return_value = MagicMock(status_code=200, text="")
         contact = api.content.create(
