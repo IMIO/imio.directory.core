@@ -14,31 +14,6 @@ from plone.formwidget.geolocation.geolocation import Geolocation
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
 import json
-import logging
-
-logger = logging.getLogger("imio.directory.core")
-
-
-def push_in_batches(endpoint, action="push", batch_size=1000):
-    """Send endpoint.__datas__ to ODWB by batches and return a sending summary.
-    action is "push" (add / update) or "delete"."""
-    datas = endpoint.__datas__
-    url = f"{endpoint.odwb_api_push_url}/{endpoint.odwb_imio_service}/temps_reel/{action}/?pushkey={endpoint.odwb_pushkey}"
-    batches = []
-    for i in range(0, len(datas), batch_size):
-        elem = datas[i : i + batch_size]
-        result = endpoint.odwb_post(url, json.dumps(elem))
-        logger.info(result)
-        batches.append({"size": len(elem), **result})
-    sent = sum(
-        batch["size"] for batch in batches if batch["status_code"] in range(200, 300)
-    )
-    return {
-        "service": endpoint.odwb_imio_service,
-        "total": len(datas),
-        "sent": sent,
-        "batches": batches,
-    }
 
 
 class OdwbEndpointGet(OdwbBaseEndpointGet):
@@ -55,7 +30,7 @@ class OdwbEndpointGet(OdwbBaseEndpointGet):
         if not super(OdwbEndpointGet, self).available():
             return
         self.__datas__ = self.get_contacts()
-        return push_in_batches(self)
+        return self.odwb_send(self.__datas__)
 
     def get_contacts(self):
         lst_contacts = []
@@ -83,7 +58,7 @@ class OdwbEndpointGet(OdwbBaseEndpointGet):
             contact = Contact(self.context)
             lst_contacts.append(json.loads(contact.to_json()))
         self.__datas__ = lst_contacts
-        return push_in_batches(self, action="delete")
+        return self.odwb_send(self.__datas__, action="delete")
 
 
 class Contact:
@@ -211,4 +186,4 @@ class OdwbEntitiesEndpointGet(OdwbBaseEndpointGet):
             entity["entity_title"] = brain.Title
             lst_entities.append(entity)
         self.__datas__ = lst_entities
-        return push_in_batches(self)
+        return self.odwb_send(self.__datas__)

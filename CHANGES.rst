@@ -5,6 +5,9 @@ Changelog
 1.2.28 (unreleased)
 -------------------
 
+- ODWB : use ``odwb_send`` from imio.smartweb.common to send by batches.
+  [boulch]
+
 - ODWB contact delete now uses ``odwb_post`` (timeout, error handling) and
   returns the same sending summary as ``@odwb``.
   [boulch]
