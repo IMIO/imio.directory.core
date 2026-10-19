@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.28 (unreleased)
+1.2.28 (2026-10-19)
 -------------------
 
 - ODWB (security) : ``@odwb`` and ``@odwb_entities`` now require ``cmf.ManagePortal``. 
