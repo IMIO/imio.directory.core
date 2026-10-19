@@ -2,14 +2,21 @@
 
 from imio.directory.core.rest.odwb_endpoint import OdwbEndpointGet
 from imio.directory.core.rest.odwb_endpoint import OdwbEntitiesEndpointGet
+from imio.directory.core.testing import IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
 from plone import api
 from plone.app.testing import setRoles
+from plone.app.testing import SITE_OWNER_NAME
+from plone.app.testing import SITE_OWNER_PASSWORD
 from plone.app.testing import TEST_USER_ID
+from plone.app.testing import TEST_USER_NAME
+from plone.app.testing import TEST_USER_PASSWORD
+from plone.restapi.testing import RelativeSession
 from unittest.mock import MagicMock
 from unittest.mock import patch
 
 import requests
+import transaction
 import unittest
 
 
@@ -35,6 +42,7 @@ class RestFunctionalTest(unittest.TestCase):
             id="contact",
             title="Contact",
         )
+        api.content.transition(contact, "publish")
         # OdwbEndpointGet.test_in_staging_or_local = True
         mock_request = MagicMock()
 
@@ -156,6 +164,7 @@ class RestFunctionalTest(unittest.TestCase):
             id="contact",
             title="Contact",
         )
+        api.content.transition(contact, "publish")
         endpoint = OdwbEndpointGet(contact, self.request)
         endpoint.reply()
         self.assertIsNone(endpoint.__datas__[0]["local_category_token"])
@@ -175,6 +184,7 @@ class RestFunctionalTest(unittest.TestCase):
             id="contact",
             title="Contact",
         )
+        api.content.transition(contact, "publish")
         endpoint = OdwbEndpointGet(contact, self.request)
         endpoint.reply()
         self.assertEqual(endpoint.__datas__[0]["keywords"], [])
@@ -183,6 +193,19 @@ class RestFunctionalTest(unittest.TestCase):
         endpoint = OdwbEndpointGet(contact, self.request)
         endpoint.reply()
         self.assertEqual(endpoint.__datas__[0]["keywords"], ["test", "kamoulox"])
+
+    @patch("requests.post")
+    def test_private_contact_not_sent_to_odwb(self, mock_post):
+        contact = api.content.create(
+            container=self.entity, type="imio.directory.Contact", title="Contact"
+        )
+        endpoint = OdwbEndpointGet(contact, self.request)
+        self.assertEqual(endpoint.reply()["total"], 0)
+        mock_post.assert_not_called()
+
+        api.content.transition(contact, "publish")
+        endpoint = OdwbEndpointGet(contact, self.request)
+        self.assertEqual(endpoint.reply()["total"], 1)
 
     @patch("requests.post")
     def test_remove_returns_sending_summary(self, mock_post):
@@ -253,3 +276,55 @@ class RestFunctionalTest(unittest.TestCase):
         endpoint = OdwbEntitiesEndpointGet(self.portal, self.request)
         endpoint.reply()
         self.assertEqual(len(endpoint.__datas__), 1)
+
+
+class RestPermissionsFunctionalTest(unittest.TestCase):
+    layer = IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
+
+    def setUp(self):
+        self.portal = self.layer["portal"]
+        self.api_session = RelativeSession(self.portal.absolute_url())
+        self.api_session.headers.update({"Accept": "application/json"})
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        entity = api.content.create(
+            container=self.portal, type="imio.directory.Entity", title="Entity"
+        )
+        api.content.transition(entity, "publish")
+        contact = api.content.create(
+            container=entity, type="imio.directory.Contact", title="Contact"
+        )
+        api.content.transition(contact, "publish")
+        setRoles(self.portal, TEST_USER_ID, ["Member"])
+        transaction.commit()
+
+    def tearDown(self):
+        self.api_session.close()
+
+    @patch("requests.post")
+    def test_anonymous_cannot_send_to_odwb(self, mock_post):
+        for endpoint in ("@odwb", "@odwb_entities"):
+            response = self.api_session.get(endpoint)
+            self.assertEqual(response.status_code, 401)
+        mock_post.assert_not_called()
+
+    @patch("requests.post")
+    def test_member_cannot_send_to_odwb(self, mock_post):
+        self.api_session.auth = (TEST_USER_NAME, TEST_USER_PASSWORD)
+        for endpoint in ("@odwb", "@odwb_entities"):
+            response = self.api_session.get(endpoint)
+            self.assertEqual(response.status_code, 401)
+        mock_post.assert_not_called()
+
+    @patch("requests.post")
+    def test_manager_can_send_to_odwb(self, mock_post):
+        mock_post.return_value = MagicMock(status_code=200, text="")
+        # test server runs on localhost (= local environment)
+        api.portal.set_registry_record(
+            "imio.smartweb.common.activate_sending_data_to_odwb_for_staging", True
+        )
+        transaction.commit()
+        self.api_session.auth = (SITE_OWNER_NAME, SITE_OWNER_PASSWORD)
+        for endpoint in ("@odwb", "@odwb_entities"):
+            response = self.api_session.get(endpoint)
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.json()["sent"], 1)

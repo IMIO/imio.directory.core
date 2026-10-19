@@ -12,7 +12,7 @@
       accept="application/json"
       for="zope.interface.Interface"
       factory=".odwb_endpoint.OdwbEndpointGet"
-      permission="zope2.View"
+      permission="cmf.ManagePortal"
       layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
       />
 
@@ -22,7 +22,7 @@
       accept="application/json"
       for="zope.interface.Interface"
       factory=".odwb_endpoint.OdwbEntitiesEndpointGet"
-      permission="zope2.View"
+      permission="cmf.ManagePortal"
       layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
       />
 

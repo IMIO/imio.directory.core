@@ -5,6 +5,10 @@ Changelog
 1.2.28 (unreleased)
 -------------------
 
+- ODWB (security) : ``@odwb`` and ``@odwb_entities`` now require ``cmf.ManagePortal``. 
+  And non-published contact is never sent by ``@odwb``.
+  [boulch]
+
 - ODWB : send contact keywords (``subjects``) as a list.
   [boulch]
 

@@ -45,7 +45,10 @@ class OdwbEndpointGet(OdwbBaseEndpointGet):
                 contact_obj = brain.getObject()
                 contact = Contact(contact_obj)
                 lst_contacts.append(json.loads(contact.to_json()))
-        elif IContact.providedBy(self.context):
+        elif (
+            IContact.providedBy(self.context)
+            and api.content.get_state(self.context) == "published"
+        ):
             contact = Contact(self.context)
             lst_contacts.append(json.loads(contact.to_json()))
         return lst_contacts
