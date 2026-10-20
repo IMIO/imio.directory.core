@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.29 (unreleased)
+1.2.29 (2026-10-20)
 -------------------
 
 - WEB-4504 : Remove useless term in facilities vocabulary
