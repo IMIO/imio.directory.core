@@ -112,7 +112,6 @@ class FacilitiesVocabularyFactory:
             ("free_wifi", _("Free WIFI")),
             ("bottle_bubbles", _("Bottle bubbles")),
             ("clothing_bubbles", _("Clothing bubbles")),
-            ("container_parks", _("Container parks")),
             ("charging_stations", _("Charging stations")),
             ("organic_waste_containers", _("Organic waste containers")),
             ("residual_waste_containers", _("Residual waste containers")),

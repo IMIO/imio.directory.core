@@ -5,7 +5,8 @@ Changelog
 1.2.29 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEB-4504 : Remove useless term in facilities vocabulary
+  [boulch]
 
 
 1.2.28 (2026-10-19)
