@@ -36,6 +36,8 @@
     layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
     /-->
 
+  <adapter factory=".endpoint.SearchLastModified" />
+
   <cache:ruleset
     for=".endpoint.SearchGet"
     ruleset="imio.directory.core.rest"

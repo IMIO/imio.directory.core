@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
-"""RAM cache of the @search endpoint, for the contacts of one entity
-(selected_entities parameter, as sent by imio.smartweb.core)."""
+"""RAM cache, Last-Modified and BAN of the @search endpoint, for the
+contacts of one entity (selected_entities parameter, as sent by
+imio.smartweb.core)."""
 
+from contextlib import contextmanager
+from datetime import datetime
+from datetime import timezone
 from imio.directory.core.rest.search.endpoint import _cachekey
 from imio.directory.core.rest.search.endpoint import _entity_uid
 from imio.directory.core.rest.search.endpoint import SearchGet
+from imio.directory.core.testing import IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
 from imio.directory.core.utils import ENDPOINT_CACHE_KEY
 from plone import api
@@ -16,6 +21,7 @@ from plone.app.testing import TEST_USER_NAME
 from plone.restapi.services.search.get import SearchGet as BaseSearchGet
 from unittest.mock import MagicMock
 from unittest.mock import patch
+from z3c.caching.interfaces import ILastModified
 from z3c.relationfield import RelationValue
 from z3c.relationfield.interfaces import IRelationList
 from zope.annotation.interfaces import IAnnotations
@@ -25,6 +31,8 @@ from zope.intid.interfaces import IIntIds
 from zope.lifecycleevent import Attributes
 from zope.lifecycleevent import modified
 
+import os
+import transaction
 import unittest
 
 
@@ -61,9 +69,7 @@ class TestEntityUid(unittest.TestCase):
         self.assertIsNone(_entity_uid(make_request({})))
         self.assertIsNone(_entity_uid(make_request({"selected_entities": ""})))
         self.assertIsNone(_entity_uid(make_request({"selected_entities": []})))
-        self.assertIsNone(
-            _entity_uid(make_request({"selected_entities": ["a", "b"]}))
-        )
+        self.assertIsNone(_entity_uid(make_request({"selected_entities": ["a", "b"]})))
 
 
 class TestCacheKey(unittest.TestCase):
@@ -136,7 +142,9 @@ class TestRAMCache(unittest.TestCase):
         self.assertIsNone(self.cache_header({"selected_entities": self.entity.UID()}))
 
     def test_no_cache_when_disabled_in_registry(self):
-        api.portal.set_registry_record("imio.directory.core.search_cache_enabled", False)
+        api.portal.set_registry_record(
+            "imio.directory.core.search_cache_enabled", False
+        )
         self.assertIsNone(self.cache_header({"selected_entities": self.entity.UID()}))
 
 
@@ -187,16 +195,40 @@ class TestInvalidation(unittest.TestCase):
         api.content.delete(contact)
         self.assertGreater(self.generation(), before)
 
-    def test_move_contact(self):
-        contact = self.create_contact()
-        other_entity = api.content.create(
+    def create_entity(self, title, populating_entities=()):
+        intids = getUtility(IIntIds)
+        return api.content.create(
             container=self.portal,
             type="imio.directory.Entity",
-            title="Other entity",
+            title=title,
+            populating_entities=[
+                RelationValue(intids.getId(entity)) for entity in populating_entities
+            ],
         )
-        before = self.generation()
-        api.content.move(contact, other_entity)
-        self.assertGreater(self.generation(), before)
+
+    def test_move_contact_invalidates_old_and_new_entities(self):
+        # after the move, the contact is also shown in third_entity, which is
+        # populated by new_entity
+        contact = self.create_contact()
+        new_entity = self.create_entity("New entity")
+        third_entity = self.create_entity("Third entity", [new_entity])
+        entities = (self.entity, new_entity, third_entity)
+        before = [self.generation(entity) for entity in entities]
+        api.content.move(contact, new_entity)
+        for entity, generation in zip(entities, before):
+            self.assertGreater(self.generation(entity), generation)
+
+    def test_contact_invalidates_entities_it_populates(self):
+        # a contact of self.entity is also shown in other_entity
+        other_entity = self.create_entity("Other entity", [self.entity])
+        before = self.generation(other_entity)
+        contact = self.create_contact()
+        self.assertIn(other_entity.UID(), contact.selected_entities)
+        self.assertGreater(self.generation(other_entity), before)
+
+        before = self.generation(other_entity)
+        modified(contact)
+        self.assertGreater(self.generation(other_entity), before)
 
     def test_change_populating_entities(self):
         # the contacts of other_entity are now shown in self.entity
@@ -211,3 +243,97 @@ class TestInvalidation(unittest.TestCase):
         self.entity.populating_entities = [RelationValue(intids.getId(other_entity))]
         modified(self.entity, Attributes(IRelationList, "populating_entities"))
         self.assertGreater(self.generation(), before)
+
+
+class TestSearchLastModified(unittest.TestCase):
+    """The Last-Modified header and the ETag of @search come from
+    ILastModified. They must change when the contacts of the entity change,
+    else Varnish revalidates its cached results with a 304 forever."""
+
+    layer = IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
+
+    def setUp(self):
+        self.portal = self.layer["portal"]
+        setSite(self.portal)
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.entity = api.content.create(
+            container=self.portal,
+            type="imio.directory.Entity",
+            title="Entity",
+        )
+
+    def last_modified(self, form):
+        return ILastModified(make_service(self.portal, form))()
+
+    def test_last_modified_follows_the_contacts_of_the_entity(self):
+        form = {"selected_entities": self.entity.UID()}
+        before = datetime.now(timezone.utc).replace(microsecond=0)
+        api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="Contact",
+        )
+        last_modified = self.last_modified(form)
+        self.assertGreaterEqual(last_modified, before)
+        self.assertEqual(last_modified, self.last_modified(form))
+        # the site modification date (old behaviour) is never used
+        self.assertNotEqual(last_modified, self.portal.modified().asdatetime())
+
+    def test_last_modified_is_now_when_unknown(self):
+        # without one entity, or for an entity that never changed, we cannot
+        # tell when the results changed: no 304 may be sent
+        before = datetime.now(timezone.utc)
+        self.assertGreaterEqual(self.last_modified({}), before)
+        self.assertGreaterEqual(self.last_modified({"UID": "a"}), before)
+        self.assertGreaterEqual(
+            self.last_modified({"selected_entities": "unknown"}), before
+        )
+
+
+class TestBanSearchEndpoint(unittest.TestCase):
+    """After the commit of a change in the contacts, the search results are
+    removed from Varnish (BAN), so the clients get the new results at once."""
+
+    layer = IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
+
+    def setUp(self):
+        self.portal = self.layer["portal"]
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.entity = api.content.create(
+            container=self.portal,
+            type="imio.directory.Entity",
+            title="Entity",
+        )
+        transaction.commit()
+
+    @contextmanager
+    def mocked_ban(self):
+        with patch.dict(os.environ, {"CACHING_SERVERS": "varnish:6081"}), patch(
+            "imio.smartweb.common.caching.requests.request"
+        ) as mocked:
+            yield mocked
+
+    def add_two_contacts(self):
+        for title in ("Contact 1", "Contact 2"):
+            api.content.create(
+                container=self.entity,
+                type="imio.directory.Contact",
+                title=title,
+            )
+
+    def test_ban_after_commit(self):
+        with self.mocked_ban() as ban:
+            self.add_two_contacts()
+            self.assertEqual(ban.call_args_list, [])
+            transaction.commit()
+        # one BAN, even with many changes in the transaction
+        self.assertEqual(
+            [call.args[:2] for call in ban.call_args_list],
+            [("BAN", "http://varnish:6081/@search")],
+        )
+
+    def test_no_ban_when_transaction_is_aborted(self):
+        with self.mocked_ban() as ban:
+            self.add_two_contacts()
+            transaction.abort()
+        self.assertEqual(ban.call_args_list, [])

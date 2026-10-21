@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
 
+from datetime import datetime
+from datetime import timezone
 from imio.directory.core.utils import ENDPOINT_CACHE_KEY
+from imio.directory.core.utils import ENDPOINT_MODIFIED_KEY
 from imio.smartweb.common.utils import is_log_active
 from plone import api
 from plone.memoize import ram
 from plone.restapi.services.search.get import SearchGet as BaseSearchGet
+from z3c.caching.interfaces import ILastModified
 from zope.annotation.interfaces import IAnnotations
+from zope.component import adapter
 from zope.component.hooks import getSite
+from zope.interface import implementer
 
 import logging
 import time
@@ -77,3 +83,26 @@ class SearchGet(BaseSearchGet):
             if is_log_active():
                 logger.info("RAMCACHE HIT")
         return result
+
+
+@implementer(ILastModified)
+@adapter(SearchGet)
+class SearchLastModified:
+    """Last-Modified header and ETag of the @search endpoint.
+
+    Without this adapter, they use the modification date of the site, which
+    never changes: Varnish revalidates the cached search results and always
+    gets a 304, so it keeps the old contacts.
+    """
+
+    def __init__(self, context):
+        self.context = context
+
+    def __call__(self):
+        entity_uid = _entity_uid(self.context.request)
+        ann = IAnnotations(getSite())
+        timestamp = entity_uid and ann.get(f"{ENDPOINT_MODIFIED_KEY}{entity_uid}")
+        if not timestamp:
+            # we do not know when the results changed: never send a 304
+            return datetime.now(timezone.utc)
+        return datetime.fromtimestamp(timestamp, timezone.utc)

@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 
+from Acquisition import aq_base
 from imio.directory.core.contents import IEntity
 from imio.directory.core.rest.odwb_endpoint import OdwbEndpointGet
 from imio.directory.core.utils import ENDPOINT_CACHE_KEY
+from imio.directory.core.utils import ENDPOINT_MODIFIED_KEY
 from imio.directory.core.utils import get_entity_for_contact
 from imio.directory.core.utils import get_entity_uid_for_contact
+from imio.smartweb.common.caching import ban_physicalpath
 from imio.smartweb.common.faceted.utils import configure_faceted
 from imio.smartweb.common.interfaces import IAddress
 from imio.smartweb.common.utils import geocode_object
@@ -20,6 +23,7 @@ from zope.lifecycleevent import ObjectRemovedEvent
 from zope.lifecycleevent.interfaces import IAttributes
 
 import os
+import time
 import transaction
 
 
@@ -90,9 +94,11 @@ def moved_contact(obj, event):
     if type(event) is ObjectRemovedEvent:
         # We don't have anything to do if event is being removed
         return
+    # before and after the move: old and new entities that show the contact
     invalidate_endpoint_search_cache(obj)
     container_entity = get_entity_for_contact(obj)
     set_uid_of_referrer_entities(obj, container_entity)
+    invalidate_endpoint_search_cache(obj)
     if event.oldParent is not None and get_state(obj) == "published":
         kwargs = dict(obj=obj)
         transaction.get().addAfterCommitHook(send_to_odwb, kws=kwargs)
@@ -190,7 +196,27 @@ def invalidate_endpoint_search_cache(obj):
     entity = get_parent_providing(obj, IEntity)
     # if we're curently removing an entity
     # there is no more this entity here
-    if entity:
-        ann = IAnnotations(api.portal.get())
-        ann_full_key = f"{ENDPOINT_CACHE_KEY}{entity.UID()}"
+    entity_uids = {entity.UID()} if entity else set()
+    # a contact is also shown in the entities that it populates
+    entity_uids.update(getattr(aq_base(obj), "selected_entities", None) or [])
+    if not entity_uids:
+        return
+    ann = IAnnotations(api.portal.get())
+    for entity_uid in entity_uids:
+        ann_full_key = f"{ENDPOINT_CACHE_KEY}{entity_uid}"
         ann[ann_full_key] = int(ann.get(ann_full_key, 0)) + 1
+        ann[f"{ENDPOINT_MODIFIED_KEY}{entity_uid}"] = time.time()
+    ban_search_endpoint()
+
+
+def ban_search_endpoint():
+    """Remove the search results from Varnish (ban_physicalpath sends the BAN
+    after the commit), only one time for each transaction"""
+    txn = transaction.get()
+    try:
+        txn.data(ban_search_endpoint)
+        return
+    except KeyError:
+        txn.set_data(ban_search_endpoint, True)
+    portal_path = api.portal.get().getPhysicalPath()
+    ban_physicalpath(getRequest(), portal_path + ("@search",))
