@@ -5,7 +5,12 @@ Changelog
 1.2.30 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- ``@search`` endpoint : RAM cache of the results for the contacts of one entity
+  (``selected_entities`` parameter with one UID), for anonymous users only.
+  A change on a contact (or on the ``populating_entities`` of an entity) clears the cache
+  of its entity. The cache can be disabled with the
+  ``imio.directory.core.search_cache_enabled`` registry record.
+  [boulch]
 
 
 1.2.29 (2026-10-20)
