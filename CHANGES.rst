@@ -5,6 +5,12 @@ Changelog
 1.2.30 (unreleased)
 -------------------
 
+- Add ``@search_generation`` endpoint. it gives the generation of the ``@search`` results for one entity.
+  The generation changes when the cache of ``@search`` is cleared for this entity.
+  imio.smartweb.core can then keep the contacts in its cache and ask for them again
+  only when they change. The answer is small and is never cached (``Cache-Control: no-store``).
+  [boulch]
+
 - ``@search`` endpoint : RAM cache of the results for the contacts of one entity
   (``selected_entities`` parameter with one UID), for anonymous users only.
   A change on a contact (or on the ``populating_entities`` of an entity) clears the cache

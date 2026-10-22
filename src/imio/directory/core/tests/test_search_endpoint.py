@@ -19,6 +19,7 @@ from plone.app.testing import logout
 from plone.app.testing import setRoles
 from plone.app.testing import TEST_USER_ID
 from plone.app.testing import TEST_USER_NAME
+from plone.restapi.testing import RelativeSession
 from plone.restapi.services.search.get import SearchGet as BaseSearchGet
 from unittest.mock import MagicMock
 from unittest.mock import patch
@@ -298,6 +299,65 @@ class TestSearchLastModified(unittest.TestCase):
         self.assertGreaterEqual(
             self.last_modified({"selected_entities": "unknown"}), before
         )
+
+
+class TestSearchGeneration(unittest.TestCase):
+    """@search_generation tells the clients when the @search results of an
+    entity change, with a small answer that is never cached."""
+
+    layer = IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
+
+    def setUp(self):
+        self.portal = self.layer["portal"]
+        setRoles(self.portal, TEST_USER_ID, ["Manager"])
+        self.entity = api.content.create(
+            container=self.portal,
+            type="imio.directory.Entity",
+            title="Entity",
+        )
+        transaction.commit()
+        # anonymous, as imio.smartweb.core
+        self.api_session = RelativeSession(self.portal.absolute_url())
+        self.api_session.headers.update({"Accept": "application/json"})
+
+    def tearDown(self):
+        self.api_session.close()
+
+    def get_generation(self, entity_uid):
+        return self.api_session.get(
+            f"@search_generation?selected_entities={entity_uid}"
+        )
+
+    def test_generation_changes_with_the_contacts(self):
+        response = self.get_generation(self.entity.UID())
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.headers["Cache-Control"], "no-store")
+        before = response.json()["generation"]
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="Contact",
+        )
+        transaction.commit()
+        after_add = self.get_generation(self.entity.UID()).json()["generation"]
+        self.assertGreater(after_add, before)
+        with patch("imio.directory.core.subscribers.send_to_odwb"):
+            api.content.transition(contact, "publish")
+            transaction.commit()
+        after_publish = self.get_generation(self.entity.UID()).json()["generation"]
+        self.assertGreater(after_publish, after_add)
+
+    def test_unknown_entity(self):
+        response = self.get_generation("unknown")
+        self.assertEqual(response.json(), {"generation": 0})
+
+    def test_without_exactly_one_entity(self):
+        response = self.api_session.get("@search_generation")
+        self.assertEqual(response.status_code, 400)
+        response = self.api_session.get(
+            "@search_generation?selected_entities=a&selected_entities=b"
+        )
+        self.assertEqual(response.status_code, 400)
 
 
 class TestBanSearchEndpoint(unittest.TestCase):

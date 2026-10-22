@@ -7,6 +7,7 @@ from imio.directory.core.utils import ENDPOINT_MODIFIED_KEY
 from imio.smartweb.common.utils import is_log_active
 from plone import api
 from plone.memoize import ram
+from plone.restapi.services import Service
 from plone.restapi.services.search.get import SearchGet as BaseSearchGet
 from z3c.caching.interfaces import ILastModified
 from zope.annotation.interfaces import IAnnotations
@@ -106,3 +107,22 @@ class SearchLastModified:
             # we do not know when the results changed: never send a 304
             return datetime.now(timezone.utc)
         return datetime.fromtimestamp(timestamp, timezone.utc)
+
+
+class SearchGenerationGet(Service):
+    """Generation of the @search results for the contacts of one entity.
+
+    A small answer: the clients (imio.smartweb.core) ask it before they ask
+    the full list of contacts, and use it as their own cache key. They see a
+    new contact at once, and get the full list only when it changed.
+    """
+
+    def reply(self):
+        # the generation must always be fresh: no cache in Varnish
+        self.request.response.setHeader("Cache-Control", "no-store")
+        entity_uid = _entity_uid(self.request)
+        if entity_uid is None:
+            self.request.response.setStatus(400)
+            return {"error": "selected_entities must contain one entity UID"}
+        ann = IAnnotations(getSite())
+        return {"generation": ann.get(f"{ENDPOINT_CACHE_KEY}{entity_uid}", 0)}

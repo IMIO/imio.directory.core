@@ -16,6 +16,16 @@
     layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
     />
 
+<plone:service
+    name="@search_generation"
+    method="GET"
+    accept="application/json"
+    for="Products.CMFPlone.interfaces.IPloneSiteRoot"
+    factory=".endpoint.SearchGenerationGet"
+    permission="zope2.View"
+    layer="imio.directory.core.interfaces.IImioDirectoryCoreLayer"
+    />
+
 <!--plone:service
     name="@search_entity"
     method="GET"
