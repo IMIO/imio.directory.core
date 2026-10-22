@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2.30 (unreleased)
+1.2.30 (2026-10-22)
 -------------------
 
 - Add ``@search_generation`` endpoint. it gives the generation of the ``@search`` results for one entity.
