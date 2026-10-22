@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<registry
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="imio.smartweb">
+
+  <record name="imio.directory.core.search_cache_enabled">
+    <field type="plone.registry.field.Bool">
+      <title>Enable RAM cache on @search endpoint</title>
+      <default>True</default>
+    </field>
+    <value>True</value>
+  </record>
+
+</registry>

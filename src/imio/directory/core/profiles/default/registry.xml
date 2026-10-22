@@ -60,4 +60,12 @@
     </field>
   </record>
 
+  <record name="imio.directory.core.search_cache_enabled">
+    <field type="plone.registry.field.Bool">
+      <title>Enable RAM cache on @search endpoint</title>
+      <default>True</default>
+    </field>
+    <value>True</value>
+  </record>
+
 </registry>
