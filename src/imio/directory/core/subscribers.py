@@ -119,7 +119,11 @@ def removed_entity(obj, event):
 
 
 def removed_contact(obj, event):
-    invalidate_endpoint_search_cache(obj)
+    try:
+        invalidate_endpoint_search_cache(obj)
+    except api.exc.CannotGetPortalError:
+        # This happen when we try to remove plone object
+        return
     request = getRequest()
     endpoint = OdwbEndpointGet(obj, request)
     endpoint.remove()

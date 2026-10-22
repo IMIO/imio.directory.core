@@ -9,6 +9,7 @@ from datetime import timezone
 from imio.directory.core.rest.search.endpoint import _cachekey
 from imio.directory.core.rest.search.endpoint import _entity_uid
 from imio.directory.core.rest.search.endpoint import SearchGet
+from imio.directory.core.subscribers import removed_contact
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_FUNCTIONAL_TESTING
 from imio.directory.core.testing import IMIO_DIRECTORY_CORE_INTEGRATION_TESTING
 from imio.directory.core.utils import ENDPOINT_CACHE_KEY
@@ -195,6 +196,15 @@ class TestInvalidation(unittest.TestCase):
         api.content.delete(contact)
         self.assertGreater(self.generation(), before)
 
+    def test_remove_contact_without_portal(self):
+        # when the Plone site is removed, there is no portal any more
+        contact = self.create_contact()
+        with patch(
+            "plone.api.portal.get", side_effect=api.exc.CannotGetPortalError
+        ), patch("imio.directory.core.subscribers.OdwbEndpointGet") as odwb:
+            removed_contact(contact, None)
+        odwb.assert_not_called()
+
     def create_entity(self, title, populating_entities=()):
         intids = getUtility(IIntIds)
         return api.content.create(
@@ -337,3 +347,26 @@ class TestBanSearchEndpoint(unittest.TestCase):
             self.add_two_contacts()
             transaction.abort()
         self.assertEqual(ban.call_args_list, [])
+
+    def test_failed_ban_does_not_stop_odwb(self):
+        # the BAN and the ODWB sending are independent after commit hooks
+        contact = api.content.create(
+            container=self.entity,
+            type="imio.directory.Contact",
+            title="Contact",
+        )
+        transaction.commit()
+        with self.mocked_ban() as ban, patch(
+            "imio.directory.core.subscribers.OdwbEndpointGet"
+        ) as odwb:
+            ban.side_effect = RuntimeError("Varnish is down")
+            api.content.transition(contact, "publish")
+            transaction.commit()
+            self.assertTrue(ban.called)
+            odwb.return_value.reply.assert_called_once()
+
+            ban.reset_mock()
+            api.content.delete(contact)
+            transaction.commit()
+            self.assertTrue(ban.called)
+            odwb.return_value.remove.assert_called_once()

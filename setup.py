@@ -61,7 +61,7 @@ setup(
         "pandas",
         "collective.taxonomy",
         "embeddify",
-        "imio.smartweb.common>=1.2.62",
+        "imio.smartweb.common",
         "imio.smartweb.locales",
         "collective.instancebehavior",
         "collective.z3cform.datagridfield>=2.0",
