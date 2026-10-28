@@ -207,6 +207,13 @@ class TestProcessCategorizeContentView(unittest.TestCase):
         self.assertEqual(data["data"]["form-widgets-category"], category_result)
         self.assertEqual(data["data"]["form-widgets-facilities"], facilities_result)
 
+    def test_view_registered_on_entity_for_add_form(self):
+        # On ++add++imio.directory.Contact, the button posts to the entity
+        view = api.content.get_view(
+            "ProcessCategorizeContent", self.entity, self.request
+        )
+        self.assertIsInstance(view, ProcessCategorizeContentView)
+
 
 class TestIACategorizeAddForm(unittest.TestCase):
     def test_form_inherits_from_base(self):

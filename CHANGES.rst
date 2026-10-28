@@ -5,7 +5,8 @@ Changelog
 1.2.31 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- WEB-4520 : Fix HTTP 500 when you click "Categorize with AI" on a new contact.
+  [boulch]
 
 
 1.2.30 (2026-10-22)

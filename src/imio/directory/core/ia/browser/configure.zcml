@@ -12,6 +12,14 @@
       permission="cmf.ModifyPortalContent"
       />
 
+  <!-- Contact add form (++add++imio.directory.Contact) posts to its entity -->
+  <browser:page
+      name="ProcessCategorizeContent"
+      for="imio.directory.core.contents.IEntity"
+      class=".views.ProcessCategorizeContentView"
+      permission="cmf.ModifyPortalContent"
+      />
+
   <adapter
       for="Products.CMFCore.interfaces.IFolderish
            imio.smartweb.common.interfaces.IImioSmartwebCommonLayer
