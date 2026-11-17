@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """Installer for the imio.directory.core package."""
 
-from setuptools import find_packages
 from setuptools import setup
 
 long_description = "\n\n".join(
@@ -23,7 +22,7 @@ setup(
         "Environment :: Web Environment",
         "Framework :: Plone",
         "Framework :: Plone :: Addon",
-        "Framework :: Plone :: 6.1",
+        "Framework :: Plone :: 6.2",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.12",
@@ -42,14 +41,10 @@ setup(
         # 'Documentation': 'https://imio.directory.core.readthedocs.io/en/latest/',
     },
     license="GPL version 2",
-    packages=find_packages("src", exclude=["ez_setup"]),
-    namespace_packages=["imio", "imio.directory"],
-    package_dir={"": "src"},
     include_package_data=True,
     zip_safe=False,
     python_requires=">=3.12",
     install_requires=[
-        "setuptools",
         "z3c.jbot",
         "z3c.unconfigure",
         "plone.api>=1.8.4",
