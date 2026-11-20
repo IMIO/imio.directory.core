@@ -2,12 +2,16 @@ Changelog
 =========
 
 
-1.2.31 (unreleased)
+1.2.32 (unreleased)
 -------------------
 
 - Migrate to PEP 420 native namespaces (setuptools 81 / Plone 6.2): remove the
   ``pkg_resources`` namespace declarations. Set the Plone 6.2 classifier.
   [boulch]
+
+
+1.2.31 (2026-11-12)
+-------------------
 
 - WEB-4520 : Fix HTTP 500 when you click "Categorize with AI" on a new contact.
   [boulch]
