@@ -2,8 +2,14 @@ Changelog
 =========
 
 
-1.2.32 (unreleased)
--------------------
+2.0.1 (unreleased)
+------------------
+
+- Nothing changed yet.
+
+
+2.0.0 (2026-11-20)
+------------------
 
 - Migrate to PEP 420 native namespaces (setuptools 81 / Plone 6.2): remove the
   ``pkg_resources`` namespace declarations. Set the Plone 6.2 classifier.
